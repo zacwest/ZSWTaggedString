@@ -53,10 +53,61 @@
     return NSMakeRange(self.location, self.endLocation - self.location);
 }
 
-- (void)addRawTagAttributes:(NSString *)tagAttributes {
+- (void)addRawTagAttributes:(NSString *)rawTagAttributes {
+    NSScanner *scanner = [NSScanner scannerWithString:rawTagAttributes];
+    scanner.charactersToBeSkipped = nil;
     
+    NSMutableDictionary *tagAttributes = [NSMutableDictionary dictionary];
+    
+    NSCharacterSet *nameBreakSet = [NSCharacterSet characterSetWithCharactersInString:@" ="];
+    NSCharacterSet *quoteCharacterSet = [NSCharacterSet characterSetWithCharactersInString:@"\"" @"'"];
+    NSCharacterSet *whitespaceSet = [NSCharacterSet whitespaceCharacterSet];
+    
+    while (!scanner.isAtEnd) {
+        // eat any whitespace at the start
+        [scanner scanCharactersFromSet:whitespaceSet intoString:NULL];
+        
+        // Scan up to '=' or ' '
+        NSString *attributeName;
+        [scanner scanUpToCharactersFromSet:nameBreakSet intoString:&attributeName];
+        
+        NSString *breakString;
+        [scanner scanCharactersFromSet:nameBreakSet intoString:&breakString];
+        
+        if (scanner.isAtEnd || [breakString rangeOfString:@"="].location == NSNotFound) {
+            // No equal was found, so give some generic value.
+            tagAttributes[attributeName] = [NSNull null];
+        } else {
+            // We had an equal! Yay! We can use the value.
+            NSString *quote;
+            BOOL ateQuote = [scanner scanCharactersFromSet:quoteCharacterSet intoString:&quote];
+            
+            NSString *attributeValue;
+            if (ateQuote) {
+                // For empty values (e.g. ''), we need to see if we scanned more than one quote.
+                NSInteger count = 0;
+                for (NSInteger idx = 0; idx < quote.length; idx++) {
+                    count += [quoteCharacterSet characterIsMember:[quote characterAtIndex:idx]];
+                }
+                
+                if (count == 2) {
+                    attributeValue = @"";
+                } else {
+                    [scanner scanUpToCharactersFromSet:quoteCharacterSet intoString:&attributeValue];
+                    [scanner scanCharactersFromSet:quoteCharacterSet intoString:NULL];
+                }
+            } else {
+                [scanner scanUpToCharactersFromSet:whitespaceSet intoString:&attributeValue];
+                [scanner scanCharactersFromSet:whitespaceSet intoString:NULL];
+            }
+            
+            tagAttributes[attributeName] = attributeValue ?: [NSNull null];
+        }
+    }
+    
+    NSMutableDictionary *updatedAttributes = [NSMutableDictionary dictionaryWithDictionary:self.tagAttributes];
+    [updatedAttributes addEntriesFromDictionary:tagAttributes];
+    self.tagAttributes = [updatedAttributes copy];
 }
-
-
 
 @end
