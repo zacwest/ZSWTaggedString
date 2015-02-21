@@ -24,7 +24,7 @@
 @end
 
 @interface ZSWTaggedString()
-@property (nonatomic) NSString *underlyingString;
+@property (nonatomic, copy) NSString *underlyingString;
 @end
 
 @interface ZSWTaggedStringOptions (Private)

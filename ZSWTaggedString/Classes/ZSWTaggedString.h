@@ -72,12 +72,25 @@ extern NSString *ZSWEscapedStringForString(NSString *unescapedString);
  *
  * @param options The options to use, or nil to use the default options
  *
+ * For available options, see \ref ZSWTaggedStringOptions
+ *
  * @return Parsed version of the unparsed string
  */
 - (NSAttributedString *)attributedStringWithOptions:(ZSWTaggedStringOptions *)options;
 
 /*!
  * @brief Stripped string
+ *
+ * See \ref -stringWithOptions:
+ *
+ * This uses the default options like \ref -attributedString.
+ *
+ * @return Stripped version of the unparsed string
+ */
+- (NSString *)string;
+
+/*!
+ * @brief Stripped string with options
  *
  * This strips the tags from the unparsed string. Roughly equivalent to:
  *
@@ -90,8 +103,11 @@ extern NSString *ZSWEscapedStringForString(NSString *unescapedString);
  * tagged strings to disk and wish to quickly calculate non-attributed
  * statistics or metadata.
  *
+ * This method allows you to pass in a set of options for e.g. allowing it to
+ * return an empty string. For available options, see \ref ZSWTaggedStringOptions
+ *
  * @return Stripped version of the unparsed string
  */
-- (NSString *)string;
+- (NSString *)stringWithOptions:(ZSWTaggedStringOptions *)options;
 
 @end

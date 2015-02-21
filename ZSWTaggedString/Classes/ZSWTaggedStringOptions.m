@@ -20,7 +20,11 @@ static ZSWTaggedStringOptions *ZSWStringParserDefaultOptions;
 
 + (ZSWTaggedStringOptions *)defaultOptions {
     @synchronized(self) {
-        return ZSWStringParserDefaultOptions ?: [ZSWTaggedStringOptions options];
+        if (!ZSWStringParserDefaultOptions) {
+            ZSWStringParserDefaultOptions = [ZSWTaggedStringOptions options];
+        }
+        
+        return ZSWStringParserDefaultOptions;
     }
 }
 

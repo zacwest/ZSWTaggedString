@@ -19,7 +19,8 @@
 + (ZSWTaggedString *)stringWithFormat:(NSString *)format, ... {
     va_list args;
     va_start(args, format);
-    NSString *combinedString = [[NSString alloc] initWithFormat:format arguments:args];
+    NSString *combinedString = [[NSString alloc] initWithFormat:format
+                                                      arguments:args];
     va_end(args);
     
     return [self stringWithString:combinedString];
@@ -69,18 +70,35 @@
         return NO;
     }
     
-    return [object.underlyingString isEqualToString:self.underlyingString];
+    if (!self.underlyingString && !object.underlyingString) {
+        return YES;
+    } else {
+        return [object.underlyingString isEqualToString:self.underlyingString];
+    }
 }
 
 - (NSUInteger)hash {
     return self.underlyingString.hash;
 }
 
+- (NSString *)description {
+    return [NSString stringWithFormat:@"<%@: %p; underlying: \"%@\">",
+            NSStringFromClass([self class]), self, self.underlyingString];
+}
+
 #pragma mark - Generation
 
 - (NSString *)string {
     return [ZSWStringParser stringWithTaggedString:self
-                                           options:nil
+                                           options:[ZSWTaggedStringOptions defaultOptions]
+                                       returnClass:[NSString class]];
+}
+
+- (NSString *)stringWithOptions:(ZSWTaggedStringOptions *)options {
+    NSParameterAssert(options != nil);
+    
+    return [ZSWStringParser stringWithTaggedString:self
+                                           options:options
                                        returnClass:[NSString class]];
 }
 
