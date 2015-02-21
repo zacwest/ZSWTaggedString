@@ -339,6 +339,10 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
+				HEADER_SEARCH_PATHS = (
+					"\"$(PODS_ROOT)/Headers/Build/ZSWTaggedString\"",
+					"$(inherited)",
+				);
 				INFOPLIST_FILE = "Tests/Supporting Files/Tests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
@@ -357,6 +361,10 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Tests/Supporting Files/Tests-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"\"$(PODS_ROOT)/Headers/Build/ZSWTaggedString\"",
+					"$(inherited)",
+				);
 				INFOPLIST_FILE = "Tests/Supporting Files/Tests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
