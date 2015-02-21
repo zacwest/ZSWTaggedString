@@ -1,0 +1,9 @@
+source 'https://github.com/CocoaPods/Specs.git'
+
+
+target 'ZSWTaggedString', :exclusive => true do
+  pod "ZSWTaggedString", :path => "../"
+
+  pod 'Specta'
+  pod 'Expecta'
+end
