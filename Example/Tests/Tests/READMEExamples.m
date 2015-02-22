@@ -22,7 +22,7 @@ typedef NS_ENUM(NSInteger, StoryType) {
 SpecBegin(READMEExamples)
 
 describe(@"READMEExamples", ^{
-    it(@"should have bold dogs", ^{
+    it(@"should have bold cool", ^{
         NSString *localizedString = NSLocalizedString(@"bowties are <b>cool</b>", nil);
         ZSWTaggedString *taggedString = [ZSWTaggedString stringWithString:localizedString];
         
