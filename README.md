@@ -32,43 +32,45 @@ This produces an NSAttributedString where the "dogs" substring is bold, and the 
 
 You can apply style based on metadata included in the string. Let's italicize a substring while changing the color of a story based on its type:
 	
-	Story *story1 = …, *story2 = …;
+```objective-c
+Story *story1 = …, *story2 = …;
 
-	NSString *(^sWrap)(Story *) = ^(Story *story) {
-        // You should separate data-level tags from the localized strings
-        // so you can iterate on their definition without the .strings changing
-        // Ideally you'd place this on the Story class itself.
-        return [NSString stringWithFormat:@"<story type='%@'>%@</story>",
-                @(story.type), ZSWEscapedStringForString(story.name)];
-    };
-    
-    NSString *fmt = NSLocalizedString(@"Pick: %@ <i>or</i> %@", @"On the story, ...");
-    ZSWTaggedString *string = [ZSWTaggedString stringWithFormat:fmt,
-                               sWrap(story1), sWrap(story2)];
-    
-    ZSWTaggedStringOptions *options = [ZSWTaggedStringOptions options];
-    
-    // Base attributes apply to the whole string, before any tag attributes.
-    [options setBaseAttributes:@{
-                                 NSFontAttributeName: [UIFont systemFontOfSize:14.0],
-                                 NSForegroundColorAttributeName: [UIColor grayColor]
-                                 }];
-    
-    // Normal attributes just add their attributes to the attributed string.
-    [options setAttributes:@{
-                             NSFontAttributeName: [UIFont italicSystemFontOfSize:14.0]
-                             } forTagName:@"i"];
-    
-    // Dynamic attributes give you an opportunity to decide what to do for each tag
-    [options setDynamicAttributes:^(NSString *tagName, NSDictionary *tagAttributes) {
-        switch ((StoryType)[tagAttributes[@"type"] integerValue]) {
-            case StoryTypeOne:
-                return @{ NSForegroundColorAttributeName: [UIColor redColor] };
-            case StoryTypeTwo:
-                return @{ NSForegroundColorAttributeName: [UIColor orangeColor] };
-        }
-        return @{ NSForegroundColorAttributeName: [UIColor blueColor] };
-    } forTagName:@"story"];
+NSString *(^sWrap)(Story *) = ^(Story *story) {
+    // You should separate data-level tags from the localized strings
+    // so you can iterate on their definition without the .strings changing
+    // Ideally you'd place this on the Story class itself.
+    return [NSString stringWithFormat:@"<story type='%@'>%@</story>",
+            @(story.type), ZSWEscapedStringForString(story.name)];
+};
+
+NSString *fmt = NSLocalizedString(@"Pick: %@ <i>or</i> %@", @"On the story, ...");
+ZSWTaggedString *string = [ZSWTaggedString stringWithFormat:fmt,
+                           sWrap(story1), sWrap(story2)];
+
+ZSWTaggedStringOptions *options = [ZSWTaggedStringOptions options];
+
+// Base attributes apply to the whole string, before any tag attributes.
+[options setBaseAttributes:@{
+                             NSFontAttributeName: [UIFont systemFontOfSize:14.0],
+                             NSForegroundColorAttributeName: [UIColor grayColor]
+                             }];
+
+// Normal attributes just add their attributes to the attributed string.
+[options setAttributes:@{
+                         NSFontAttributeName: [UIFont italicSystemFontOfSize:14.0]
+                         } forTagName:@"i"];
+
+// Dynamic attributes give you an opportunity to decide what to do for each tag
+[options setDynamicAttributes:^(NSString *tagName, NSDictionary *tagAttributes) {
+    switch ((StoryType)[tagAttributes[@"type"] integerValue]) {
+        case StoryTypeOne:
+            return @{ NSForegroundColorAttributeName: [UIColor redColor] };
+        case StoryTypeTwo:
+            return @{ NSForegroundColorAttributeName: [UIColor orangeColor] };
+    }
+    return @{ NSForegroundColorAttributeName: [UIColor blueColor] };
+} forTagName:@"story"];
+```
 
 Your localizer now sees a more reasonable localized string:
 
