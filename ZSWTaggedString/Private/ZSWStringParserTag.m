@@ -14,6 +14,10 @@
 @property (nonatomic) NSInteger endLocation;
 
 @property (nonatomic) NSDictionary *tagAttributes;
+
+#ifdef DEBUG
+@property (nonatomic) NSString *rawAttributes;
+#endif
 @end
 
 @implementation ZSWStringParserTag
@@ -26,6 +30,16 @@
         self.location = location;
     }
     return self;
+}
+
+- (NSString *)description {
+#ifdef DEBUG
+    return [NSString stringWithFormat:@"<%@: %p; tag: %@, isEndingTag: %@, rawAttributes: %@, parsedAttributes: %@>",
+            NSStringFromClass([self class]), self, self.tagName, self.isEndingTag ? @"YES" : @"NO", self.rawAttributes, self.tagAttributes];
+#else
+    return [NSString stringWithFormat:@"<%@: %p; tag: %@, isEndingTag: %@, parsedAttributes: %@>",
+            NSStringFromClass([self class]), self, self.tagName, self.isEndingTag ? @"YES" : @"NO", self.tagAttributes];
+#endif
 }
 
 - (BOOL)isEndingTag {
@@ -109,9 +123,19 @@
         }
     }
     
-    NSMutableDictionary *updatedAttributes = [NSMutableDictionary dictionaryWithDictionary:self.tagAttributes];
-    [updatedAttributes addEntriesFromDictionary:tagAttributes];
-    self.tagAttributes = [updatedAttributes copy];
+    if (tagAttributes.count) {
+        NSMutableDictionary *updatedAttributes = [NSMutableDictionary dictionaryWithDictionary:self.tagAttributes];
+        [updatedAttributes addEntriesFromDictionary:tagAttributes];
+        self.tagAttributes = [updatedAttributes copy];
+    }
+    
+#ifdef DEBUG
+    if (rawTagAttributes.length) {
+        NSMutableString *updatedRawAttributes = [NSMutableString stringWithString:self.rawAttributes ?: @""];
+        [updatedRawAttributes appendString:rawTagAttributes];
+        self.rawAttributes = updatedRawAttributes;
+    }
+#endif
 }
 
 @end
