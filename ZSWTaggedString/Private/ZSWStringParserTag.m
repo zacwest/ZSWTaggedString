@@ -50,7 +50,11 @@
 }
 
 - (NSRange)tagRange {
-    return NSMakeRange(self.location, self.endLocation - self.location);
+    if (self.endLocation < self.location) {
+        return NSMakeRange(self.location, 0);
+    } else {
+        return NSMakeRange(self.location, self.endLocation - self.location);
+    }
 }
 
 - (void)addRawTagAttributes:(NSString *)rawTagAttributes {
@@ -90,7 +94,7 @@
                     count += [quoteCharacterSet characterIsMember:[quote characterAtIndex:idx]];
                 }
                 
-                if (count == 2) {
+                if (count > 1) {
                     attributeValue = @"";
                 } else {
                     [scanner scanUpToCharactersFromSet:quoteCharacterSet intoString:&attributeValue];

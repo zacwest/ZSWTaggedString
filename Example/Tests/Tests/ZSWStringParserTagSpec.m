@@ -28,155 +28,118 @@ describe(@"ZSWStringParserTag", ^{
             expect([tag isEndedByTag:tag]).to.beFalsy();
         });
         
+        it(@"should not be ended by a tag with a different name", ^{
+            ZSWStringParserTag *anotherTag = [[ZSWStringParserTag alloc] initWithTagName:@"/banana" startLocation:5];
+            expect([tag isEndedByTag:anotherTag]).to.beFalsy();
+        });
+        
         it(@"should not be an end tag", ^{
             expect(tag.isEndingTag).to.beFalsy();
         });
         
+        it(@"should not yet return a range", ^{
+            NSRange tagRange = tag.tagRange;
+            expect(tagRange.location).to.equal(4);
+            expect(tagRange.length).to.equal(0);
+        });
+        
         describe(@"when adding tag attributes", ^{
-            describe(@"with a single attribute name", ^{
-                beforeEach(^{
-                    [tag addRawTagAttributes:@"someName"];
-                });
-                
-                it(@"should a null value set for the name", ^{
-                    expect(tag.tagAttributes).to.equal(@{@"someName": [NSNull null]});
-                });
+            it(@"should handle a single attribute without value", ^{
+                [tag addRawTagAttributes:@"someName"];
+                expect(tag.tagAttributes).to.equal(@{@"someName": [NSNull null]});
+            });
+
+            it(@"should handle a single attribute name with an unquoted value", ^{
+                [tag addRawTagAttributes:@"someName=someValue"];
+                expect(tag.tagAttributes).to.equal(@{@"someName": @"someValue"});
             });
             
-            describe(@"with a single attribute name and value without quotes", ^{
-                beforeEach(^{
-                    [tag addRawTagAttributes:@"someName=someValue"];
-                });
-                
-                it(@"should have a tag with the value", ^{
-                    expect(tag.tagAttributes).to.equal(@{@"someName": @"someValue"});
-                });
+            it(@"should handle a single attribute with a single-quoted value", ^{
+                [tag addRawTagAttributes:@"someName='someValue'"];
+                expect(tag.tagAttributes).to.equal(@{@"someName": @"someValue"});
             });
             
-            describe(@"when adding a single attribute name and value with single quotes", ^{
-                beforeEach(^{
-                    [tag addRawTagAttributes:@"someName='someValue'"];
-                });
-                
-                it(@"should have the tag with the value", ^{
-                    expect(tag.tagAttributes).to.equal(@{@"someName": @"someValue"});
-                });
+            it(@"should handle a single attribute with a double-quoted value", ^{
+                [tag addRawTagAttributes:@"someName=\"someValue\""];
+                expect(tag.tagAttributes).to.equal(@{@"someName": @"someValue"});
             });
             
-            describe(@"when adding a single attribute name and value with double quotes", ^{
-                beforeEach(^{
-                    [tag addRawTagAttributes:@"someName=\"someValue\""];
-                });
-                
-                it(@"should have the tag with the value", ^{
-                    expect(tag.tagAttributes).to.equal(@{@"someName": @"someValue"});
-                });
-            });
-            
-            describe(@"when adding multiple attribute names without values", ^{
-                beforeEach(^{
-                    [tag addRawTagAttributes:@"someName anotherOne"];
-                });
-                
-                it(@"should have the tag names", ^{
-                    expect(tag.tagAttributes).to.contain(@"someName");
-                    expect(tag.tagAttributes).to.contain(@"anotherOne");
-                });
+            it(@"should handle multiple attributes without values", ^{
+                [tag addRawTagAttributes:@"someName anotherOne"];
+                expect(tag.tagAttributes).to.contain(@"someName");
+                expect(tag.tagAttributes).to.contain(@"anotherOne");
             });
             
             describe(@"when adding multiple attribute names, some without values", ^{
-                describe(@"with value first", ^{
-                    beforeEach(^{
-                        [tag addRawTagAttributes:@"abc=123 yes no maybe"];
-                    });
-                    
-                    it(@"should have the attributes", ^{
-                        expect(tag.tagAttributes[@"abc"]).to.equal(@"123");
-                        expect(tag.tagAttributes[@"yes"]).to.equal([NSNull null]);
-                        expect(tag.tagAttributes[@"no"]).to.equal([NSNull null]);
-                        expect(tag.tagAttributes[@"maybe"]).to.equal([NSNull null]);
-                    });
+                it(@"should handle with the value first", ^{
+                    [tag addRawTagAttributes:@"abc=123 yes no maybe"];
+                    expect(tag.tagAttributes[@"abc"]).to.equal(@"123");
+                    expect(tag.tagAttributes[@"yes"]).to.equal([NSNull null]);
+                    expect(tag.tagAttributes[@"no"]).to.equal([NSNull null]);
+                    expect(tag.tagAttributes[@"maybe"]).to.equal([NSNull null]);
                 });
                 
-                describe(@"when the value last", ^{
-                    beforeEach(^{
-                        [tag addRawTagAttributes:@"yes no maybe abc=123"];
-                    });
-                    
-                    it(@"should have the attributes", ^{
-                        expect(tag.tagAttributes[@"abc"]).to.equal(@"123");
-                        expect(tag.tagAttributes[@"yes"]).to.equal([NSNull null]);
-                        expect(tag.tagAttributes[@"no"]).to.equal([NSNull null]);
-                        expect(tag.tagAttributes[@"maybe"]).to.equal([NSNull null]);
-                    });
+                it(@"should handle with the value last", ^{
+                    [tag addRawTagAttributes:@"yes no maybe abc=123"];
+                    expect(tag.tagAttributes[@"abc"]).to.equal(@"123");
+                    expect(tag.tagAttributes[@"yes"]).to.equal([NSNull null]);
+                    expect(tag.tagAttributes[@"no"]).to.equal([NSNull null]);
+                    expect(tag.tagAttributes[@"maybe"]).to.equal([NSNull null]);
                 });
                 
-                describe(@"when the value in the middle", ^{
-                    beforeEach(^{
-                        [tag addRawTagAttributes:@"yes no abc=123 maybe"];
-                    });
-                    
-                    it(@"should have the attributes", ^{
-                        expect(tag.tagAttributes[@"abc"]).to.equal(@"123");
-                        expect(tag.tagAttributes[@"yes"]).to.equal([NSNull null]);
-                        expect(tag.tagAttributes[@"no"]).to.equal([NSNull null]);
-                        expect(tag.tagAttributes[@"maybe"]).to.equal([NSNull null]);
-                    });
+                it(@"should handle with the value in the middle", ^{
+                    [tag addRawTagAttributes:@"yes no abc=123 maybe"];
+                    expect(tag.tagAttributes[@"abc"]).to.equal(@"123");
+                    expect(tag.tagAttributes[@"yes"]).to.equal([NSNull null]);
+                    expect(tag.tagAttributes[@"no"]).to.equal([NSNull null]);
+                    expect(tag.tagAttributes[@"maybe"]).to.equal([NSNull null]);
                 });
             });
             
-            describe(@"when adding values with long quoted values", ^{
-                beforeEach(^{
-                    [tag addRawTagAttributes:@"hello='this is a long value' andthis='short'"];
-                });
-                
-                it(@"should have the values", ^{
-                    expect(tag.tagAttributes[@"hello"]).to.equal(@"this is a long value");
-                    expect(tag.tagAttributes[@"andthis"]).to.equal(@"short");
-                });
+            it(@"should handle long-quoted values", ^{
+                [tag addRawTagAttributes:@"hello='this is a long value' andthis='short'"];
+                expect(tag.tagAttributes[@"hello"]).to.equal(@"this is a long value");
+                expect(tag.tagAttributes[@"andthis"]).to.equal(@"short");
             });
             
-            describe(@"when adding a value with no length", ^{
-                beforeEach(^{
-                    [tag addRawTagAttributes:@"moo='' short"];
-                });
-                
-                it(@"should have the values set", ^{
-                    expect(tag.tagAttributes[@"moo"]).to.equal(@"");
-                    expect(tag.tagAttributes[@"short"]).to.equal([NSNull null]);
-                });
+            it(@"should handle empty string quoted values", ^{
+                [tag addRawTagAttributes:@"moo='' short"];
+                expect(tag.tagAttributes[@"moo"]).to.equal(@"");
+                expect(tag.tagAttributes[@"short"]).to.equal([NSNull null]);
             });
             
-            describe(@"when adding an invalid value", ^{
-                describe(@"ending the value early", ^{
-                    beforeEach(^{
-                        [tag addRawTagAttributes:@"something="];
-                    });
-                    
-                    it(@"should set the tag", ^{
-                        expect(tag.tagAttributes[@"something"]).to.equal([NSNull null]);
-                    });
+            describe(@"when adding invalid values", ^{
+                it(@"should handle a value ending early", ^{
+                    [tag addRawTagAttributes:@"something="];
+                    expect(tag.tagAttributes[@"something"]).to.equal([NSNull null]);
                 });
                 
-                describe(@"failing to close a quote in the middle", ^{
-                    beforeEach(^{
-                        [tag addRawTagAttributes:@"something='moo we=keep going"];
-                    });
-                    
-                    it(@"should set the value", ^{
-                        expect(tag.tagAttributes[@"something"]).to.equal(@"moo we=keep going");
-                    });
+                it(@"should handle a quote failing to close", ^{
+                    [tag addRawTagAttributes:@"something='moo we=keep going"];
+                    expect(tag.tagAttributes[@"something"]).to.equal(@"moo we=keep going");
                 });
                 
-                describe(@"failing to close a quote at the end", ^{
-                    beforeEach(^{
-                        [tag addRawTagAttributes:@"something='"];
-                    });
-                    
-                    it(@"should have something", ^{
-                        expect(tag.tagAttributes[@"something"]).to.equal([NSNull null]);
-                    });
+                it(@"should handle a quote not ending at the end", ^{
+                    [tag addRawTagAttributes:@"something='value"];
+                    expect(tag.tagAttributes[@"something"]).to.equal(@"value");
                 });
+            });
+        });
+        
+        describe(@"when updated with an end tag", ^{
+            __block ZSWStringParserTag *endTag;
+            
+            beforeEach(^{
+                endTag = [[ZSWStringParserTag alloc] initWithTagName:@"/tagtag"
+                                                       startLocation:20];
+                
+                [tag updateWithTag:endTag];
+            });
+            
+            it(@"should return a range", ^{
+                NSRange tagRange = tag.tagRange;
+                expect(tagRange.location).to.equal(4);
+                expect(tagRange.length).to.equal(16);
             });
         });
     });
