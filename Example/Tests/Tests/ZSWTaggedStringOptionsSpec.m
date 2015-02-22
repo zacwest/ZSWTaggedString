@@ -184,12 +184,12 @@ describe(@"ZSWTaggedStringOptions", ^{
                 [options setAttributes:@{ NSForegroundColorAttributeName: [UIColor redColor] } forTagName:@"knock"];
                 [options setAttributes:@{ NSForegroundColorAttributeName: [UIColor purpleColor] } forTagName:@"dict"];
                 
-                [options setDynamicAttributes:^(NSString *tagName, NSDictionary *tagAttributeS) {
+                [options setDynamicAttributes:^(NSString *tagName, NSDictionary *tagAttributes, NSDictionary *existingAttributes) {
                     return @{ NSForegroundColorAttributeName: [UIColor greenColor],
                               NSStrikethroughStyleAttributeName: @(NSUnderlineStyleSingle) };
                 } forTagName:@"comeknock"];
                 
-                [options setDynamicAttributes:^(NSString *tagName, NSDictionary *tagAttributes) {
+                [options setDynamicAttributes:^(NSString *tagName, NSDictionary *tagAttributes, NSDictionary *existingAttributes) {
                     return @{ NSForegroundColorAttributeName: [UIColor grayColor],
                               NSUnderlineStyleAttributeName: @(NSUnderlineStyleDouble) };
                 } forTagName:@"i"];
@@ -243,7 +243,7 @@ describe(@"ZSWTaggedStringOptions", ^{
                 [options setAttributes:@{ NSForegroundColorAttributeName: [UIColor blackColor] } forTagName:@"s1"];
                 [options setAttributes:@{ NSForegroundColorAttributeName: [UIColor blueColor] } forTagName:@"s2"];
                 
-                [options setUnknownTagDynamicAttributes:^NSDictionary *(NSString *tagName, NSDictionary *tagAttributes) {
+                [options setUnknownTagDynamicAttributes:^NSDictionary *(NSString *tagName, NSDictionary *tagAttributes, NSDictionary *existingAttributes) {
                     if ([tagName isEqualToString:@"comeknock"]) {
                         return @{ NSForegroundColorAttributeName: [UIColor greenColor],
                                   NSStrikethroughStyleAttributeName: @(NSUnderlineStyleSingle) };
@@ -318,7 +318,7 @@ describe(@"ZSWTaggedStringOptions", ^{
         });
         
         it(@"should differentiate between the bob types where both have things", ^{
-            [options setDynamicAttributes:^(NSString *tagName, NSDictionary *tagAttributes) {
+            [options setDynamicAttributes:^(NSString *tagName, NSDictionary *tagAttributes, NSDictionary *existingAttributes) {
                 if ([tagAttributes[@"type"] isEqualToString:@"girthy"]) {
                     return @{ NSFontAttributeName: [UIFont boldSystemFontOfSize:14.0] };
                 } else {
@@ -334,7 +334,7 @@ describe(@"ZSWTaggedStringOptions", ^{
         });
         
         it(@"should differentiate between the bob types where only one has things", ^{
-            [options setDynamicAttributes:^NSDictionary *(NSString *tagName, NSDictionary *tagAttributes) {
+            [options setDynamicAttributes:^NSDictionary *(NSString *tagName, NSDictionary *tagAttributes, NSDictionary *existingAttributes) {
                 if ([tagAttributes[@"type"] isEqualToString:@"girthy"]) {
                     return @{ NSFontAttributeName: [UIFont boldSystemFontOfSize:14.0] };
                 } else {

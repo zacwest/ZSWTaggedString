@@ -37,7 +37,7 @@ describe(@"READMEExamples", ^{
     it(@"should have story types", ^{
         Story *story1 = [[Story alloc] init], *story2 = [[Story alloc] init];
         story1.type = StoryTypeOne; story2.type = StoryTypeTwo;
-        story1.name = @"one"; story2.name = @"two";
+        story1.name = @"on<e"; story2.name = @"tw<o";
         
         NSString *(^sWrap)(Story *) = ^(Story *story) {
             // You should separate data-level tags from the localized strings
@@ -65,7 +65,9 @@ describe(@"READMEExamples", ^{
                                  } forTagName:@"i"];
         
         // Dynamic attributes give you an opportunity to decide what to do for each tag
-        [options setDynamicAttributes:^(NSString *tagName, NSDictionary *tagAttributes) {
+        [options setDynamicAttributes:^(NSString *tagName,
+                                        NSDictionary *tagAttributes,
+                                        NSDictionary *existingAttributes) {
             switch ((StoryType)[tagAttributes[@"type"] integerValue]) {
                 case StoryTypeOne:
                     return @{ NSForegroundColorAttributeName: [UIColor redColor] };
@@ -75,6 +77,33 @@ describe(@"READMEExamples", ^{
             return @{ NSForegroundColorAttributeName: [UIColor blueColor] };
         } forTagName:@"story"];
         
+        NSLog(@"%@", [string attributedStringWithOptions:options]);
+    });
+    
+    it(@"should make dynamic bold and stuff easier", ^{
+        ZSWTaggedStringOptions *options = [ZSWTaggedStringOptions options];
+        [options setBaseAttributes:@{ NSFontAttributeName: [UIFont systemFontOfSize:12.0] }];
+        
+        [options setUnknownTagDynamicAttributes:^(NSString *tagName,
+                                                  NSDictionary *tagAttributes,
+                                                  NSDictionary *existingStringAttributes) {
+            if ([@[@"b", @"i"] containsObject:tagName]) {
+                UIFont *font = existingStringAttributes[NSFontAttributeName];
+                if ([tagName isEqualToString:@"b"]) {
+                    return @{ NSFontAttributeName: [UIFont boldSystemFontOfSize:font.pointSize] };
+                } else if ([tagName isEqualToString:@"i"]) {
+                    return @{ NSFontAttributeName: [UIFont italicSystemFontOfSize:font.pointSize] };
+                } else {
+                    return (NSDictionary *)nil;
+                }
+            } else if ([tagName isEqualToString:@"u"]) {
+                return @{ NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle) };
+            } else {
+                return (NSDictionary *)nil;
+            }
+        }];
+        
+        ZSWTaggedString *string = [ZSWTaggedString stringWithString:@"<u>underline</u> <i>italic<u>andunder</u></i> <b>bo<u>l<i>d</i></u></b>"];
         NSLog(@"%@", [string attributedStringWithOptions:options]);
     });
 });

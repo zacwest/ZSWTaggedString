@@ -98,7 +98,9 @@ extern NSString *ZSWEscapedStringForString(NSString *unescapedString) {
         if ([lastTag isEndedByTag:tag]) {
             [lastTag updateWithTag:tag];
             [tagStack removeLastObject];
-            [finishedTags addObject:lastTag];
+            
+            // We want to apply the attributes from the outer-most tags first, so put them at the start.
+            [finishedTags insertObject:lastTag atIndex:0];
         } else if (tag.isEndingTag) {
             [NSException raise:NSInvalidArgumentException
                         format:@"String had ending tag %@ when we expected ending tag %@ or new tag",

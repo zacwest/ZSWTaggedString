@@ -5,11 +5,11 @@
 [![License](https://img.shields.io/cocoapods/l/ZSWTaggedString.svg?style=flat)](http://cocoadocs.org/docsets/ZSWTaggedString)
 [![Platform](https://img.shields.io/cocoapods/p/ZSWTaggedString.svg?style=flat)](http://cocoadocs.org/docsets/ZSWTaggedString)-->
 
-ZSWTaggedString converts `NSStrings` marked-up with tags into `NSAttributedStrings`. Tags are similar to HTML, except you define what each tags represents.
+ZSWTaggedString converts an `NSString` marked-up with tags into an  `NSAttributedString`. Tags are similar to HTML except you define what each tag represents.
 
-The goal of this library is to separate presentation from string generation while making it easier to create `NSAttributedStrings`. This allows us to produce strings with decoration without requiring concatenated strings or hard-to-localize substring searches.
+The goal of this library is to separate presentation from string generation while making it easier to create attributed strings. This way you can decorate strings without concatenating or using hard-to-localize substring searches.
 
-The most common example is applying a style change to part of a string. Let's turn a single word bold:
+The most common example is applying a style change to part of a string. Let's format a string like "**dogs** are cute!":
 
 ```objective-c
 NSString *localizedString = NSLocalizedString(@"<b>dogs</b> are cute!", nil);
@@ -61,7 +61,9 @@ ZSWTaggedStringOptions *options = [ZSWTaggedStringOptions options];
                          } forTagName:@"i"];
 
 // Dynamic attributes give you an opportunity to decide what to do for each tag
-[options setDynamicAttributes:^(NSString *tagName, NSDictionary *tagAttributes) {
+[options setDynamicAttributes:^(NSString *tagName,
+								NSDictionary *tagAttributes,
+								NSDictionary *existingStringAttributes) {
     switch ((StoryType)[tagAttributes[@"type"] integerValue]) {
         case StoryTypeOne:
             return @{ NSForegroundColorAttributeName: [UIColor redColor] };
@@ -79,6 +81,40 @@ Your localizer now sees a more reasonable localized string:
 
 And you don't have to resort to using `-rangeOfString:` to format any of the substrings, which is very difficult to accomplish with what we desired above.
 
+There are two types of dynamic attributes you can use: a tag-specific one like above, or the options-global `unknownTagDynamicAttributes` which is invoked when an undefined tag is found. Both have three parameters:
+
+1. `tagName` The name of the tag, e.g. `story` above.
+2. `tagAttributes` The attributes of the tag, e.g. `@{ @"type": @"1" }` like above.
+3. `existingStringAttributes` The attributed string attributes that exist already.
+
+You can use the `existingStringAttributes` to handle well-established keys. For example, let's make the `<b>`, `<i>`, and `<u>` tags automatically:
+
+```objective-c
+ZSWTaggedStringOptions *options = [ZSWTaggedStringOptions options];
+[options setBaseAttributes:@{ NSFontAttributeName: [UIFont systemFontOfSize:12.0] }];
+
+[options setUnknownTagDynamicAttributes:^(NSString *tagName,
+                                          NSDictionary *tagAttributes,
+                                          NSDictionary *existingStringAttributes) {
+    if ([@[@"b", @"i"] containsObject:tagName]) {
+        UIFont *font = existingStringAttributes[NSFontAttributeName];
+        if ([tagName isEqualToString:@"b"]) {
+            return @{ NSFontAttributeName: [UIFont boldSystemFontOfSize:font.pointSize] };
+        } else if ([tagName isEqualToString:@"i"]) {
+            return @{ NSFontAttributeName: [UIFont italicSystemFontOfSize:font.pointSize] };
+        } else {
+            return (NSDictionary *)nil;
+        }
+    } else if ([tagName isEqualToString:@"u"]) {
+        return @{ NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle) };
+    } else {
+        return (NSDictionary *)nil;
+    }
+}];
+```
+
+The library does not provide this functionality by default because custom fonts and non-explicit fonts make this an unpredictable situation. You can use `-[ZSWTaggedStringOptions registerDefaultOptions:]` to keep a global default set of options with something like the above.
+
 ## Fast stripped strings
 
 Stripping the tags off allows you to produce a flat string for fast height calculations (assuming no font changes), statistics gathering, etc., without needing the overhead of an attributed string. You can accomplished this by using the `-string` method on a `ZSWTaggedString` instead of the `-attributedString` methods.
@@ -86,7 +122,6 @@ Stripping the tags off allows you to produce a flat string for fast height calcu
 ## Gotchas
 
 If any of your composed strings contain a `<` character without being in a tag, you _must_ wrap the string with `ZSWEscapedStringForString()`. In practice, user-generated content where this is important is rare, but you must handle it.
-
 
 ## Installation
 

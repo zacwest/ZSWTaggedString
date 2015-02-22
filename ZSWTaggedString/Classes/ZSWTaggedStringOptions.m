@@ -148,10 +148,14 @@ static ZSWTaggedStringOptions *ZSWStringParserDefaultOptions;
         if ([tagValue isKindOfClass:[NSDictionary class]]) {
             attributes = tagValue;
         } else if (tagValue /* is a block */) {
+            NSDictionary *existingAttributes = [string attributesAtIndex:tag.location effectiveRange:NULL];
+            
             ZSWDynamicAttributes dynamicAttributes = tagValue;
-            attributes = dynamicAttributes(tag.tagName, tag.tagAttributes);
+            attributes = dynamicAttributes(tag.tagName, tag.tagAttributes, existingAttributes);
         } else if (self.unknownTagDynamicAttributes) {
-            attributes = self.unknownTagDynamicAttributes(tag.tagName, tag.tagAttributes);
+            NSDictionary *existingAttributes = [string attributesAtIndex:tag.location effectiveRange:NULL];
+            
+            attributes = self.unknownTagDynamicAttributes(tag.tagName, tag.tagAttributes, existingAttributes);
         }
         
         if (attributes) {

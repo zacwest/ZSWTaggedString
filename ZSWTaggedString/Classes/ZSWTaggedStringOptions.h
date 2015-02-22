@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-typedef NSDictionary *(^ZSWDynamicAttributes)(NSString *tagName, NSDictionary *tagAttributes);
+typedef NSDictionary *(^ZSWDynamicAttributes)(NSString *tagName, NSDictionary *tagAttributes, NSDictionary *existingStringAttributes);
 
 @interface ZSWTaggedStringOptions : NSObject <NSCopying, NSSecureCoding>
 
