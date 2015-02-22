@@ -17,33 +17,33 @@ EXPMatcherImplementationBegin(_haveAttributeWithEnd, (id attributeName, id attri
     
     BOOL locationStartOutOfBounds = NO, locationEndOutOfBounds = NO;
     if (!actualIsNotAttributed) {
-        if ([locationStart integerValue] < 0 || [locationStart integerValue] >= [actual length]) {
+        if ([locationStart integerValue] < 0 || [locationStart integerValue] > [actual length]) {
             locationStartOutOfBounds = YES;
         }
         
-        if (locationEnd && ([locationEnd integerValue] < 0 || [locationEnd integerValue] >= [actual length])) {
+        if (locationEnd && ([locationEnd integerValue] < 0 || [locationEnd integerValue] > [actual length])) {
             locationEndOutOfBounds = YES;
         }
     }
                         
     __block id stringsValue;
     __block NSRange effectiveRange;
-    __block BOOL containsEndLocation;
+    __block BOOL correctEndLocation;
     
     prerequisite(^BOOL{
         if (actualIsNotAttributed || attributeNameIsNotString || locationStartNotNumber || locationEndNotNumber || locationStartOutOfBounds || locationEndOutOfBounds) {
             return NO;
         }
         
-        stringsValue = [(NSAttributedString *)actual attribute:attributeName atIndex:[locationStart integerValue] effectiveRange:&effectiveRange];
-        containsEndLocation = NSLocationInRange([locationEnd integerValue], effectiveRange);
+        stringsValue = [(NSAttributedString *)actual attribute:attributeName atIndex:[locationStart integerValue] longestEffectiveRange:&effectiveRange inRange:NSMakeRange([locationStart integerValue], [actual length] - [locationStart integerValue])];
+        correctEndLocation = [locationEnd integerValue] == NSMaxRange(effectiveRange);
         
         return YES;
     });
     
     match(^BOOL{
         BOOL valueMatches = (stringsValue == attributeValue || [stringsValue isEqual:attributeValue]);
-        BOOL rangeMatches = (!locationEnd || containsEndLocation);
+        BOOL rangeMatches = (!locationEnd || correctEndLocation);
         return valueMatches && rangeMatches;
     });
 
@@ -73,7 +73,7 @@ EXPMatcherImplementationBegin(_haveAttributeWithEnd, (id attributeName, id attri
         }
         
         if (locationEnd) {
-            return [NSString stringWithFormat:@"expected: %@ at range (%@, %@), got: %@ with %@", attributeValue, locationStart, locationEnd, stringsValue, NSStringFromRange(effectiveRange)];
+            return [NSString stringWithFormat:@"expected: %@ at range (%@, %@), got: %@ with (%@, %@)", attributeValue, locationStart, locationEnd, stringsValue, @(effectiveRange.location), @(NSMaxRange(effectiveRange))];
         } else {
             return [NSString stringWithFormat:@"expected: %@, got: %@", attributeValue, stringsValue];
         }
