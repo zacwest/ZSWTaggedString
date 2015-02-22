@@ -297,6 +297,19 @@ describe(@"ZSWTaggedStringOptions", ^{
         });
     });
     
+    it(@"should handle empty-length tags", ^{
+        ZSWTaggedStringOptions *options = [ZSWTaggedStringOptions options];
+        NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:@"santa claus" attributes:nil];
+        ZSWStringParserTag *unreferencedTag = [[ZSWStringParserTag alloc] initWithTagName:@"null" startLocation:1];
+        [unreferencedTag updateWithTag:[[ZSWStringParserTag alloc] initWithTagName:@"/null" startLocation:1]];
+        
+        [options setAttributes:@{ NSForegroundColorAttributeName: [UIColor redColor] } forTagName:@"null"];
+
+        [options updateAttributedString:string updatedWithTags:@[ unreferencedTag ]];
+        
+        expect(string).to.equal([[NSAttributedString alloc] initWithString:@"santa claus" attributes:nil]);
+    });
+    
     describe(@"when a string contains multiple of the same type", ^{
         __block ZSWTaggedStringOptions *options;
         __block NSMutableAttributedString *string;

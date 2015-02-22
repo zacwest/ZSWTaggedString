@@ -13,4 +13,5 @@
     #import <UIKit/UIKit.h>
 
     #import "ZSWMatchers+haveAttribute.h"
+    #import "OCMArg+ZSWCapture.h"
 #endif
