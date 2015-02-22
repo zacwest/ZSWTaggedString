@@ -89,7 +89,7 @@
 #pragma mark - Generation
 
 - (NSString *)string {
-    return [self stringWithOptions:[ZSWTaggedStringOptions defaultOptions]];
+    return [self stringWithOptions:[ZSWTaggedStringOptions defaultOptionsNoCopy]];
 }
 
 - (NSString *)stringWithOptions:(ZSWTaggedStringOptions *)options {
@@ -101,7 +101,7 @@
 }
 
 - (NSAttributedString *)attributedString {
-    return [self attributedStringWithOptions:[ZSWTaggedStringOptions defaultOptions]];
+    return [self attributedStringWithOptions:[ZSWTaggedStringOptions defaultOptionsNoCopy]];
 }
 
 - (NSAttributedString *)attributedStringWithOptions:(ZSWTaggedStringOptions *)options {

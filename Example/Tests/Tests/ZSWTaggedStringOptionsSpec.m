@@ -24,8 +24,9 @@ describe(@"ZSWTaggedStringOptions", ^{
             expect(options.tagToAttributesMap).to.haveCountOf(0);
         });
         
-        it(@"should return an identical empty options each time", ^{
-            expect([ZSWTaggedStringOptions defaultOptions]).to.beIdenticalTo([ZSWTaggedStringOptions defaultOptions]);
+        it(@"should return copy of the options each time", ^{
+            expect([ZSWTaggedStringOptions defaultOptions]).to.equal([ZSWTaggedStringOptions defaultOptions]);
+            expect([ZSWTaggedStringOptions defaultOptions]).toNot.beIdenticalTo([ZSWTaggedStringOptions defaultOptions]);
         });
         
         describe(@"when registering defaults", ^{

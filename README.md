@@ -1,87 +1,96 @@
 # ZSWTaggedString
 
-[![CI Status](http://img.shields.io/travis/zacwest/ZSWTaggedString.svg?style=flat)](https://travis-ci.org/Zachary West/ZSWTaggedString)
+<!--[![CI Status](http://img.shields.io/travis/zacwest/ZSWTaggedString.svg?style=flat)](https://travis-ci.org/Zachary West/ZSWTaggedString)
 [![Version](https://img.shields.io/cocoapods/v/ZSWTaggedString.svg?style=flat)](http://cocoadocs.org/docsets/ZSWTaggedString)
 [![License](https://img.shields.io/cocoapods/l/ZSWTaggedString.svg?style=flat)](http://cocoadocs.org/docsets/ZSWTaggedString)
-[![Platform](https://img.shields.io/cocoapods/p/ZSWTaggedString.svg?style=flat)](http://cocoadocs.org/docsets/ZSWTaggedString)
+[![Platform](https://img.shields.io/cocoapods/p/ZSWTaggedString.svg?style=flat)](http://cocoadocs.org/docsets/ZSWTaggedString)-->
 
-## Usage
+ZSWTaggedString converts `NSStrings` marked-up with tags into `NSAttributedStrings`. Tags are similar to HTML, except you define what each tags represents.
 
-ZSWTaggedString converts tagged strings into attributed strings for use in your application. Tagged strings are very roughly HTML strings, except you provide the attributes for what a tag means instead of relying on system-defined rules.
+The goal of this library is to separate presentation from string generation while making it easier to create `NSAttributedStrings`. This allows us to produce strings with decoration without requiring concatenated strings or hard-to-localize substring searches.
 
-Let's turn part of a string bold but leave the rest untouched:
+The most common example is applying a style change to part of a string. Let's turn a single word bold:
 
-ZSWTaggedString *string = [ZSWTaggedString stringWithString:@"<b>dogs</b> are cute!"];
-
+```objective-c
+NSString *localizedString = NSLocalizedString(@"<b>dogs</b> are cute!", nil);
+ZSWTaggedString *taggedString = [ZSWTaggedString stringWithString:localizedString];
+	
 ZSWTaggedStringOptions *options = [ZSWTaggedStringOptions options];
-[options setAttributes:@{
-NSFontAttributeName: [UIFont boldSystemFontOfSize:18.0]
-} forTagName:@"b"];
+[options setAttributes:@{ NSFontAttributeName: [UIFont boldSystemFontOfSize:18.0] }
+			forTagName:@"b"];
 
-NSAttributedString *attributedString = [taggedString attributedStringWithOptions:options];
+NSLog(@"%@", [taggedString attributedStringWithOptions:options]);
+```
 
-This produces an NSAttributedString where the `dogs` substring is bold, and the rest normal weight:
+This produces an NSAttributedString where the "dogs" substring is bold, and the rest undefined:
 
-spit out -description of this here
+	dogs{
+	    NSFont = "<UICTFont: …> …; font-weight: bold;…";
+	} are cute!{}
 
-By removing the presentation of these tags from the strings, we can produce wildly-different visual presentations based on the same string generation methods. Merely change the options and your display will adjust.
+## Dynamic attributes
 
-Let's create a string to display where we localize it, italicize a substring, and color the display names of options we're presenting to the user:
+You can apply style based on metadata included in the string. Let's italicize a substring while changing the color of a story based on its type:
+	
+	Story *story1 = …, *story2 = …;
 
-NSString *(^sWrap)(Story *) = ^(Story *story) {
-return [NSString stringWithFormat:@"<story type='@d'>%@</story>",
-@(story.type), ZSWEscapedStringForString(story.name)];
-};
+	NSString *(^sWrap)(Story *) = ^(Story *story) {
+        // You should separate data-level tags from the localized strings
+        // so you can iterate on their definition without the .strings changing
+        // Ideally you'd place this on the Story class itself.
+        return [NSString stringWithFormat:@"<story type='%@'>%@</story>",
+                @(story.type), ZSWEscapedStringForString(story.name)];
+    };
+    
+    NSString *fmt = NSLocalizedString(@"Pick: %@ <i>or</i> %@", @"On the story, ...");
+    ZSWTaggedString *string = [ZSWTaggedString stringWithFormat:fmt,
+                               sWrap(story1), sWrap(story2)];
+    
+    ZSWTaggedStringOptions *options = [ZSWTaggedStringOptions options];
+    
+    // Base attributes apply to the whole string, before any tag attributes.
+    [options setBaseAttributes:@{
+                                 NSFontAttributeName: [UIFont systemFontOfSize:14.0],
+                                 NSForegroundColorAttributeName: [UIColor grayColor]
+                                 }];
+    
+    // Normal attributes just add their attributes to the attributed string.
+    [options setAttributes:@{
+                             NSFontAttributeName: [UIFont italicSystemFontOfSize:14.0]
+                             } forTagName:@"i"];
+    
+    // Dynamic attributes give you an opportunity to decide what to do for each tag
+    [options setDynamicAttributes:^(NSString *tagName, NSDictionary *tagAttributes) {
+        switch ((StoryType)[tagAttributes[@"type"] integerValue]) {
+            case StoryTypeOne:
+                return @{ NSForegroundColorAttributeName: [UIColor redColor] };
+            case StoryTypeTwo:
+                return @{ NSForegroundColorAttributeName: [UIColor orangeColor] };
+        }
+        return @{ NSForegroundColorAttributeName: [UIColor blueColor] };
+    } forTagName:@"story"];
 
-NSString *fmt = NSLocalizedString(@"Pick: %@ <i>or</i> %@", /* ... */);
-ZSWTaggedString *string = [ZSWTaggedString stringWithFormat:fmt, sWrap(s1), sWrap(s2)];
+Your localizer now sees a more reasonable localized string:
 
-For the sake of consistency of representation, I recommend you wrap the `<story>` tag in a creator method or block as I have demonstrated. However, you may include them in the format string without problem.
+	/* On the story, ... */
+	"Pick: %@ <i>or</i> %@" = "Pick: %1$@ <i>or</i> %2$@";
 
-You can now deliver a this non-confusing localized string without having to resort to `-rangeOfString:` hacks to italicize the localized substring or color the story names.
+And you don't have to resort to using `-rangeOfString:` to format any of the substrings, which is very difficult to accomplish with what we desired above.
 
-We can put together the attributed version like so:
+## Fast stripped strings
 
-ZSWTaggedStringOptions *options = [ZSWTaggedStringOptions options];
-
-[options setBaseAttributes:@{
-NSFontAttributeName: [UIFont systemFontOfSize:14.0],
-NSForegroundColorAttributeName: [UIColor grayColor]
-}];
-
-[options setAttributes:@{
-NSFontAttributeName: [UIFont italicSystemFontOfSize:14.0]
-} forTagName:@"i"];
-
-[options setDynamicAttributes:^(NSString *tagName, NSString *tagAttributes) {
-switch ((StoryType)[tagAttributes[@"type"] integerValue]) {
-case StoryTypeOne:
-return @{ NSForegroundColorAttributeName: [UIColor redColor] };
-case StoryTypeTwo:
-return @{ NSForegroundColorAttributeName: [UIColor orangeColor]; };
-}
-return [UIColor blueColor];
-} forTagName:@"story"];
-
-If you do not wish to highlight a color difference between the `story` elements, use a non-dynamic version of the attributes. If suddenly your designer doesn't want the `or` italicized, don't set attributes for the `i` tag.
+Stripping the tags off allows you to produce a flat string for fast height calculations (assuming no font changes), statistics gathering, etc., without needing the overhead of an attributed string. You can accomplished this by using the `-string` method on a `ZSWTaggedString` instead of the `-attributedString` methods.
 
 ## Gotchas
 
-If any of your composed strings contain a `<` character without being in a tag, you _must_ wrap the string with `ZSWEscapedStringForString()` before parsing. In practice, I've found that most situations do not call for this and have not figured out an easier way to accomplish this.
+If any of your composed strings contain a `<` character without being in a tag, you _must_ wrap the string with `ZSWEscapedStringForString()`. In practice, user-generated content where this is important is rare, but you must handle it.
 
-
-## Requirements
 
 ## Installation
 
-ZSWTaggedString is available through [CocoaPods](http://cocoapods.org). To install
-it, simply add the following line to your Podfile:
+ZSWTaggedString is available through [CocoaPods](http://cocoapods.org). To install it, simply add the following line to your Podfile:
 
-pod "ZSWTaggedString"
-
-## Author
-
-Zachary West, zacwest@gmail.com
+	pod "ZSWTaggedString"
 
 ## License
 

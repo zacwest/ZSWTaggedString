@@ -15,13 +15,21 @@
 static ZSWTaggedStringOptions *ZSWStringParserDefaultOptions;
 
 + (ZSWTaggedStringOptions *)defaultOptions {
-    @synchronized(self) {
+    return [[self defaultOptionsNoCopy] copy];
+}
+
++ (ZSWTaggedStringOptions *)defaultOptionsNoCopy {
+    ZSWTaggedStringOptions *options;
+    
+    @synchronized (self) {
         if (!ZSWStringParserDefaultOptions) {
             ZSWStringParserDefaultOptions = [ZSWTaggedStringOptions options];
         }
         
-        return ZSWStringParserDefaultOptions;
+        options = ZSWStringParserDefaultOptions;
     }
+    
+    return options;
 }
 
 + (void)registerDefaultOptions:(ZSWTaggedStringOptions *)options {

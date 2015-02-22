@@ -28,6 +28,8 @@
 @end
 
 @interface ZSWTaggedStringOptions()
++ (ZSWTaggedStringOptions *)defaultOptionsNoCopy;
+
 @property (nonatomic) NSDictionary *tagToAttributesMap;
 - (void)updateAttributedString:(NSMutableAttributedString *)string
                updatedWithTags:(NSArray *)tags;
