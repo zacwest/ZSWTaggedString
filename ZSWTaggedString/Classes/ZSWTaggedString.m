@@ -89,9 +89,7 @@
 #pragma mark - Generation
 
 - (NSString *)string {
-    return [ZSWStringParser stringWithTaggedString:self
-                                           options:[ZSWTaggedStringOptions defaultOptions]
-                                       returnClass:[NSString class]];
+    return [self stringWithOptions:[ZSWTaggedStringOptions defaultOptions]];
 }
 
 - (NSString *)stringWithOptions:(ZSWTaggedStringOptions *)options {
