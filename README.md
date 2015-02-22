@@ -96,24 +96,26 @@ ZSWTaggedStringOptions *options = [ZSWTaggedStringOptions options];
 [options setUnknownTagDynamicAttributes:^(NSString *tagName,
                                           NSDictionary *tagAttributes,
                                           NSDictionary *existingStringAttributes) {
-    if ([@[@"b", @"i"] containsObject:tagName]) {
-        UIFont *font = existingStringAttributes[NSFontAttributeName];
-        if ([tagName isEqualToString:@"b"]) {
+    BOOL isBold = [tagName isEqualToString:@"b"];
+    BOOL isItalic = [tagName isEqualToString:@"i"];
+    BOOL isUnderline = [tagName isEqualToString:@"u"];
+    UIFont *font = existingStringAttributes[NSFontAttributeName];
+
+    if ((isBold || isItalic) && font) {
+        if (isBold) {
             return @{ NSFontAttributeName: [UIFont boldSystemFontOfSize:font.pointSize] };
-        } else if ([tagName isEqualToString:@"i"]) {
+        } else if (isItalic) {
             return @{ NSFontAttributeName: [UIFont italicSystemFontOfSize:font.pointSize] };
-        } else {
-            return (NSDictionary *)nil;
         }
-    } else if ([tagName isEqualToString:@"u"]) {
+    } else if (isUnderline) {
         return @{ NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle) };
-    } else {
-        return (NSDictionary *)nil;
     }
+    
+    return (NSDictionary *)nil;
 }];
 ```
 
-The library does not provide this functionality by default because custom fonts and non-explicit fonts make this an unpredictable situation. You can use `-[ZSWTaggedStringOptions registerDefaultOptions:]` to keep a global default set of options with something like the above.
+The library does not provide this functionality by default because custom or inexplicit fonts and dynamic type make this behavior unpredictable. You can use `-[ZSWTaggedStringOptions registerDefaultOptions:]` to keep a global default set of options with something like the above.
 
 ## Fast stripped strings
 
@@ -127,7 +129,7 @@ If any of your composed strings contain a `<` character without being in a tag, 
 
 ZSWTaggedString is available through [CocoaPods](http://cocoapods.org). To install it, simply add the following line to your Podfile:
 
-	pod "ZSWTaggedString"
+	pod "ZSWTaggedString", "~> 1.0"
 
 ## License
 

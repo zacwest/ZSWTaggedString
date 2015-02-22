@@ -87,20 +87,22 @@ describe(@"READMEExamples", ^{
         [options setUnknownTagDynamicAttributes:^(NSString *tagName,
                                                   NSDictionary *tagAttributes,
                                                   NSDictionary *existingStringAttributes) {
-            if ([@[@"b", @"i"] containsObject:tagName]) {
-                UIFont *font = existingStringAttributes[NSFontAttributeName];
-                if ([tagName isEqualToString:@"b"]) {
+            BOOL isBold = [tagName isEqualToString:@"b"];
+            BOOL isItalic = [tagName isEqualToString:@"i"];
+            BOOL isUnderline = [tagName isEqualToString:@"u"];
+            UIFont *font = existingStringAttributes[NSFontAttributeName];
+            
+            if ((isBold || isItalic) && font) {
+                if (isBold) {
                     return @{ NSFontAttributeName: [UIFont boldSystemFontOfSize:font.pointSize] };
-                } else if ([tagName isEqualToString:@"i"]) {
+                } else if (isItalic) {
                     return @{ NSFontAttributeName: [UIFont italicSystemFontOfSize:font.pointSize] };
-                } else {
-                    return (NSDictionary *)nil;
                 }
-            } else if ([tagName isEqualToString:@"u"]) {
+            } else if (isUnderline) {
                 return @{ NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle) };
-            } else {
-                return (NSDictionary *)nil;
             }
+            
+            return (NSDictionary *)nil;
         }];
         
         ZSWTaggedString *string = [ZSWTaggedString stringWithString:@"<u>underline</u> <i>italic<u>andunder</u></i> <b>bo<u>l<i>d</i></u></b>"];
