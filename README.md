@@ -1,32 +1,36 @@
 # ZSWTaggedString
 
-<!--[![CI Status](http://img.shields.io/travis/zacwest/ZSWTaggedString.svg?style=flat)](https://travis-ci.org/Zachary West/ZSWTaggedString)
+[![CI Status](http://img.shields.io/travis/zacwest/ZSWTaggedString.svg?style=flat)](https://travis-ci.org/zacwest/ZSWTaggedString)
 [![Version](https://img.shields.io/cocoapods/v/ZSWTaggedString.svg?style=flat)](http://cocoadocs.org/docsets/ZSWTaggedString)
 [![License](https://img.shields.io/cocoapods/l/ZSWTaggedString.svg?style=flat)](http://cocoadocs.org/docsets/ZSWTaggedString)
-[![Platform](https://img.shields.io/cocoapods/p/ZSWTaggedString.svg?style=flat)](http://cocoadocs.org/docsets/ZSWTaggedString)-->
+[![Platform](https://img.shields.io/cocoapods/p/ZSWTaggedString.svg?style=flat)](http://cocoadocs.org/docsets/ZSWTaggedString)
 
 ZSWTaggedString converts an `NSString` marked-up with tags into an  `NSAttributedString`. Tags are similar to HTML except you define what each tag represents.
 
 The goal of this library is to separate presentation from string generation while making it easier to create attributed strings. This way you can decorate strings without concatenating or using hard-to-localize substring searches.
 
-The most common example is applying a style change to part of a string. Let's format a string like "**dogs** are cute!":
+The most common example is applying a style change to part of a string. Let's format a string like "bowties are **cool**":
 
 ```objective-c
-NSString *localizedString = NSLocalizedString(@"<b>dogs</b> are cute!", nil);
+NSString *localizedString = NSLocalizedString(@"bowties are <b>cool</b>", nil);
 ZSWTaggedString *taggedString = [ZSWTaggedString stringWithString:localizedString];
-	
+
 ZSWTaggedStringOptions *options = [ZSWTaggedStringOptions options];
-[options setAttributes:@{ NSFontAttributeName: [UIFont boldSystemFontOfSize:18.0] }
-			forTagName:@"b"];
+[options setAttributes:@{
+    NSFontAttributeName: [UIFont boldSystemFontOfSize:18.0]
+          } forTagName:@"b"];
 
 NSLog(@"%@", [taggedString attributedStringWithOptions:options]);
 ```
 
-This produces an NSAttributedString where the "dogs" substring is bold, and the rest undefined:
+This produces an attributed string where the "cool" substring is bold, and the rest undefined:
 
-	dogs{
-	    NSFont = "<UICTFont: …> …; font-weight: bold;…";
-	} are cute!{}
+```objective-c
+bowties are {
+}cool{
+    NSFont = "<UICTFont: …> …; font-weight: bold; …; font-size: 18.00pt";
+}
+```
 
 ## Dynamic attributes
 
@@ -51,14 +55,14 @@ ZSWTaggedStringOptions *options = [ZSWTaggedStringOptions options];
 
 // Base attributes apply to the whole string, before any tag attributes.
 [options setBaseAttributes:@{
-                             NSFontAttributeName: [UIFont systemFontOfSize:14.0],
-                             NSForegroundColorAttributeName: [UIColor grayColor]
-                             }];
+    NSFontAttributeName: [UIFont systemFontOfSize:14.0],
+    NSForegroundColorAttributeName: [UIColor grayColor]
+ }];
 
 // Normal attributes just add their attributes to the attributed string.
 [options setAttributes:@{
-                         NSFontAttributeName: [UIFont italicSystemFontOfSize:14.0]
-                         } forTagName:@"i"];
+    NSFontAttributeName: [UIFont italicSystemFontOfSize:14.0]
+          } forTagName:@"i"];
 
 // Dynamic attributes give you an opportunity to decide what to do for each tag
 [options setDynamicAttributes:^(NSString *tagName,
@@ -76,8 +80,10 @@ ZSWTaggedStringOptions *options = [ZSWTaggedStringOptions options];
 
 Your localizer now sees a more reasonable localized string:
 
+```json
 	/* On the story, ... */
 	"Pick: %@ <i>or</i> %@" = "Pick: %1$@ <i>or</i> %2$@";
+```
 
 And you don't have to resort to using `-rangeOfString:` to format any of the substrings, which is very difficult to accomplish with what we desired above.
 
@@ -127,10 +133,12 @@ If any of your composed strings contain a `<` character without being in a tag, 
 
 ## Installation
 
-ZSWTaggedString is available through [CocoaPods](http://cocoapods.org). To install it, simply add the following line to your Podfile:
+ZSWTaggedString is available through [CocoaPods](http://cocoapods.org). Add the following line to your Podfile:
 
-	pod "ZSWTaggedString", "~> 1.0"
+```ruby
+pod "ZSWTaggedString", "~> 1.0"
+```
 
 ## License
 
-ZSWTaggedString is available under the MIT license. See the LICENSE file for more info.
+ZSWTaggedString is available under the [MIT license](https://github.com/zacwest/ZSWTaggedString/blob/master/LICENSE). If you are contributing via pull request, please include an appropriate test for the bug you are fixing or feature you are adding.

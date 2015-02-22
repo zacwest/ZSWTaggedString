@@ -23,7 +23,7 @@ SpecBegin(READMEExamples)
 
 describe(@"READMEExamples", ^{
     it(@"should have bold dogs", ^{
-        NSString *localizedString = NSLocalizedString(@"<b>dogs</b> are cute!", nil);
+        NSString *localizedString = NSLocalizedString(@"bowties are <b>cool</b>", nil);
         ZSWTaggedString *taggedString = [ZSWTaggedString stringWithString:localizedString];
         
         ZSWTaggedStringOptions *options = [ZSWTaggedStringOptions options];
