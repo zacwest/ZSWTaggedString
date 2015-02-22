@@ -10,10 +10,6 @@
 #import "ZSWStringParser.h"
 #import "ZSWStringParserTag.h"
 
-@interface ZSWTaggedStringOptions()
-@property (nonatomic) NSDictionary *tagToAttributesMap;
-@end
-
 @implementation ZSWTaggedStringOptions
 
 static ZSWTaggedStringOptions *ZSWStringParserDefaultOptions;
@@ -116,7 +112,7 @@ static ZSWTaggedStringOptions *ZSWStringParserDefaultOptions;
 
 - (void)setTagValue:(NSObject<NSCopying> *)tagValue forTagName:(NSString *)tagName {
     NSMutableDictionary *mutableMap = [self.tagToAttributesMap mutableCopy];
-    mutableMap[tagName] = [tagValue copy];
+    mutableMap[tagName.lowercaseString] = [tagValue copy];
     self.tagToAttributesMap = mutableMap;
 }
 
@@ -138,7 +134,7 @@ static ZSWTaggedStringOptions *ZSWStringParserDefaultOptions;
     [string setAttributes:self.baseAttributes range:NSMakeRange(0, string.length)];
     
     for (ZSWStringParserTag *tag in tags) {
-        id tagValue = self.tagToAttributesMap[tag.tagName];
+        id tagValue = self.tagToAttributesMap[tag.tagName.lowercaseString];
         NSDictionary *attributes;
         
         if ([tagValue isKindOfClass:[NSDictionary class]]) {

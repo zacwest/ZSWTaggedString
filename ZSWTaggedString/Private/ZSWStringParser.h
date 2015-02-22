@@ -27,7 +27,8 @@
 @property (nonatomic, copy) NSString *underlyingString;
 @end
 
-@interface ZSWTaggedStringOptions (Private)
+@interface ZSWTaggedStringOptions()
+@property (nonatomic) NSDictionary *tagToAttributesMap;
 - (void)updateAttributedString:(NSMutableAttributedString *)string
                updatedWithTags:(NSArray *)tags;
 @end

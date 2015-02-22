@@ -33,6 +33,11 @@ describe(@"ZSWStringParserTag", ^{
             expect([tag isEndedByTag:anotherTag]).to.beFalsy();
         });
         
+        it(@"should be ended by a tag with different case but the same name", ^{
+            ZSWStringParserTag *anotherTag = [[ZSWStringParserTag alloc] initWithTagName:@"/tagTaG" startLocation:10];
+            expect([tag isEndedByTag:anotherTag]).to.beTruthy();
+        });
+        
         it(@"should not be an end tag", ^{
             expect(tag.isEndingTag).to.beFalsy();
         });

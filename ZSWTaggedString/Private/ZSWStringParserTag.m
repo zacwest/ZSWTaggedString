@@ -37,7 +37,7 @@
         return NO;
     }
     
-    if (![[tag.tagName substringFromIndex:1] isEqualToString:self.tagName]) {
+    if (![[tag.tagName.lowercaseString substringFromIndex:1] isEqualToString:self.tagName.lowercaseString]) {
         return NO;
     }
     
