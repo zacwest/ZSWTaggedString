@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-typedef NSDictionary *(ZSWDynamicAttributes)(NSString *tagName, NSDictionary *tagAttributes);
+typedef NSDictionary *(^ZSWDynamicAttributes)(NSString *tagName, NSDictionary *tagAttributes);
 
 @interface ZSWTaggedStringOptions : NSObject <NSCopying, NSSecureCoding>
 
@@ -27,9 +27,9 @@ typedef NSDictionary *(ZSWDynamicAttributes)(NSString *tagName, NSDictionary *ta
 @property (nonatomic, copy) NSDictionary *baseAttributes;
 
 - (void)setAttributes:(NSDictionary *)attributes forTagName:(NSString *)tagName;
-- (void)setDynamicAttributes:(ZSWDynamicAttributes ^)dynamicAttributes forTagName:(NSString *)tagName;
+- (void)setDynamicAttributes:(ZSWDynamicAttributes)dynamicAttributes forTagName:(NSString *)tagName;
 
-@property (nonatomic, copy) ZSWDynamicAttributes ^unknownTagDynamicAttributes;
+@property (nonatomic, copy) ZSWDynamicAttributes unknownTagDynamicAttributes;
 
 /*!
  * @brief Should we treat nil as an empty string?

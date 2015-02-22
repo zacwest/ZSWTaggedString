@@ -129,7 +129,7 @@ static ZSWTaggedStringOptions *ZSWStringParserDefaultOptions;
     [self setTagValue:attributes forTagName:tagName];
 }
 
-- (void)setDynamicAttributes:(ZSWDynamicAttributes ^)dynamicAttributes forTagName:(NSString *)tagName {
+- (void)setDynamicAttributes:(ZSWDynamicAttributes)dynamicAttributes forTagName:(NSString *)tagName {
     NSParameterAssert(tagName != nil);
     [self setTagValue:dynamicAttributes forTagName:tagName];
 }
@@ -148,7 +148,7 @@ static ZSWTaggedStringOptions *ZSWStringParserDefaultOptions;
         if ([tagValue isKindOfClass:[NSDictionary class]]) {
             attributes = tagValue;
         } else if (tagValue /* is a block */) {
-            ZSWDynamicAttributes ^dynamicAttributes = tagValue;
+            ZSWDynamicAttributes dynamicAttributes = tagValue;
             attributes = dynamicAttributes(tag.tagName, tag.tagAttributes);
         } else if (self.unknownTagDynamicAttributes) {
             attributes = self.unknownTagDynamicAttributes(tag.tagName, tag.tagAttributes);
