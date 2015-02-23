@@ -85,6 +85,11 @@
         // eat any whitespace at the start
         [scanner scanCharactersFromSet:whitespaceSet intoString:NULL];
         
+        if (scanner.isAtEnd) {
+            // e.g., a tag like <dog ></dog> might produce just a space attribute
+            break;
+        }
+        
         // Scan up to '=' or ' '
         NSString *attributeName;
         [scanner scanUpToCharactersFromSet:nameBreakSet intoString:&attributeName];

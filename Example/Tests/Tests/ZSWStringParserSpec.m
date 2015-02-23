@@ -29,7 +29,7 @@ describe(@"ZSWStringParser", ^{
             }).to.raise(NSInvalidArgumentException);
         });
     });
-        
+    
     __block id mockOptions;
     
     beforeEach(^{
@@ -92,7 +92,7 @@ describe(@"ZSWStringParser", ^{
     });
     
     it(@"should handle a string with multiple overlapping and non-overlapping tags", ^{
-        ZSWTaggedString *taggedString = [ZSWTaggedString stringWithString:@"<all><qual>If I come <sad>without</sad> a thing</qual>, <suppose>then I come with <happy>all</happy> I need</suppose></all>"];
+        ZSWTaggedString *taggedString = [ZSWTaggedString stringWithString:@"<all><qual>If I come <sad >without</sad> a thing</qual>, <suppose >then I come with <happy>all</happy> I need</suppose></all>"];
         
         NSArray *tags;
         [[mockOptions expect] updateAttributedString:OCMOCK_ANY
@@ -145,6 +145,8 @@ describe(@"ZSWStringParser", ^{
         expect(tag.tagName).to.equal(@"hungry");
         expect(tag.tagRange.location).to.equal(5);
         expect(tag.tagRange.length).to.equal(0);
+        
+        expect(tag.tagAttributes).to.equal(@{@"type": @"lol"});
     });
 });
 
