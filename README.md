@@ -91,7 +91,7 @@ There are two types of dynamic attributes you can use: a tag-specific one like a
 
 1. `tagName` The name of the tag, e.g. `story` above.
 2. `tagAttributes` The attributes of the tag, e.g. `@{ @"type": @"1" }` like above.
-3. `existingStringAttributes` The attributed string attributes that exist already.
+3. `existingStringAttributes` The string attributes that exist already, e.g. `@{ NSForegroundColorAttributeName: [UIColor redColor] }`
 
 You can use the `existingStringAttributes` to handle well-established keys. For example, let's make the `<b>`, `<i>`, and `<u>` tags automatically:
 
@@ -125,7 +125,7 @@ The library does not provide this functionality by default because custom or ine
 
 ## Fast stripped strings
 
-Stripping the tags off allows you to produce a flat string for fast height calculations (assuming no font changes), statistics gathering, etc., without needing the overhead of an attributed string. You can accomplished this by using the `-string` method on a `ZSWTaggedString` instead of the `-attributedString` methods.
+Stripping tags allows you to create an `NSString` for fast height calculations (assuming no font changes), statistics gathering, etc., without the overhead of tags. You can accomplished this by using the `-string` method on a `ZSWTaggedString` instead of the `-attributedString` methods.
 
 ## Gotchas
 
