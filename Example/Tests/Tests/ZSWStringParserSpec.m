@@ -148,6 +148,37 @@ describe(@"ZSWStringParser", ^{
         
         expect(tag.tagAttributes).to.equal(@{@"type": @"lol"});
     });
+    
+    it(@"should handle a string containing an escaped string", ^{
+        ZSWTaggedString *taggedString = [ZSWTaggedString stringWithFormat:@"i like to eat <eat>%@</eat>", ZSWEscapedStringForString(@"<apples>")];
+        
+        NSArray *tags;
+        [[mockOptions expect] updateAttributedString:OCMOCK_ANY
+                                     updatedWithTags:[OCMArg capture:&tags]];
+        
+        expect([[ZSWStringParser stringWithTaggedString:taggedString
+                                                options:mockOptions
+                                            returnClass:[NSAttributedString class]] string]).to.equal(@"i like to eat <apples>");
+        expect(tags).to.haveCountOf(1);
+        
+        ZSWStringParserTag *tag = tags.firstObject;
+        expect(tag.tagName).to.equal(@"eat");
+        expect(tag.tagRange.location).to.equal(14);
+        expect(tag.tagRange.length).to.equal(8);
+    });
+    
+    it(@"should handle a string containing an escaped string at the very end", ^{
+        ZSWTaggedString *taggedString = [ZSWTaggedString stringWithFormat:@"i like to eat %@", ZSWEscapedStringForString(@"<")];
+        
+        NSArray *tags;
+        [[mockOptions expect] updateAttributedString:OCMOCK_ANY
+                                     updatedWithTags:[OCMArg capture:&tags]];
+        
+        expect([[ZSWStringParser stringWithTaggedString:taggedString
+                                                options:mockOptions
+                                            returnClass:[NSAttributedString class]] string]).to.equal(@"i like to eat <");
+        expect(tags).to.haveCountOf(0);
+    });
 });
 
 SpecEnd

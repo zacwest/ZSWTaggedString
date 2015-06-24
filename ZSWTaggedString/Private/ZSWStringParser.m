@@ -68,8 +68,9 @@ extern NSString *ZSWEscapedStringForString(NSString *unescapedString) {
         [scanner scanCharactersFromSet:tagStartCharacterSet intoString:NULL];
         
         if ([scratchString characterAtIndex:(scratchString.length - 1)] == kTagIgnore) {
-            // We found a tag start, but it's one that's been escaped. Skip it.
+            // We found a tag start, but it's one that's been escaped. Skip it, and append the start tag we just gobbled up.
             [pendingString deleteCharactersInRange:NSMakeRange(pendingString.length - 1, 1)];
+            [self appendString:kTagStart intoAttributedString:pendingString];
             continue;
         }
         
