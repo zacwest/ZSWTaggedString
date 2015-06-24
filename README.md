@@ -136,7 +136,7 @@ If any of your composed strings contain a `<` character without being in a tag, 
 ZSWTaggedString is available through [CocoaPods](http://cocoapods.org). Add the following line to your Podfile:
 
 ```ruby
-pod "ZSWTaggedString", "~> 1.0"
+pod "ZSWTaggedString", "~> 1.1"
 ```
 
 ## License
