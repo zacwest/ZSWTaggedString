@@ -1,0 +1,23 @@
+PODS:
+  - Expecta (1.0.0)
+  - OCMock (3.1.2)
+  - Specta (1.0.2)
+  - ZSWTaggedString (1.0)
+
+DEPENDENCIES:
+  - Expecta
+  - OCMock
+  - Specta
+  - ZSWTaggedString (from `../`)
+
+EXTERNAL SOURCES:
+  ZSWTaggedString:
+    :path: ../
+
+SPEC CHECKSUMS:
+  Expecta: 32604574add2c46a36f8d2f716b6c5736eb75024
+  OCMock: a10ea9f0a6e921651f96f78b6faee95ebc813b92
+  Specta: 9cec98310dca411f7c7ffd6943552b501622abfe
+  ZSWTaggedString: 06748018b006548af59ad8749646c89af8fb7145
+
+COCOAPODS: 0.37.2
