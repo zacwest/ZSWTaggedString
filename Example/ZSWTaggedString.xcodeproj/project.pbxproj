@@ -358,7 +358,7 @@
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = (
-					"\"$(PODS_ROOT)/Headers/Build/ZSWTaggedString\"",
+					"\"$(PODS_ROOT)\"/**",
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "Tests/Supporting Files/Tests-Info.plist";
@@ -380,7 +380,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Tests/Supporting Files/Tests-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
-					"\"$(PODS_ROOT)/Headers/Build/ZSWTaggedString\"",
+					"\"$(PODS_ROOT)\"/**",
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "Tests/Supporting Files/Tests-Info.plist";
