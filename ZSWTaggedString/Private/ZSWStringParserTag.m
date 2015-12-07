@@ -6,7 +6,7 @@
 //
 //
 
-#import "ZSWStringParserTag.h"
+#import <ZSWTaggedString/ZSWStringParserTag.h>
 
 @interface ZSWStringParserTag()
 @property (nonatomic, readwrite) NSString *tagName;

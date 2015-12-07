@@ -6,10 +6,10 @@
 //
 //
 
-#import "ZSWStringParser.h"
-#import "ZSWStringParser.h"
-#import "ZSWStringParserTag.h"
-#import "ZSWTaggedStringOptions.h"
+#import <ZSWTaggedString/ZSWStringParser.h>
+#import <ZSWTaggedString/ZSWStringParser.h>
+#import <ZSWTaggedString/ZSWStringParserTag.h>
+#import <ZSWTaggedString/ZSWTaggedStringOptions.h>
 
 static NSString *const kTagStart = @"<";
 static NSString *const kTagEnd = @">";

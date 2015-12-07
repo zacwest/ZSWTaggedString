@@ -6,9 +6,9 @@
 //
 //
 
-#import "ZSWTaggedStringOptions.h"
-#import "ZSWStringParser.h"
-#import "ZSWStringParserTag.h"
+#import <ZSWTaggedString/ZSWTaggedStringOptions.h>
+#import <ZSWTaggedString/ZSWStringParser.h>
+#import <ZSWTaggedString/ZSWStringParserTag.h>
 
 @implementation ZSWTaggedStringOptions
 
