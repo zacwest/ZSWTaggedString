@@ -132,11 +132,18 @@ describe(@"ZSWTaggedString", ^{
         __block ZSWTaggedString *taggedString;
         
         beforeEach(^{
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wnonnull"
             taggedString = [ZSWTaggedString stringWithString:nil];
+#pragma clang diagnostic pop
         });
         
         it(@"should still allow itself to be created", ^{
             expect(taggedString).toNot.beNil();
+        });
+        
+        it(@"should have set the underlying string to non-nil", ^{
+            expect(taggedString.underlyingString).to.equal(@"");
         });
         
         itShouldBehaveLike(@"a happy string", ^{ return @{ @"s": taggedString }; });

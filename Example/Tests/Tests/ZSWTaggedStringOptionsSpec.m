@@ -13,7 +13,7 @@ SpecBegin(ZSWTaggedStringOptions)
 describe(@"ZSWTaggedStringOptions", ^{
     beforeEach(^{
         // reset global state
-        [ZSWTaggedStringOptions registerDefaultOptions:nil];
+        [ZSWTaggedStringOptions registerDefaultOptions:[ZSWTaggedStringOptions options]];
     });
     
     describe(@"default options", ^{
