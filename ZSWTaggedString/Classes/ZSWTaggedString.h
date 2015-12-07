@@ -48,7 +48,7 @@ extern NSString *ZSWEscapedStringForString(NSString *unescapedString);
  * generate \ref NSString or \ref NSAttributedString versions take up the
  * chunk of the work.
  */
-+ (instancetype)stringWithFormat:(NSString *)format, ... NS_FORMAT_FUNCTION(1,2);
++ (instancetype)stringWithFormat:(NSString *)format, ... NS_FORMAT_FUNCTION(1,2) NS_SWIFT_UNAVAILABLE("Init is available");
 
 /*!
  * @brief Create an unparsed string from a tagged string
@@ -57,7 +57,8 @@ extern NSString *ZSWEscapedStringForString(NSString *unescapedString);
  *
  * Like \ref -stringWithFormat:, very little computation is done in this method.
  */
-+ (instancetype)stringWithString:(NSString *)string;
++ (instancetype)stringWithString:(NSString *)string NS_SWIFT_UNAVAILABLE("init-able");
+- (instancetype)initWithString:(NSString *)string;
 
 /*!
  * @brief Attributed version of an unparsed string
