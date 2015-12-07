@@ -1,0 +1,6 @@
+framework module Pods_ZSWTaggedString {
+  umbrella header "Pods-ZSWTaggedString-umbrella.h"
+
+  export *
+  module * { export * }
+}
