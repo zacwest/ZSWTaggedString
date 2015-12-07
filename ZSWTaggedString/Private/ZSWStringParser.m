@@ -35,14 +35,6 @@ extern NSString *ZSWEscapedStringForString(NSString *unescapedString) {
                      options:(ZSWTaggedStringOptions *)options
                  returnClass:(Class)returnClass
                        error:(NSError **)error {
-    if (!taggedString.underlyingString) {
-        if (options.returnEmptyStringForNil) {
-            return [[returnClass alloc] init];
-        } else {
-            return nil;
-        }
-    }
-    
     BOOL parseTagAttributes = [returnClass isEqual:[NSAttributedString class]];
     
     NSScanner *scanner = [NSScanner scannerWithString:taggedString.underlyingString];

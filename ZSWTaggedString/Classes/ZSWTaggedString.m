@@ -52,7 +52,7 @@ NSString *const ZSWTaggedStringErrorDomain = @"ZSWTaggedStringErrorDomain";
         [self commonInit];
         
         self.underlyingString = [decoder decodeObjectOfClass:[NSString class]
-                                                      forKey:ZSWSelector(underlyingString)];
+                                                      forKey:ZSWSelector(underlyingString)] ?: @"";
     }
     return self;
 }
