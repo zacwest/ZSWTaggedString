@@ -73,7 +73,7 @@ extern NSString *ZSWEscapedStringForString(NSString *unescapedString);
  *
  * @return Parsed version of the unparsed string
  */
-- (nullable NSAttributedString *)attributedString DEPRECATED_ATTRIBUTE NS_SWIFT_UNAVAILABLE("Use the throwing version");
+- (nullable NSAttributedString *)attributedString NS_SWIFT_UNAVAILABLE("Use the throwing version");
 - (nullable NSAttributedString *)attributedStringWithError:(NSError **)error;
 
 /*!
@@ -85,7 +85,7 @@ extern NSString *ZSWEscapedStringForString(NSString *unescapedString);
  *
  * @return Parsed version of the unparsed string
  */
-- (nullable NSAttributedString *)attributedStringWithOptions:(ZSWTaggedStringOptions *)options DEPRECATED_ATTRIBUTE NS_SWIFT_UNAVAILABLE("Use the throwing version");
+- (nullable NSAttributedString *)attributedStringWithOptions:(ZSWTaggedStringOptions *)options NS_SWIFT_UNAVAILABLE("Use the throwing version");
 - (nullable NSAttributedString *)attributedStringWithOptions:(ZSWTaggedStringOptions *)options error:(NSError **)error;
 
 /*!
@@ -97,7 +97,7 @@ extern NSString *ZSWEscapedStringForString(NSString *unescapedString);
  *
  * @return Stripped version of the unparsed string
  */
-- (nullable NSString *)string DEPRECATED_ATTRIBUTE NS_SWIFT_UNAVAILABLE("Use the throwing version");
+- (nullable NSString *)string NS_SWIFT_UNAVAILABLE("Use the throwing version");
 - (nullable NSString *)stringWithError:(NSError **)error;
 
 /*!
@@ -119,7 +119,7 @@ extern NSString *ZSWEscapedStringForString(NSString *unescapedString);
  *
  * @return Stripped version of the unparsed string
  */
-- (nullable NSString *)stringWithOptions:(ZSWTaggedStringOptions *)options DEPRECATED_ATTRIBUTE NS_SWIFT_UNAVAILABLE("Use the throwing version");
+- (nullable NSString *)stringWithOptions:(ZSWTaggedStringOptions *)options NS_SWIFT_UNAVAILABLE("Use the throwing version");
 - (nullable NSString *)stringWithOptions:(ZSWTaggedStringOptions *)options error:(NSError **)error;
 
 @end

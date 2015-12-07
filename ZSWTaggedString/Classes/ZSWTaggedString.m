@@ -88,6 +88,23 @@ NSString *const ZSWTaggedStringErrorDomain = @"ZSWTaggedStringErrorDomain";
             NSStringFromClass([self class]), self, self.underlyingString];
 }
 
+#pragma mark - Errorless wrappers
+- (NSString *)string {
+    return [self stringWithError:nil];
+}
+
+- (NSString *)stringWithOptions:(ZSWTaggedStringOptions *)options {
+    return [self stringWithOptions:options error:nil];
+}
+
+- (NSAttributedString *)attributedString {
+    return [self attributedStringWithError:nil];
+}
+
+- (NSAttributedString *)attributedStringWithOptions:(ZSWTaggedStringOptions *)options {
+    return [self attributedStringWithOptions:options error:nil];
+}
+
 #pragma mark - Generation
 
 - (NSString *)stringWithError:(NSError * _Nullable __autoreleasing *)error {
@@ -114,23 +131,6 @@ NSString *const ZSWTaggedStringErrorDomain = @"ZSWTaggedStringErrorDomain";
                                            options:options
                                        returnClass:[NSAttributedString class]
                                              error:error];
-}
-
-#pragma mark - Deprecated
-- (NSString *)string {
-    return [self stringWithError:nil];
-}
-
-- (NSString *)stringWithOptions:(ZSWTaggedStringOptions *)options {
-    return [self stringWithOptions:options error:nil];
-}
-
-- (NSAttributedString *)attributedString {
-    return [self attributedStringWithError:nil];
-}
-
-- (NSAttributedString *)attributedStringWithOptions:(ZSWTaggedStringOptions *)options {
-    return [self attributedStringWithOptions:options error:nil];
 }
 
 @end
