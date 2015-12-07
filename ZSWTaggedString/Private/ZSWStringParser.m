@@ -32,8 +32,9 @@ extern NSString *ZSWEscapedStringForString(NSString *unescapedString) {
 }
 
 + (id)stringWithTaggedString:(ZSWTaggedString *)taggedString
-                       options:(ZSWTaggedStringOptions *)options
-                   returnClass:(Class)returnClass {
+                     options:(ZSWTaggedStringOptions *)options
+                 returnClass:(Class)returnClass
+                       error:(NSError **)error {
     if (!taggedString.underlyingString) {
         if (options.returnEmptyStringForNil) {
             return [[returnClass alloc] init];
@@ -103,18 +104,26 @@ extern NSString *ZSWEscapedStringForString(NSString *unescapedString) {
             // We want to apply the attributes from the outer-most tags first, so put them at the start.
             [finishedTags insertObject:lastTag atIndex:0];
         } else if (tag.isEndingTag) {
-            [NSException raise:NSInvalidArgumentException
-                        format:@"String had ending tag %@ when we expected ending tag %@ or new tag",
-                                    tag.tagName, lastTag.tagName];
+            if (error) {
+                *error = [NSError errorWithDomain:ZSWTaggedStringErrorDomain
+                                            code:ZSWTaggedStringErrorCodeInvalidTags
+                                        userInfo:@{ @"developerError": [NSString stringWithFormat:@"String had ending tag %@ when we expected ending tag %@ or new tag", tag.tagName, lastTag.tagName] }];
+            }
+            
+            return nil;
         } else {
             [tagStack addObject:tag];
         }
     }
     
     if (tagStack.count) {
-        [NSException raise:NSInvalidArgumentException
-                    format:@"Reached end of string with %@ tags remaining (%@)",
-                                @(tagStack.count), [[tagStack valueForKey:@"tagName"] componentsJoinedByString:@", "]];
+        if (error) {
+            *error = [NSError errorWithDomain:ZSWTaggedStringErrorDomain
+                                         code:ZSWTaggedStringErrorCodeInvalidTags
+                                     userInfo:@{ @"developerError": [NSString stringWithFormat:@"Reached end of string with %@ tags remaining (%@)", @(tagStack.count), [[tagStack valueForKey:@"tagName"] componentsJoinedByString:@", "]] }];
+        }
+        
+        return nil;
     }
     
     if ([returnClass isEqual:[NSAttributedString class]]) {
@@ -122,7 +131,7 @@ extern NSString *ZSWEscapedStringForString(NSString *unescapedString) {
         return [pendingString copy];
     } else if ([returnClass isEqual:[NSString class]]) {
         return [pendingString.string copy];
-    } else {
+    } else {        
         [NSException raise:NSInternalInconsistencyException
                     format:@"Somehow asked for class type %@ for parsed string",
                                     NSStringFromClass(returnClass)];

@@ -19,7 +19,8 @@
 
 + (id)stringWithTaggedString:(ZSWTaggedString *)taggedString
                      options:(ZSWTaggedStringOptions *)options
-                 returnClass:(Class)returnClass;
+                 returnClass:(Class)returnClass
+                       error:(NSError **)error;
 
 @end
 

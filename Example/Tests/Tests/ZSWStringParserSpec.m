@@ -13,20 +13,28 @@ SpecBegin(ZSWStringParser)
 
 describe(@"ZSWStringParser", ^{
     describe(@"when providing erroneous strings", ^{
-        it(@"should throw an exception if tags aren't ended", ^{
-            expect(^{
-                [ZSWStringParser stringWithTaggedString:[ZSWTaggedString stringWithString:@"<tag>moo"]
-                                                options:[ZSWTaggedStringOptions options]
-                                            returnClass:[NSString class]];
-            }).to.raise(NSInvalidArgumentException);
+        it(@"should return an error if tags aren't ended", ^{
+            NSError *error;
+            id string =[ZSWStringParser stringWithTaggedString:[ZSWTaggedString stringWithString:@"<tag>moo"]
+                                            options:[ZSWTaggedStringOptions options]
+                                        returnClass:[NSString class]
+                                              error:&error];
+            
+            expect(string).to.beNil();
+            expect(error.domain).to.equal(ZSWTaggedStringErrorDomain);
+            expect(error.code).to.equal(ZSWTaggedStringErrorCodeInvalidTags);
         });
         
         it(@"should throw an exception if tags are ended out-of-order", ^{
-            expect(^{
-                [ZSWStringParser stringWithTaggedString:[ZSWTaggedString stringWithString:@"<tag><elephant>moo</tag></elephant>"]
-                                                options:[ZSWTaggedStringOptions options]
-                                            returnClass:[NSString class]];
-            }).to.raise(NSInvalidArgumentException);
+            NSError *error;
+            
+            id string = [ZSWStringParser stringWithTaggedString:[ZSWTaggedString stringWithString:@"<tag><elephant>moo</tag></elephant>"]
+                                                        options:[ZSWTaggedStringOptions options]
+                                                    returnClass:[NSString class]
+                                                          error:&error];
+            expect(string).to.beNil();
+            expect(error.domain).to.equal(ZSWTaggedStringErrorDomain);
+            expect(error.code).to.equal(ZSWTaggedStringErrorCodeInvalidTags);
         });
     });
     
@@ -43,9 +51,15 @@ describe(@"ZSWStringParser", ^{
         [[mockOptions expect] updateAttributedString:OCMOCK_ANY
                                      updatedWithTags:[OCMArg capture:&tags]];
         
-        expect([[ZSWStringParser stringWithTaggedString:taggedString
-                                                options:mockOptions
-                                            returnClass:[NSAttributedString class]] string]).to.equal(@"no more timothy hay!");
+        NSError *error;
+        
+        id string = [[ZSWStringParser stringWithTaggedString:taggedString
+                                                     options:mockOptions
+                                                 returnClass:[NSAttributedString class]
+                                                       error:&error] string];
+        
+        expect(string).to.equal(@"no more timothy hay!");
+        expect(error).to.beNil();
         expect(tags).to.haveCountOf(0);
     });
     
@@ -56,10 +70,15 @@ describe(@"ZSWStringParser", ^{
         [[mockOptions expect] updateAttributedString:OCMOCK_ANY
                                      updatedWithTags:[OCMArg capture:&tags]];
         
-        expect([[ZSWStringParser stringWithTaggedString:taggedString
-                                                options:mockOptions
-                                            returnClass:[NSAttributedString class]] string]).to.equal(@"circles presuppose");
+        NSError *error;
+        id string = [[ZSWStringParser stringWithTaggedString:taggedString
+                                                     options:mockOptions
+                                                 returnClass:[NSAttributedString class]
+                                                       error:&error] string];
+        
+        expect(string).to.equal(@"circles presuppose");
         expect(tags).to.haveCountOf(1);
+        expect(error).to.beNil();
         
         ZSWStringParserTag *tag = tags.firstObject;
         expect(tag.tagName).to.equal(@"all");
@@ -74,10 +93,15 @@ describe(@"ZSWStringParser", ^{
         [[mockOptions expect] updateAttributedString:OCMOCK_ANY
                                      updatedWithTags:[OCMArg capture:&tags]];
         
-        expect([[ZSWStringParser stringWithTaggedString:taggedString
-                                                options:mockOptions
-                                            returnClass:[NSAttributedString class]] string]).to.equal(@"circles presuppose");
+        NSError *error;
+        id string = [[ZSWStringParser stringWithTaggedString:taggedString
+                                                     options:mockOptions
+                                                 returnClass:[NSAttributedString class]
+                                                       error:&error] string];
+        
+        expect(string).to.equal(@"circles presuppose");
         expect(tags).to.haveCountOf(2);
+        expect(error).to.beNil();
         
         ZSWStringParserTag *someTag = tags[0];
         // some should go first, because outer ones are processed first
@@ -98,10 +122,15 @@ describe(@"ZSWStringParser", ^{
         [[mockOptions expect] updateAttributedString:OCMOCK_ANY
                                      updatedWithTags:[OCMArg capture:&tags]];
         
-        expect([[ZSWStringParser stringWithTaggedString:taggedString
-                                                options:mockOptions
-                                            returnClass:[NSAttributedString class]] string]).to.equal(@"If I come without a thing, then I come with all I need");
+        NSError *error;
+        id string = [[ZSWStringParser stringWithTaggedString:taggedString
+                                                     options:mockOptions
+                                                 returnClass:[NSAttributedString class]
+                                                       error:&error] string];
+        
+        expect(string).to.equal(@"If I come without a thing, then I come with all I need");
         expect(tags).to.haveCountOf(5);
+        expect(error).to.beNil();
         
         ZSWStringParserTag *allTag = tags[0];
         expect(allTag.tagName).to.equal(@"all");
@@ -136,10 +165,15 @@ describe(@"ZSWStringParser", ^{
         [[mockOptions expect] updateAttributedString:OCMOCK_ANY
                                      updatedWithTags:[OCMArg capture:&tags]];
         
-        expect([[ZSWStringParser stringWithTaggedString:taggedString
-                                                options:mockOptions
-                                            returnClass:[NSAttributedString class]] string]).to.equal(@"i am banana");
+        NSError *error;
+        id string = [[ZSWStringParser stringWithTaggedString:taggedString
+                                                     options:mockOptions
+                                                 returnClass:[NSAttributedString class]
+                                                       error:&error] string];
+        
+        expect(string).to.equal(@"i am banana");
         expect(tags).to.haveCountOf(1);
+        expect(error).to.beNil();
         
         ZSWStringParserTag *tag = tags.firstObject;
         expect(tag.tagName).to.equal(@"hungry");
@@ -156,10 +190,15 @@ describe(@"ZSWStringParser", ^{
         [[mockOptions expect] updateAttributedString:OCMOCK_ANY
                                      updatedWithTags:[OCMArg capture:&tags]];
         
-        expect([[ZSWStringParser stringWithTaggedString:taggedString
-                                                options:mockOptions
-                                            returnClass:[NSAttributedString class]] string]).to.equal(@"i like to eat <apples>");
+        NSError *error;
+        id string = [[ZSWStringParser stringWithTaggedString:taggedString
+                                                     options:mockOptions
+                                                 returnClass:[NSAttributedString class]
+                                                       error:&error] string];
+        
+        expect(string).to.equal(@"i like to eat <apples>");
         expect(tags).to.haveCountOf(1);
+        expect(error).to.beNil();
         
         ZSWStringParserTag *tag = tags.firstObject;
         expect(tag.tagName).to.equal(@"eat");
@@ -174,9 +213,13 @@ describe(@"ZSWStringParser", ^{
         [[mockOptions expect] updateAttributedString:OCMOCK_ANY
                                      updatedWithTags:[OCMArg capture:&tags]];
         
-        expect([[ZSWStringParser stringWithTaggedString:taggedString
-                                                options:mockOptions
-                                            returnClass:[NSAttributedString class]] string]).to.equal(@"i like to eat <");
+        NSError *error;
+        id string = [[ZSWStringParser stringWithTaggedString:taggedString
+                                                     options:mockOptions
+                                                 returnClass:[NSAttributedString class]
+                                                       error:&error] string];
+        
+        expect(string).to.equal(@"i like to eat <");
         expect(tags).to.haveCountOf(0);
     });
 });
