@@ -16,12 +16,14 @@
 
 #define ZSWSelector(selectorName) (NSStringFromSelector(@selector(selectorName)))
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface ZSWStringParser : NSObject
 
-+ (id)stringWithTaggedString:(ZSWTaggedString *)taggedString
-                     options:(ZSWTaggedStringOptions *)options
-                 returnClass:(Class)returnClass
-                       error:(NSError **)error;
++ (nullable id)stringWithTaggedString:(ZSWTaggedString *)taggedString
+                              options:(ZSWTaggedStringOptions *)options
+                          returnClass:(Class)returnClass
+                                error:(NSError **)error;
 
 @end
 
@@ -36,3 +38,5 @@
 - (void)updateAttributedString:(NSMutableAttributedString *)string
                updatedWithTags:(NSArray *)tags;
 @end
+
+NS_ASSUME_NONNULL_END
