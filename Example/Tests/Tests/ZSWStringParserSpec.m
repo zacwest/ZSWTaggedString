@@ -22,6 +22,13 @@ describe(@"ZSWStringParser", ^{
             expect(string).to.beNil();
             expect(error.domain).to.equal(ZSWTaggedStringErrorDomain);
             expect(error.code).to.equal(ZSWTaggedStringErrorCodeInvalidTags);
+            
+            // and without an error arg
+            string = [ZSWStringParser stringWithTaggedString:[ZSWTaggedString stringWithString:@"<tag>moo"]
+                                                     options:[ZSWTaggedStringOptions options]
+                                                 returnClass:[NSString class]
+                                                       error:nil];
+            expect(string).to.beNil();
         });
         
         it(@"should throw an exception if tags are ended out-of-order", ^{
@@ -34,6 +41,13 @@ describe(@"ZSWStringParser", ^{
             expect(string).to.beNil();
             expect(error.domain).to.equal(ZSWTaggedStringErrorDomain);
             expect(error.code).to.equal(ZSWTaggedStringErrorCodeInvalidTags);
+            
+            // and without an error arg
+            string = [ZSWStringParser stringWithTaggedString:[ZSWTaggedString stringWithString:@"<tag><elephant>moo</tag></elephant>"]
+                                                     options:[ZSWTaggedStringOptions options]
+                                                 returnClass:[NSString class]
+                                                       error:nil];
+            expect(string).to.beNil();
         });
     });
     
