@@ -118,20 +118,26 @@ static ZSWTaggedStringOptions *ZSWStringParserDefaultOptions;
 
 #pragma mark -
 
-- (void)setTagValue:(NSObject<NSCopying> *)tagValue forTagName:(NSString *)tagName {
+- (void)setWrapper:(ZSWTaggedStringAttribute *)attribute forTagName:(NSString *)tagName {
     NSMutableDictionary *mutableMap = [self.tagToAttributesMap mutableCopy];
-    mutableMap[tagName.lowercaseString] = [tagValue copy];
+    mutableMap[tagName.lowercaseString] = [attribute copy];
     self.tagToAttributesMap = mutableMap;
 }
 
-- (void)setAttributes:(NSDictionary *)attributes forTagName:(NSString *)tagName {
+- (void)setAttributes:(NSDictionary<NSString *,id> *)dict forTagName:(NSString *)tagName {
     NSParameterAssert(tagName.length > 0);
-    [self setTagValue:attributes forTagName:tagName];
+    
+    ZSWTaggedStringAttribute *attribute = [[ZSWTaggedStringAttribute alloc] init];
+    attribute.staticDictionary = dict;
+    
+    [self setWrapper:attribute forTagName:tagName];
 }
 
 - (void)setDynamicAttributes:(ZSWDynamicAttributes)dynamicAttributes forTagName:(NSString *)tagName {
     NSParameterAssert(tagName != nil);
-    [self setTagValue:dynamicAttributes forTagName:tagName];
+    ZSWTaggedStringAttribute *attribute = [[ZSWTaggedStringAttribute alloc] init];
+    attribute.dynamicAttributes = dynamicAttributes;
+    [self setWrapper:attribute forTagName:tagName];
 }
 
 #pragma mark - Internal/updating
@@ -142,16 +148,18 @@ static ZSWTaggedStringOptions *ZSWStringParserDefaultOptions;
     [string setAttributes:self.baseAttributes range:NSMakeRange(0, string.length)];
     
     for (ZSWStringParserTag *tag in tags) {
-        id tagValue = self.tagToAttributesMap[tag.tagName.lowercaseString];
-        NSDictionary *attributes;
+        ZSWTaggedStringAttribute *tagValue = self.tagToAttributesMap[tag.tagName.lowercaseString];
+        NSDictionary *attributes = nil;
         
-        if ([tagValue isKindOfClass:[NSDictionary class]]) {
-            attributes = tagValue;
-        } else if (tagValue /* is a block */) {
-            NSDictionary *existingAttributes = [string attributesAtIndex:tag.location effectiveRange:NULL];
-            
-            ZSWDynamicAttributes dynamicAttributes = tagValue;
-            attributes = dynamicAttributes(tag.tagName, tag.tagAttributes, existingAttributes);
+        if (tagValue) {
+            if (tagValue.staticDictionary) {
+                attributes = tagValue.staticDictionary;
+            } else if (tagValue.dynamicAttributes) {
+                NSDictionary *existingAttributes = [string attributesAtIndex:tag.location effectiveRange:NULL];
+                
+                ZSWDynamicAttributes dynamicAttributes = tagValue.dynamicAttributes;
+                attributes = dynamicAttributes(tag.tagName, tag.tagAttributes, existingAttributes);
+            }
         } else if (self.unknownTagDynamicAttributes) {
             NSDictionary *existingAttributes = [string attributesAtIndex:tag.location effectiveRange:NULL];
             
