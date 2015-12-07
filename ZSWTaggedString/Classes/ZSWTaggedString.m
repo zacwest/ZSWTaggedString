@@ -37,7 +37,7 @@ NSString *const ZSWTaggedStringErrorDomain = @"ZSWTaggedStringErrorDomain";
     if (self) {
         [self commonInit];
         
-        self.underlyingString = string;
+        self.underlyingString = string ?: @"";
     }
     return self;
 }
