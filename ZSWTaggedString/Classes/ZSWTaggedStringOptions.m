@@ -52,7 +52,7 @@ static ZSWTaggedStringOptions *ZSWStringParserDefaultOptions;
 }
 
 - (instancetype)init {
-    return [self initWithBaseAttributes:nil];
+    return [self initWithBaseAttributes:@{}];
 }
 
 - (instancetype)initWithBaseAttributes:(NSDictionary *)attributes {
