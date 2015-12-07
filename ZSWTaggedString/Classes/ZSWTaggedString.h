@@ -78,7 +78,7 @@ extern NSString *ZSWEscapedStringForString(NSString *unescapedString);
 /*!
  * @brief Attributed version of of an unparsed string
  *
- * @param options The options to use, or nil to use the default options
+ * @param options The options to use. For defailts, use the options-less method.
  *
  * For available options, see \ref ZSWTaggedStringOptions
  *
