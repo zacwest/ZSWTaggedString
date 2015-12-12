@@ -1,6 +1,8 @@
 source 'https://github.com/CocoaPods/Specs.git'
 use_frameworks!
 
+platform :ios, '8.0'
+
 post_install do |representation|
     representation.pods_project.targets.each do |target|
         if target.name == "ZSWTaggedString"
