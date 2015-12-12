@@ -87,7 +87,7 @@ static ZSWTaggedStringOptions *ZSWStringParserDefaultOptions;
         return NO;
     }
     
-    if (![object.unknownTagWrapper isEqual:self.unknownTagWrapper]) {
+    if (object.unknownTagWrapper != self.unknownTagWrapper && ![object.unknownTagWrapper isEqual:self.unknownTagWrapper]) {
         return NO;
     }
     
@@ -95,7 +95,7 @@ static ZSWTaggedStringOptions *ZSWStringParserDefaultOptions;
 }
 
 - (NSUInteger)hash {
-    return self.baseAttributes.hash + self.tagToAttributesMap.hash;
+    return self.baseAttributes.hash + self.tagToAttributesMap.hash + self.unknownTagWrapper.hash;
 }
 
 #pragma mark -

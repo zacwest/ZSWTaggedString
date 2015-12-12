@@ -57,20 +57,9 @@ describe(@"ZSWTaggedStringOptions", ^{
         
         beforeEach(^{
             options = data[@"o"];
-        });
-        
-        describe(@"when encoded and decoded", ^{
-            __block ZSWTaggedStringOptions *unarchivedOptions;
-            
-            beforeEach(^{
-                NSData *data = [NSKeyedArchiver archivedDataWithRootObject:options];
-                unarchivedOptions = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-            });
-            
-            it(@"should compare equal", ^{
-                expect(unarchivedOptions).to.equal(options);
-                expect(unarchivedOptions.hash).to.equal(options.hash);
-            });
+            [options setUnknownTagDynamicAttributes:^NSDictionary *(NSString *tagName, NSDictionary *tagAttributes, NSDictionary *existingAttributes) {
+                return @{@"a": @"b"};
+            }];
         });
         
         describe(@"when copied", ^{
