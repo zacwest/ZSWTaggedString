@@ -18,11 +18,7 @@ Pod::Spec.new do |s|
   s.watchos.deployment_target = '2.0'
   s.tvos.deployment_target = '9.0'
 
-  s.default_subspec = 'Default'
-
-  s.subspec 'Default' do |default|
-    default.dependency 'ZSWTaggedString/Core'
-  end
+  s.default_subspecs = 'Core'
 
   s.subspec 'Core' do |core|
     core.source_files = 'ZSWTaggedString/Classes/**/*.{h,m}', 'ZSWTaggedString/Private/**/*.{h,m}'
