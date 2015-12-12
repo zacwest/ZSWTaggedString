@@ -1,4 +1,4 @@
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
 #import "ZSWTaggedString.h"
 #import "ZSWTaggedStringOptions.h"
