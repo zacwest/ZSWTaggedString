@@ -13,14 +13,42 @@
     "tag": "1.1"
   },
   "social_media_url": "https://twitter.com/zacwest",
-  "platforms": {
-    "ios": "7.0"
-  },
   "requires_arc": true,
-  "source_files": [
-    "ZSWTaggedString/Classes/**/*",
-    "ZSWTaggedString/Private/**/*"
-  ],
-  "public_header_files": "ZSWTaggedString/Classes/**/*.h",
-  "private_header_files": "ZSWTaggedString/Private/**/*.h"
+  "platforms": {
+    "ios": "7.0",
+    "watchos": "2.0",
+    "tvos": "9.0"
+  },
+  "default_subspecs": "Default",
+  "subspecs": [
+    {
+      "name": "Default",
+      "dependencies": {
+        "ZSWTaggedString/Core": [
+
+        ]
+      }
+    },
+    {
+      "name": "Core",
+      "source_files": [
+        "ZSWTaggedString/Classes/**/*.{h,m}",
+        "ZSWTaggedString/Private/**/*.{h,m}"
+      ],
+      "public_header_files": "ZSWTaggedString/Classes/**/*.h",
+      "private_header_files": "ZSWTaggedString/Private/**/*.h"
+    },
+    {
+      "name": "Swift",
+      "dependencies": {
+        "ZSWTaggedString/Core": [
+
+        ]
+      },
+      "source_files": [
+        "ZSWTaggedString/Classes/**/*.swift",
+        "ZSWTaggedString/Private/**/*.swift"
+      ]
+    }
+  ]
 }

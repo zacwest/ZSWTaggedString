@@ -12,10 +12,26 @@ Pod::Spec.new do |s|
   s.source           = { :git => "https://github.com/zacwest/ZSWTaggedString.git", :tag => s.version.to_s }
   s.social_media_url = 'https://twitter.com/zacwest'
 
-  s.platform     = :ios, '7.0'
   s.requires_arc = true
 
-  s.source_files = 'ZSWTaggedString/Classes/**/*', 'ZSWTaggedString/Private/**/*'
-  s.public_header_files = 'ZSWTaggedString/Classes/**/*.h'
-  s.private_header_files = 'ZSWTaggedString/Private/**/*.h'
+  s.ios.deployment_target = '7.0'
+  s.watchos.deployment_target = '2.0'
+  s.tvos.deployment_target = '9.0'
+
+  s.default_subspec = 'Default'
+
+  s.subspec 'Default' do |default|
+    default.dependency 'ZSWTaggedString/Core'
+  end
+
+  s.subspec 'Core' do |core|
+    core.source_files = 'ZSWTaggedString/Classes/**/*.{h,m}', 'ZSWTaggedString/Private/**/*.{h,m}'
+    core.public_header_files = 'ZSWTaggedString/Classes/**/*.h'
+    core.private_header_files = 'ZSWTaggedString/Private/**/*.h'  
+  end
+
+  s.subspec 'Swift' do |swift|
+    swift.dependency 'ZSWTaggedString/Core'
+    swift.source_files = 'ZSWTaggedString/Classes/**/*.swift', 'ZSWTaggedString/Private/**/*.swift'
+  end
 end

@@ -51,6 +51,7 @@ end
 
 target 'ZSWTaggedString', :exclusive => true do
   pod "ZSWTaggedString", :path => "../"
+  pod "ZSWTaggedString/Swift", :path => "../"
 
   pod 'Specta'
   pod 'Expecta'
