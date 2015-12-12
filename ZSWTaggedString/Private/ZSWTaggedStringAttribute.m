@@ -20,6 +20,22 @@
     return attribute;
 }
 
+- (BOOL)isEqual:(ZSWTaggedStringAttribute *)object {
+    if (![object isKindOfClass:[self class]]) {
+        return NO;
+    }
+    
+    if (object->_staticDictionary != self->_staticDictionary && ![object->_staticDictionary isEqualToDictionary:self->_staticDictionary]) {
+        return NO;
+    }
+    
+    if (object->_dynamicAttributes != self->_dynamicAttributes) {
+        return NO;
+    }
+    
+    return YES;
+}
+
 - (NSDictionary<NSString *, id> *)attributesForTag:(ZSWStringParserTag *)tag forString:(NSAttributedString *)string {
     if (self.staticDictionary) {
         return self.staticDictionary;

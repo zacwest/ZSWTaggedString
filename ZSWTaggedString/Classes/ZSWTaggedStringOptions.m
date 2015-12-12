@@ -87,6 +87,10 @@ static ZSWTaggedStringOptions *ZSWStringParserDefaultOptions;
         return NO;
     }
     
+    if (![object.unknownTagWrapper isEqual:self.unknownTagWrapper]) {
+        return NO;
+    }
+    
     return YES;
 }
 
