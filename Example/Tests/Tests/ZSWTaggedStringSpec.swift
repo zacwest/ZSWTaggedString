@@ -8,7 +8,7 @@
 
 import Quick
 import Nimble
-import ZSWTaggedString.Private
+@testable import ZSWTaggedString
 
 class ZSWTaggedStringTests: QuickSpec { override func spec() {
     context("initialization") {
