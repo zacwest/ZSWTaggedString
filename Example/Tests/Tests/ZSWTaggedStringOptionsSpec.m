@@ -57,9 +57,6 @@ describe(@"ZSWTaggedStringOptions", ^{
         
         beforeEach(^{
             options = data[@"o"];
-            [options setUnknownTagDynamicAttributes:^NSDictionary *(NSString *tagName, NSDictionary *tagAttributes, NSDictionary *existingAttributes) {
-                return @{@"a": @"b"};
-            }];
         });
         
         describe(@"when copied", ^{
@@ -73,6 +70,27 @@ describe(@"ZSWTaggedStringOptions", ^{
                 expect(copiedOptions).to.equal(options);
                 expect(copiedOptions.hash).to.equal(options.hash);
             });
+        });
+    });
+    
+    describe(@"options with everything set", ^{
+        __block ZSWTaggedStringOptions *options;
+        
+        beforeEach(^{
+            options = [[ZSWTaggedStringOptions alloc] init];
+            
+            options.baseAttributes = @{ @"b": @"c" };
+            [options setAttributes:@{ @"d": @"a" } forTagName:@"abc"];
+            [options setDynamicAttributes:^NSDictionary<NSString *,id> * _Nonnull(NSString * _Nonnull tagName, NSDictionary<NSString *,id> * _Nonnull tagAttributes, NSDictionary<NSString *,id> * _Nonnull existingStringAttributes) {
+                return @{ @"c": @"d" };
+            } forTagName:@"xyz"];
+            [options setUnknownTagDynamicAttributes:^NSDictionary *(NSString *tagName, NSDictionary *tagAttributes, NSDictionary *existingAttributes) {
+                return @{ @"q": @"z" };
+            }];
+        });
+        
+        itShouldBehaveLike(@"a happy options", ^{
+            return @{ @"o": options };
         });
     });
     
@@ -134,6 +152,10 @@ describe(@"ZSWTaggedStringOptions", ^{
                 expect(string).to.haveAttributeWithEnd(NSForegroundColorAttributeName, [UIColor redColor], p_whole.start, p_whole.end);
                 expect(string).to.haveAttributeWithEnd(NSFontAttributeName, [UIFont systemFontOfSize:12.0], p_whole.start, p_whole.end);
             });
+            
+            itShouldBehaveLike(@"a happy options", ^{
+                return @{ @"o": options };
+            });
         });
         
         describe(@"when creating a string with non-overlapping tags", ^{
@@ -146,6 +168,10 @@ describe(@"ZSWTaggedStringOptions", ^{
                 
                 [options setAttributes:@{ NSForegroundColorAttributeName: [UIColor greenColor] } forTagName:@"s1"];
                 [options setAttributes:@{ NSForegroundColorAttributeName: [UIColor blueColor] } forTagName:@"s2"];
+            });
+            
+            itShouldBehaveLike(@"a happy options", ^{
+                return @{ @"o": options };
             });
             
             it(@"should produce the right string", ^{
@@ -181,6 +207,10 @@ describe(@"ZSWTaggedStringOptions", ^{
                     return @{ NSForegroundColorAttributeName: [UIColor grayColor],
                               NSUnderlineStyleAttributeName: @(NSUnderlineStyleDouble) };
                 } forTagName:@"i"];
+            });
+            
+            itShouldBehaveLike(@"a happy options", ^{
+                return @{ @"o": options };
             });
             
             it(@"should produce the right string", ^{
@@ -246,6 +276,10 @@ describe(@"ZSWTaggedStringOptions", ^{
                         return nil;
                     }
                 }];
+            });
+            
+            itShouldBehaveLike(@"a happy options", ^{
+                return @{ @"o": options };
             });
             
             it(@"should produce the right string", ^{
@@ -316,6 +350,10 @@ describe(@"ZSWTaggedStringOptions", ^{
             [girthybob addRawTagAttributes:@"type=girthy"];
             
             tags = @[ normalbob, girthybob ];
+        });
+        
+        itShouldBehaveLike(@"a happy options", ^{
+            return @{ @"o": options };
         });
         
         it(@"should differentiate between the bob types where both have things", ^{
