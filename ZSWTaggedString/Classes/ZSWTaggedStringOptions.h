@@ -25,6 +25,7 @@ typedef NSDictionary<NSString *, id> * _Nonnull(^ZSWDynamicAttributes)(NSString 
 
 + (ZSWTaggedStringOptions *)options;
 + (ZSWTaggedStringOptions *)optionsWithBaseAttributes:(NSDictionary<NSString *, id> *)attributes;
+- (instancetype)initWithBaseAttributes:(NSDictionary<NSString *, id> *)attributes;
 
 @property (nonatomic, copy) NSDictionary<NSString *, id> *baseAttributes;
 
