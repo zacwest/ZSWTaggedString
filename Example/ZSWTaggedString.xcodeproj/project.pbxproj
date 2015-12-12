@@ -15,6 +15,7 @@
 		1164EAF31A9A811C0004DD7C /* READMEExamples.m in Sources */ = {isa = PBXBuildFile; fileRef = 1164EAF21A9A811C0004DD7C /* READMEExamples.m */; };
 		1169EDB61C15174D0039CBBC /* ZSWTaggedStringSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1169EDB51C15174D0039CBBC /* ZSWTaggedStringSpec.swift */; };
 		11BF87761A9A9F870067E208 /* OCMArg+ZSWCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BF87751A9A9F870067E208 /* OCMArg+ZSWCapture.m */; };
+		11FF5D7B1C1CD13600E4A925 /* ZSWTaggedStringOptionsSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11FF5D7A1C1CD13600E4A925 /* ZSWTaggedStringOptionsSpec.swift */; };
 		6003F5B0195388D20070C39A /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F5AF195388D20070C39A /* XCTest.framework */; };
 		6003F5B1195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F5B2195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
@@ -33,6 +34,7 @@
 		11BF87741A9A9F870067E208 /* OCMArg+ZSWCapture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "OCMArg+ZSWCapture.h"; sourceTree = "<group>"; };
 		11BF87751A9A9F870067E208 /* OCMArg+ZSWCapture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "OCMArg+ZSWCapture.m"; sourceTree = "<group>"; };
 		11D5C7231C1288710009C165 /* ZSWTaggedString-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZSWTaggedString-Bridging-Header.h"; sourceTree = "<group>"; };
+		11FF5D7A1C1CD13600E4A925 /* ZSWTaggedStringOptionsSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZSWTaggedStringOptionsSpec.swift; sourceTree = "<group>"; };
 		1C0C24AC1700D5EF79DDDB40 /* Pods-ZSWTaggedString.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZSWTaggedString.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZSWTaggedString/Pods-ZSWTaggedString.debug.xcconfig"; sourceTree = "<group>"; };
 		29F239F27D53397EE3925329 /* Pods_ZSWTaggedString.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZSWTaggedString.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58A195388D20070C39A /* ZSWTaggedString.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZSWTaggedString.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -85,6 +87,7 @@
 				1164EAF01A9A7FA30004DD7C /* ZSWStringParserSpec.m */,
 				1164EAF21A9A811C0004DD7C /* READMEExamples.m */,
 				11D5C7231C1288710009C165 /* ZSWTaggedString-Bridging-Header.h */,
+				11FF5D7A1C1CD13600E4A925 /* ZSWTaggedStringOptionsSpec.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -282,6 +285,7 @@
 				1164EAEF1A9A68A30004DD7C /* ZSWTaggedStringOptionsSpec.m in Sources */,
 				1120E23B1A990D870017FA50 /* ZSWMatchers+haveAttribute.m in Sources */,
 				1164EAF31A9A811C0004DD7C /* READMEExamples.m in Sources */,
+				11FF5D7B1C1CD13600E4A925 /* ZSWTaggedStringOptionsSpec.swift in Sources */,
 				1169EDB61C15174D0039CBBC /* ZSWTaggedStringSpec.swift in Sources */,
 				1164EAF11A9A7FA30004DD7C /* ZSWStringParserSpec.m in Sources */,
 				11BF87761A9A9F870067E208 /* OCMArg+ZSWCapture.m in Sources */,
