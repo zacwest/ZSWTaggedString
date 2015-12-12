@@ -84,10 +84,10 @@
 				1169EDB51C15174D0039CBBC /* ZSWTaggedStringSpec.swift */,
 				1164EAEC1A991B980004DD7C /* ZSWStringParserTagSpec.m */,
 				1164EAEE1A9A68A30004DD7C /* ZSWTaggedStringOptionsSpec.m */,
+				11FF5D7A1C1CD13600E4A925 /* ZSWTaggedStringOptionsSpec.swift */,
 				1164EAF01A9A7FA30004DD7C /* ZSWStringParserSpec.m */,
 				1164EAF21A9A811C0004DD7C /* READMEExamples.m */,
 				11D5C7231C1288710009C165 /* ZSWTaggedString-Bridging-Header.h */,
-				11FF5D7A1C1CD13600E4A925 /* ZSWTaggedStringOptionsSpec.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
