@@ -23,6 +23,19 @@ ZSWTaggedStringOptions *options = [ZSWTaggedStringOptions options];
 NSLog(@"%@", [taggedString attributedStringWithOptions:options]);
 ```
 
+```swift
+let localizedString = NSLocalizedString("bowties are <b>cool</b>", comment: "");
+let taggedString = ZSWTaggedString(string: localizedString)
+
+let options = ZSWTaggedStringOptions()
+options["b"] = .Static([
+    NSFontAttributeName: UIFont.boldSystemFontOfSize(18.0)
+])
+
+let attributedString = try! taggedString.attributedStringWithOptions(options)
+print(attributedString)
+```
+
 This produces an attributed string where the "cool" substring is bold, and the rest undefined:
 
 ```objective-c
@@ -78,6 +91,54 @@ ZSWTaggedStringOptions *options = [ZSWTaggedStringOptions options];
 } forTagName:@"story"];
 ```
 
+```swift
+let story1 = Story(type: .One, name: "on<e")
+let story2 = Story(type: .Two, name: "tw<o")
+
+func storyWrap(story: Story) -> String {
+    // You should separate data-level tags from the localized strings
+    // so you can iterate on their definition without the .strings changing
+    // Ideally you'd place this on the Story class itself.
+    return String(format: "<story type='%d'>%@</story>",
+        story.type.rawValue, ZSWEscapedStringForString(story.name))
+}
+
+let format = NSLocalizedString("Pick: %@ <i>or</i> %@", comment: "On the story, ...");
+let string = ZSWTaggedString(format: format, storyWrap(story1), storyWrap(story2))
+
+let options = ZSWTaggedStringOptions()
+
+// Base attributes apply to the whole string, before any tag attributes.
+options.baseAttributes = [
+    NSFontAttributeName: UIFont.systemFontOfSize(14.0),
+    NSForegroundColorAttributeName: UIColor.grayColor()
+]
+
+// Normal attributes just add their attributes to the attributed string.
+options["i"] = .Static([
+    NSFontAttributeName: UIFont.italicSystemFontOfSize(14.0)
+])
+
+// Dynamic attributes give you an opportunity to decide what to do for each tag
+options["story"] = .Dynamic({ tagName, tagAttributes, existingAttributes in
+    var attributes = [String: AnyObject]()
+    
+    guard let rawType = tagAttributes["type"] as? Int,
+        let type = Story.StoryType(rawValue: rawType) else {
+            return attributes
+    }
+    
+    switch type {
+    case .One:
+        attributes[NSForegroundColorAttributeName] = UIColor.redColor()
+    case .Two:
+        attributes[NSForegroundColorAttributeName] = UIColor.orangeColor()
+    }
+    
+    return attributes
+})
+```
+
 Your localizer now sees a more reasonable localized string:
 
 ```json
@@ -117,8 +178,37 @@ ZSWTaggedStringOptions *options = [ZSWTaggedStringOptions options];
         return @{ NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle) };
     }
     
-    return (NSDictionary *)nil;
+    return @{};
 }];
+```
+
+```swift
+let options = ZSWTaggedStringOptions()
+
+options.baseAttributes = [
+    NSFontAttributeName: UIFont.systemFontOfSize(12.0)
+]
+
+options.unknownTagAttributes = .Dynamic({ tagName, tagAttributes, existingAttributes in
+    var attributes = [String: AnyObject]()
+    
+    if let font = existingAttributes[NSFontAttributeName] as? UIFont {
+        switch tagName {
+        case "b":
+            attributes[NSFontAttributeName] = UIFont.boldSystemFontOfSize(font.pointSize)
+        case "i":
+            attributes[NSFontAttributeName] = UIFont.italicSystemFontOfSize(font.pointSize)
+        default:
+            break
+        }
+    }
+    
+    if tagName == "u" {
+        attributes[NSUnderlineStyleAttributeName] = NSUnderlineStyle.StyleSingle.rawValue
+    }
+    
+    return attributes
+})
 ```
 
 The library does not provide this functionality by default because custom or inexplicit fonts and dynamic type make this behavior unpredictable. You can use `-[ZSWTaggedStringOptions registerDefaultOptions:]` to keep a global default set of options with something like the above.

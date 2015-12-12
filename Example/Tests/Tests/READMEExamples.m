@@ -102,7 +102,7 @@ describe(@"READMEExamples", ^{
                 return @{ NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle) };
             }
             
-            return (NSDictionary *)nil;
+            return @{};
         }];
         
         ZSWTaggedString *string = [ZSWTaggedString stringWithString:@"<u>underline</u> <i>italic<u>andunder</u></i> <b>bo<u>l<i>d</i></u></b>"];
