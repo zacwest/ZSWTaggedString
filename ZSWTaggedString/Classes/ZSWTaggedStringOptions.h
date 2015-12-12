@@ -33,9 +33,6 @@ typedef NSDictionary<NSString *, id> * _Nonnull(^ZSWDynamicAttributes)(NSString 
 
 @property (nullable, nonatomic, copy) ZSWDynamicAttributes unknownTagDynamicAttributes;
 
-// nil values are no longer acceptable in ZSWTaggedString initialization
-@property (nonatomic) BOOL returnEmptyStringForNil DEPRECATED_ATTRIBUTE;
-
 @end
 
 NS_ASSUME_NONNULL_END
