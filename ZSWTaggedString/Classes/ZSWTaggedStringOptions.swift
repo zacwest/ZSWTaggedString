@@ -9,8 +9,28 @@
 import ZSWTaggedString.Private
 
 extension ZSWTaggedStringOptions {
+    /**
+     Dynamic attributes executed for a tag
+     
+     Below parameters are for an example tag of:
+     
+     `<a href="http://google.com">`
+     
+     - Parameter tagName: This would be `"a"` in the example.
+     - Parameter tagAttributes: This would be `["href": "http://google.com"]` in the example.
+     - Parameter existingStringAttributes: The attributes for the generated attributed string at the given tag start location before applying the given attributes.
+     
+     - Returns: The `NSAttributedString` attributes you wish to be applied for the tag.
+     
+     */
     public typealias DynamicAttributes = (tagName: String, tagAttributes: [String: AnyObject], existingStringAttributes: [String: AnyObject]) -> [String: AnyObject]
     
+    /**
+     Attributes to be applied to an attributed string.
+     
+     - Dynamic: Takes input about the tag to generate values.
+     - Static: Always returns the same attributes.
+     */
     public enum Attributes {
         case Dynamic(DynamicAttributes)
         case Static([String: AnyObject])
@@ -39,6 +59,12 @@ extension ZSWTaggedStringOptions {
         }
     }
     
+    /**
+     Attributes to be applied for an unknown tag.
+     
+     For example, if you do not specify attributes for the tag `"a"` and your
+     string contains it, these attributes would be invoked for it.
+     */
     public var unknownTagAttributes: Attributes? {
         get {
             if let wrapper = unknownTagWrapper {
@@ -52,6 +78,11 @@ extension ZSWTaggedStringOptions {
         }
     }
     
+    /**
+     Attributes for a given tag name.
+     
+     For example, use the subscript `"a"` to set the attributes for that tag.
+     */
     public subscript (tagName: String) -> Attributes? {
         get {
             if let currentValue = tagToAttributesMap[tagName] {
@@ -64,6 +95,4 @@ extension ZSWTaggedStringOptions {
             setWrapper(newValue?.wrapper, forTagName: tagName)
         }
     }
-    
-    
 }
