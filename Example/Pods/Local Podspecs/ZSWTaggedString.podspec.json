@@ -20,6 +20,10 @@
     "tvos": "9.0"
   },
   "default_subspecs": "Core",
+  "module_map": "ZSWTaggedString/ZSWTaggedString.modulemap",
+  "pod_target_xcconfig": {
+    "APPLICATION_EXTENSION_API_ONLY": "YES"
+  },
   "subspecs": [
     {
       "name": "Core",

@@ -5,4 +5,3 @@
 
 FOUNDATION_EXPORT double ZSWTaggedStringVersionNumber;
 FOUNDATION_EXPORT const unsigned char ZSWTaggedStringVersionString[];
-
