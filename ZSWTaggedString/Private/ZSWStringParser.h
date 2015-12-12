@@ -36,6 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)setWrapper:(nullable ZSWTaggedStringAttribute *)attribute forTagName:(NSString *)tagName;
 
+@property (nullable, nonatomic) ZSWTaggedStringAttribute *unknownTagWrapper;
 @property (nonatomic) NSDictionary<NSString *, ZSWTaggedStringAttribute *> *tagToAttributesMap;
 - (void)updateAttributedString:(NSMutableAttributedString *)string
                updatedWithTags:(NSArray *)tags;

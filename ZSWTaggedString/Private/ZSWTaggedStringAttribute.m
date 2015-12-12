@@ -6,7 +6,8 @@
 //
 //
 
-#import "ZSWTaggedStringAttribute.h"
+#import <ZSWTaggedString/ZSWTaggedStringAttribute.h>
+#import <ZSWTaggedString/ZSWStringParserTag.h>
 
 @implementation ZSWTaggedStringAttribute
 @synthesize staticDictionary = _staticDictionary;
@@ -17,6 +18,19 @@
     attribute->_staticDictionary = _staticDictionary;
     attribute->_dynamicAttributes = _dynamicAttributes;
     return attribute;
+}
+
+- (NSDictionary<NSString *, id> *)attributesForTag:(ZSWStringParserTag *)tag forString:(NSAttributedString *)string {
+    if (self.staticDictionary) {
+        return self.staticDictionary;
+    }
+    
+    if (self.dynamicAttributes) {
+        NSDictionary *existingAttributes = [string attributesAtIndex:tag.location effectiveRange:NULL];
+        return self.dynamicAttributes(tag.tagName, tag.tagAttributes, existingAttributes);
+    }
+    
+    return @{};
 }
 
 @end

@@ -32,7 +32,7 @@ typedef NSDictionary<NSString *, id> * _Nonnull(^ZSWDynamicAttributes)(NSString 
 - (void)setAttributes:(nullable NSDictionary<NSString *, id> *)attributes forTagName:(NSString *)tagName NS_SWIFT_UNAVAILABLE("Use the enum-ful replacement. You may need to include the Swift subpod.");
 - (void)setDynamicAttributes:(nullable ZSWDynamicAttributes)dynamicAttributes forTagName:(NSString *)tagName NS_SWIFT_UNAVAILABLE("Use the enum-ful replacement. You may need to include the Swift subpod.");
 
-@property (nullable, nonatomic, copy) ZSWDynamicAttributes unknownTagDynamicAttributes;
+@property (nullable, nonatomic, copy) ZSWDynamicAttributes unknownTagDynamicAttributes NS_SWIFT_UNAVAILABLE("Use the enum-ful replacement. You may need to include the Swift subpod.");
 
 @end
 

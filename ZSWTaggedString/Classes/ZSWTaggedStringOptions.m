@@ -140,6 +140,16 @@ static ZSWTaggedStringOptions *ZSWStringParserDefaultOptions;
     [self setWrapper:attribute forTagName:tagName];
 }
 
+- (void)setUnknownTagDynamicAttributes:(ZSWDynamicAttributes)unknownTagDynamicAttributes {
+    ZSWTaggedStringAttribute *attribute = [[ZSWTaggedStringAttribute alloc] init];
+    attribute.dynamicAttributes = unknownTagDynamicAttributes;
+    self.unknownTagWrapper = attribute;
+}
+
+- (ZSWDynamicAttributes)unknownTagDynamicAttributes {
+    return self.unknownTagWrapper.dynamicAttributes;
+}
+
 #pragma mark - Internal/updating
 - (void)updateAttributedString:(NSMutableAttributedString *)string
                updatedWithTags:(NSArray *)tags {
@@ -147,23 +157,16 @@ static ZSWTaggedStringOptions *ZSWStringParserDefaultOptions;
     
     [string setAttributes:self.baseAttributes range:NSMakeRange(0, string.length)];
     
+    ZSWTaggedStringAttribute *unknownTagWrapper = self.unknownTagWrapper;
+    
     for (ZSWStringParserTag *tag in tags) {
         ZSWTaggedStringAttribute *tagValue = self.tagToAttributesMap[tag.tagName.lowercaseString];
-        NSDictionary *attributes = nil;
+        NSDictionary<NSString *, id> *attributes = nil;
         
         if (tagValue) {
-            if (tagValue.staticDictionary) {
-                attributes = tagValue.staticDictionary;
-            } else if (tagValue.dynamicAttributes) {
-                NSDictionary *existingAttributes = [string attributesAtIndex:tag.location effectiveRange:NULL];
-                
-                ZSWDynamicAttributes dynamicAttributes = tagValue.dynamicAttributes;
-                attributes = dynamicAttributes(tag.tagName, tag.tagAttributes, existingAttributes);
-            }
-        } else if (self.unknownTagDynamicAttributes) {
-            NSDictionary *existingAttributes = [string attributesAtIndex:tag.location effectiveRange:NULL];
-            
-            attributes = self.unknownTagDynamicAttributes(tag.tagName, tag.tagAttributes, existingAttributes);
+            attributes = [tagValue attributesForTag:tag forString:string];
+        } else if (unknownTagWrapper) {
+            attributes = [unknownTagWrapper attributesForTag:tag forString:string];
         }
         
         if (attributes) {
