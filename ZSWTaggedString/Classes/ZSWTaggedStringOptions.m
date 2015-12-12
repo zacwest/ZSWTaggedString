@@ -66,33 +66,11 @@ static ZSWTaggedStringOptions *ZSWStringParserDefaultOptions;
     return self;
 }
 
-+ (BOOL)supportsSecureCoding {
-    return YES;
-}
-
-- (id)initWithCoder:(NSCoder *)decoder {
-    self = [super init];
-    if (self) {
-        [self commonInit];
-        
-        self->_baseAttributes = [decoder decodeObjectOfClass:[NSDictionary class]
-                                                      forKey:ZSWSelector(baseAttributes)];
-        self->_tagToAttributesMap = [decoder decodeObjectOfClass:[NSDictionary class]
-                                                          forKey:ZSWSelector(tagToAttributesMap)];
-        
-    }
-    return self;
-}
-
-- (void)encodeWithCoder:(NSCoder *)coder {
-    [coder encodeObject:self.baseAttributes forKey:ZSWSelector(baseAttributes)];
-    [coder encodeObject:self.tagToAttributesMap forKey:ZSWSelector(tagToAttributesMap)];
-}
-
 - (id)copyWithZone:(NSZone *)zone {
     ZSWTaggedStringOptions *options = [[[self class] allocWithZone:zone] init];
     options->_baseAttributes = self->_baseAttributes;
     options->_tagToAttributesMap = self->_tagToAttributesMap;
+    options->_unknownTagWrapper = self->_unknownTagWrapper;
     return options;
 }
 
