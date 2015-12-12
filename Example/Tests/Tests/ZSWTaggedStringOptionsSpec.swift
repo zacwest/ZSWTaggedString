@@ -52,7 +52,7 @@ class ZSWTaggedStringOptionsSpec: QuickSpec { override func spec() {
             case .Static(_):
                 fail("Retrieved a static when expecting dynamic")
             case .Dynamic(let block):
-                let attributes = block("a", [String: AnyObject](), [String: AnyObject]())
+                let attributes = block(tagName: "a", tagAttributes: [String: AnyObject](), existingStringAttributes: [String: AnyObject]())
                 expect(attributes["key"] as? Bool) == true
             }
         }

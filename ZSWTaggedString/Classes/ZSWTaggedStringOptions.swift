@@ -9,8 +9,10 @@
 import ZSWTaggedString.Private
 
 extension ZSWTaggedStringOptions {
+    public typealias DynamicAttributes = (tagName: String, tagAttributes: [String: AnyObject], existingStringAttributes: [String: AnyObject]) -> [String: AnyObject]
+
     public enum Attributes {
-        case Dynamic(ZSWDynamicAttributes)
+        case Dynamic(DynamicAttributes)
         case Static([String: AnyObject])
     }
     

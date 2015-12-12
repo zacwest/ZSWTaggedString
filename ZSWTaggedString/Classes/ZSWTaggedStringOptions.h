@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef NSDictionary<NSString *, id> * _Nonnull(^ZSWDynamicAttributes)(NSString *_Nonnull tagName, NSDictionary<NSString *, id> *_Nonnull tagAttributes, NSDictionary<NSString *, id> *_Nonnull existingStringAttributes);
+typedef NSDictionary<NSString *, id> * _Nonnull(^ZSWDynamicAttributes)(NSString *_Nonnull tagName, NSDictionary<NSString *, id> *_Nonnull tagAttributes, NSDictionary<NSString *, id> *_Nonnull existingStringAttributes) NS_SWIFT_UNAVAILABLE("Use the enumful setters, which have a better closure wrapper with names");
 
 @interface ZSWTaggedStringOptions : NSObject <NSCopying, NSSecureCoding>
 
