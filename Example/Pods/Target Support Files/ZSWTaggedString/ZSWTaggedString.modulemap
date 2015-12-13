@@ -3,10 +3,8 @@ framework module ZSWTaggedString {
 
   export *
   module * { export * }
-  
-  explicit module Private {
-      header "ZSWStringParser.h"
-      header "ZSWStringParserTag.h"
-      header "ZSWTaggedStringAttribute.h"
-  }
+
+  private header "ZSWStringParser.h"
+  private header "ZSWStringParserTag.h"
+  private header "ZSWTaggedStringAttribute.h"
 }

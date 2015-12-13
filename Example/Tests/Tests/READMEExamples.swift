@@ -31,6 +31,9 @@ class READMEExamplesSpec: QuickSpec { override func spec() {
         let taggedString = ZSWTaggedString(string: localizedString)
         
         let options = ZSWTaggedStringOptions()
+        
+        options.unknownTagWrapper = nil
+        
         options["b"] = .Static([
             NSFontAttributeName: UIFont.boldSystemFontOfSize(18.0)
         ])

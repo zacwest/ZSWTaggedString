@@ -4,10 +4,10 @@ PODS:
   - OCMock (3.2)
   - Quick (0.8.0)
   - Specta (1.0.5)
-  - ZSWTaggedString (1.1):
-    - ZSWTaggedString/Core (= 1.1)
-  - ZSWTaggedString/Core (1.1)
-  - ZSWTaggedString/Swift (1.1):
+  - ZSWTaggedString (2.0):
+    - ZSWTaggedString/Core (= 2.0)
+  - ZSWTaggedString/Core (2.0)
+  - ZSWTaggedString/Swift (2.0):
     - ZSWTaggedString/Core
 
 DEPENDENCIES:
@@ -29,6 +29,6 @@ SPEC CHECKSUMS:
   OCMock: 28def049ef47f996b515a8eeea958be7ccab2dbb
   Quick: 563d0f6ec5f72e394645adb377708639b7dd38ab
   Specta: ac94d110b865115fe60ff2c6d7281053c6f8e8a2
-  ZSWTaggedString: 64c7b7ace025e08639f4c66757adf36ddf9755db
+  ZSWTaggedString: fec2c38dbd7d3ae5e3a28ab957a51c477a90fab3
 
 COCOAPODS: 0.39.0

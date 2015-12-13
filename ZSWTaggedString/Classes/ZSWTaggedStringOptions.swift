@@ -6,7 +6,7 @@
 //
 //
 
-import ZSWTaggedString.Private
+import ZSWTaggedString
 
 extension ZSWTaggedStringOptions {
     /**
