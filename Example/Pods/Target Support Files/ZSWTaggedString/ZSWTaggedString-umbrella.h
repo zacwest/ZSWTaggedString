@@ -1,6 +1,5 @@
 #import <UIKit/UIKit.h>
 
-#import "ZSWTaggedString-umbrella.h"
 #import "ZSWTaggedString.h"
 #import "ZSWTaggedStringOptions.h"
 
