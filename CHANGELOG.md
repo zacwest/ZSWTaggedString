@@ -22,7 +22,10 @@ options["b"] = .Dynamic({ tagName, tagAttributes, existingAttributes in
 
 This release also fixes `ZSWTaggedString` initialization methods `init(string:)` and `init(format:...)` under Swift.
 
-**Incompatibility note:** Nullability annotations for `ZSWTaggedString` mark its input as non-null. If you provide a `nil` string to initialize it, it will convert this to `@""` internally, and return `@""` when asked for attributed/unattributed versions.
+**Incompatibility notes:** 
+
+- `ZSWTaggedString` no longer accepts `nil` input; it will convert any `nil` input into `@""`.
+- `ZSWTaggedStringOptions.returnEmptyStringForNil` flag has been removed.
 
 # 1.1 (2015-06-24)
 
