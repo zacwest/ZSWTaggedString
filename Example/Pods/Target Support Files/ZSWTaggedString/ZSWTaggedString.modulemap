@@ -6,5 +6,6 @@ framework module ZSWTaggedString {
 
   private header "ZSWStringParser.h"
   private header "ZSWStringParserTag.h"
+  private header "ZSWTaggedString_Private.h"
   private header "ZSWTaggedStringAttribute.h"
 }

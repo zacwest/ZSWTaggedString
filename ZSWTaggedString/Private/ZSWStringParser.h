@@ -27,19 +27,4 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface ZSWTaggedString()
-@property (nonatomic, copy) NSString *underlyingString;
-@end
-
-@interface ZSWTaggedStringOptions()
-+ (ZSWTaggedStringOptions *)defaultOptionsNoCopy;
-
-- (void)setWrapper:(nullable ZSWTaggedStringAttribute *)attribute forTagName:(NSString *)tagName;
-
-@property (nullable, nonatomic) ZSWTaggedStringAttribute *unknownTagWrapper;
-@property (nonatomic) NSDictionary<NSString *, ZSWTaggedStringAttribute *> *tagToAttributesMap;
-- (void)updateAttributedString:(NSMutableAttributedString *)string
-               updatedWithTags:(NSArray *)tags;
-@end
-
 NS_ASSUME_NONNULL_END

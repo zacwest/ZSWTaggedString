@@ -7,7 +7,6 @@
 //
 
 @import ZSWTaggedString;
-@import ZSWTaggedString.Private;
 
 SpecBegin(ZSWTaggedString)
 

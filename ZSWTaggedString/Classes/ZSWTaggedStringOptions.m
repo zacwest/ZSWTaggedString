@@ -10,6 +10,8 @@
 #import <ZSWTaggedString/ZSWStringParser.h>
 #import <ZSWTaggedString/ZSWStringParserTag.h>
 
+#import <ZSWTaggedString/ZSWTaggedString_Private.h>
+
 @implementation ZSWTaggedStringOptions
 
 static ZSWTaggedStringOptions *ZSWStringParserDefaultOptions;
