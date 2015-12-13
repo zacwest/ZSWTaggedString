@@ -6,8 +6,6 @@
 //
 //
 
-import ZSWTaggedString
-
 extension ZSWTaggedStringOptions {
     /**
      Dynamic attributes executed for a tag
