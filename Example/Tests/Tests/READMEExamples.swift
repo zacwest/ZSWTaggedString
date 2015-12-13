@@ -12,8 +12,8 @@ import Nimble
 import ZSWTaggedString
 
 class Story {
-    enum StoryType: Int {
-        case One = 0, Two = 1
+    enum StoryType: String {
+        case One = "one", Two = "two"
     }
     
     let type: StoryType
@@ -71,8 +71,8 @@ class READMEExamplesSpec: QuickSpec { override func spec() {
         options["story"] = .Dynamic({ tagName, tagAttributes, existingAttributes in
             var attributes = [String: AnyObject]()
             
-            guard let rawType = tagAttributes["type"] as? Int,
-                let type = Story.StoryType(rawValue: rawType) else {
+            guard let typeString = tagAttributes["type"] as? String,
+                let type = Story.StoryType(rawValue: typeString) else {
                     return attributes
             }
             
