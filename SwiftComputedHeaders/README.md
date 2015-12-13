@@ -1,0 +1,1 @@
+I find it useful to browse in GitHub the computed headers for a Swift library. This directory contains the version Xcode will expose to you when you import this project.
