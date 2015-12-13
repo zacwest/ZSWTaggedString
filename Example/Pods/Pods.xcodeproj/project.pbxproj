@@ -124,7 +124,6 @@
 		67459AD239EF669A365519E06B45DCFE /* EXPExpect.h in Headers */ = {isa = PBXBuildFile; fileRef = E7AEA7BEBD86A66920B59C1EB264EC7D /* EXPExpect.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		675476A9B1D417C55F721BF63DDC560B /* QuickSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 838B689AC6382336D95D3EF742DF6AB7 /* QuickSpec.m */; };
 		67D9293880E8AF63FC57451543BFEC9E /* QuickSpec.h in Headers */ = {isa = PBXBuildFile; fileRef = 9030EC5AE48D691EABEE42E79D4CB90B /* QuickSpec.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		67EC83B8EBB1F83AF36E223706F0A84F /* ZSWTaggedString-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F2CC72BA3C3057B0C4A59131EB79BCA /* ZSWTaggedString-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		686B378129E94577605E62FD1572EFD3 /* OCMExpectationRecorder.h in Headers */ = {isa = PBXBuildFile; fileRef = 245AF593A0B42CEC91E4B2270A6240CF /* OCMExpectationRecorder.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		69CB28B1446963CE44FD81251FC9B338 /* OCMRealObjectForwarder.h in Headers */ = {isa = PBXBuildFile; fileRef = 598163CAEB744789068F68DA55FF46BE /* OCMRealObjectForwarder.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		6AF616BB32029CFC20FC46C45D17AB08 /* ZSWTaggedStringAttribute.h in Headers */ = {isa = PBXBuildFile; fileRef = CC47C774AB11DA3008528DF4C4F9D0F0 /* ZSWTaggedStringAttribute.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -1302,8 +1301,6 @@
 			files = (
 				CA83C26F8CBC8C0A53A0D74176B31740 /* ZSWStringParser.h in Headers */,
 				4A441A6C81F26430383811A7113C2BEE /* ZSWStringParserTag.h in Headers */,
-				67EC83B8EBB1F83AF36E223706F0A84F /* ZSWTaggedString-umbrella.h in Headers */,
-				67EC83B8EBB1F83AF36E223706F0A84F /* ZSWTaggedString-umbrella.h in Headers */,
 				4345A7D71C88A11B052BE70FE1BA94C8 /* ZSWTaggedString.h in Headers */,
 				6AF616BB32029CFC20FC46C45D17AB08 /* ZSWTaggedStringAttribute.h in Headers */,
 				2980ACCC89DE21876C66F11C42F6D26C /* ZSWTaggedStringOptions.h in Headers */,
