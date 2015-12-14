@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Zachary West. All rights reserved.
 //
 
-#import "ZSWStringParserTag.h"
+@import ZSWTaggedString.Private;
 
 SpecBegin(ZSWStringParserTag)
 

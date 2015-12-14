@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Zachary West. All rights reserved.
 //
 
-#import "ZSWStringParser.h"
+@import ZSWTaggedString.Private;
 
 SpecBegin(ZSWTaggedString)
 
@@ -61,7 +61,8 @@ describe(@"ZSWTaggedString", ^{
                 beforeEach(^{
                     [[[mockParser expect] andReturn:@"yay"] stringWithTaggedString:taggedString
                                                                            options:[ZSWTaggedStringOptions defaultOptions]
-                                                                       returnClass:[NSString class]];
+                                                                       returnClass:[NSString class]
+                                                                             error:(NSError __autoreleasing **)[OCMArg anyPointer]];
                     
                     expect(taggedString.string).to.equal(@"yay");
                 });
@@ -78,7 +79,8 @@ describe(@"ZSWTaggedString", ^{
                     
                     [[[mockParser expect] andReturn:@"moo"] stringWithTaggedString:taggedString
                                                                            options:options
-                                                                       returnClass:[NSString class]];
+                                                                       returnClass:[NSString class]
+                                                                             error:(NSError __autoreleasing **)[OCMArg anyPointer]];
                     
                     expect([taggedString stringWithOptions:options]).to.equal(@"moo");
                 });
@@ -93,7 +95,8 @@ describe(@"ZSWTaggedString", ^{
                     NSAttributedString *string = [[NSAttributedString alloc] initWithString:@"hooray" attributes:nil];
                     [[[mockParser expect] andReturn:string] stringWithTaggedString:taggedString
                                                                            options:[ZSWTaggedStringOptions defaultOptions]
-                                                                       returnClass:[NSAttributedString class]];
+                                                                       returnClass:[NSAttributedString class]
+                                                                             error:(NSError __autoreleasing **)[OCMArg anyPointer]];
                     
                     expect(taggedString.attributedString).to.equal(string);
                 });
@@ -111,7 +114,8 @@ describe(@"ZSWTaggedString", ^{
                     
                     [[[mockParser expect] andReturn:string] stringWithTaggedString:taggedString
                                                                            options:options
-                                                                       returnClass:[NSAttributedString class]];
+                                                                       returnClass:[NSAttributedString class]
+                                                                             error:(NSError __autoreleasing **)[OCMArg anyPointer]];
                     
                     expect([taggedString attributedStringWithOptions:options]).to.equal(string);
                 });
@@ -127,11 +131,18 @@ describe(@"ZSWTaggedString", ^{
         __block ZSWTaggedString *taggedString;
         
         beforeEach(^{
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wnonnull"
             taggedString = [ZSWTaggedString stringWithString:nil];
+#pragma clang diagnostic pop
         });
         
         it(@"should still allow itself to be created", ^{
             expect(taggedString).toNot.beNil();
+        });
+        
+        it(@"should have set the underlying string to non-nil", ^{
+            expect(taggedString.underlyingString).to.equal(@"");
         });
         
         itShouldBehaveLike(@"a happy string", ^{ return @{ @"s": taggedString }; });

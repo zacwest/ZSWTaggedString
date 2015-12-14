@@ -1,2 +1,5 @@
+machine:
+  xcode:
+    version: 7.1
 general:
   build_dir: Example

@@ -6,22 +6,21 @@
 //  Copyright (c) 2015 Zachary West. All rights reserved.
 //
 
-#import "ZSWStringParser.h"
-#import "ZSWStringParserTag.h"
+@import ZSWTaggedString.Private;
 
 SpecBegin(ZSWTaggedStringOptions)
 
 describe(@"ZSWTaggedStringOptions", ^{
     beforeEach(^{
         // reset global state
-        [ZSWTaggedStringOptions registerDefaultOptions:nil];
+        [ZSWTaggedStringOptions registerDefaultOptions:[ZSWTaggedStringOptions options]];
     });
     
     describe(@"default options", ^{
         it(@"should return an empty options by default", ^{
             ZSWTaggedStringOptions *options = [ZSWTaggedStringOptions defaultOptions];
             expect(options.baseAttributes).to.haveCountOf(0);
-            expect(options.tagToAttributesMap).to.haveCountOf(0);
+            expect(options._private_tagToAttributesMap).to.haveCountOf(0);
         });
         
         it(@"should return copy of the options each time", ^{
@@ -60,20 +59,6 @@ describe(@"ZSWTaggedStringOptions", ^{
             options = data[@"o"];
         });
         
-        describe(@"when encoded and decoded", ^{
-            __block ZSWTaggedStringOptions *unarchivedOptions;
-            
-            beforeEach(^{
-                NSData *data = [NSKeyedArchiver archivedDataWithRootObject:options];
-                unarchivedOptions = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-            });
-            
-            it(@"should compare equal", ^{
-                expect(unarchivedOptions).to.equal(options);
-                expect(unarchivedOptions.hash).to.equal(options.hash);
-            });
-        });
-        
         describe(@"when copied", ^{
             __block ZSWTaggedString *copiedOptions;
             
@@ -85,6 +70,27 @@ describe(@"ZSWTaggedStringOptions", ^{
                 expect(copiedOptions).to.equal(options);
                 expect(copiedOptions.hash).to.equal(options.hash);
             });
+        });
+    });
+    
+    describe(@"options with everything set", ^{
+        __block ZSWTaggedStringOptions *options;
+        
+        beforeEach(^{
+            options = [[ZSWTaggedStringOptions alloc] init];
+            
+            options.baseAttributes = @{ @"b": @"c" };
+            [options setAttributes:@{ @"d": @"a" } forTagName:@"abc"];
+            [options setDynamicAttributes:^NSDictionary<NSString *,id> * _Nonnull(NSString * _Nonnull tagName, NSDictionary<NSString *,id> * _Nonnull tagAttributes, NSDictionary<NSString *,id> * _Nonnull existingStringAttributes) {
+                return @{ @"c": @"d" };
+            } forTagName:@"xyz"];
+            [options setUnknownTagDynamicAttributes:^NSDictionary *(NSString *tagName, NSDictionary *tagAttributes, NSDictionary *existingAttributes) {
+                return @{ @"q": @"z" };
+            }];
+        });
+        
+        itShouldBehaveLike(@"a happy options", ^{
+            return @{ @"o": options };
         });
     });
     
@@ -141,10 +147,14 @@ describe(@"ZSWTaggedStringOptions", ^{
             });
             
             it(@"should produce a string with attributes across the whole thing", ^{
-                [options updateAttributedString:string updatedWithTags:tags];
+                [options _private_updateAttributedString:string updatedWithTags:tags];
                 expect(string.string).to.equal(baseString);
                 expect(string).to.haveAttributeWithEnd(NSForegroundColorAttributeName, [UIColor redColor], p_whole.start, p_whole.end);
                 expect(string).to.haveAttributeWithEnd(NSFontAttributeName, [UIFont systemFontOfSize:12.0], p_whole.start, p_whole.end);
+            });
+            
+            itShouldBehaveLike(@"a happy options", ^{
+                return @{ @"o": options };
             });
         });
         
@@ -160,8 +170,12 @@ describe(@"ZSWTaggedStringOptions", ^{
                 [options setAttributes:@{ NSForegroundColorAttributeName: [UIColor blueColor] } forTagName:@"s2"];
             });
             
+            itShouldBehaveLike(@"a happy options", ^{
+                return @{ @"o": options };
+            });
+            
             it(@"should produce the right string", ^{
-                [options updateAttributedString:string updatedWithTags:tags];
+                [options _private_updateAttributedString:string updatedWithTags:tags];
                 expect(string.string).to.equal(baseString);
                 
                 expect(string).to.haveAttributeWithEnd(NSForegroundColorAttributeName, [UIColor greenColor], p_s1.start, p_s1.end);
@@ -195,8 +209,12 @@ describe(@"ZSWTaggedStringOptions", ^{
                 } forTagName:@"i"];
             });
             
+            itShouldBehaveLike(@"a happy options", ^{
+                return @{ @"o": options };
+            });
+            
             it(@"should produce the right string", ^{
-                [options updateAttributedString:string updatedWithTags:tags];
+                [options _private_updateAttributedString:string updatedWithTags:tags];
                 expect(string.string).to.equal(baseString);
                 
                 // the only global space left
@@ -260,8 +278,12 @@ describe(@"ZSWTaggedStringOptions", ^{
                 }];
             });
             
+            itShouldBehaveLike(@"a happy options", ^{
+                return @{ @"o": options };
+            });
+            
             it(@"should produce the right string", ^{
-                [options updateAttributedString:string updatedWithTags:tags];
+                [options _private_updateAttributedString:string updatedWithTags:tags];
                 expect(string.string).to.equal(baseString);
                 
                 // the only global space left
@@ -305,7 +327,7 @@ describe(@"ZSWTaggedStringOptions", ^{
         
         [options setAttributes:@{ NSForegroundColorAttributeName: [UIColor redColor] } forTagName:@"null"];
 
-        [options updateAttributedString:string updatedWithTags:@[ unreferencedTag ]];
+        [options _private_updateAttributedString:string updatedWithTags:@[ unreferencedTag ]];
         
         expect(string).to.equal([[NSAttributedString alloc] initWithString:@"santa claus" attributes:nil]);
     });
@@ -330,6 +352,10 @@ describe(@"ZSWTaggedStringOptions", ^{
             tags = @[ normalbob, girthybob ];
         });
         
+        itShouldBehaveLike(@"a happy options", ^{
+            return @{ @"o": options };
+        });
+        
         it(@"should differentiate between the bob types where both have things", ^{
             [options setDynamicAttributes:^(NSString *tagName, NSDictionary *tagAttributes, NSDictionary *existingAttributes) {
                 if ([tagAttributes[@"type"] isEqualToString:@"girthy"]) {
@@ -339,7 +365,7 @@ describe(@"ZSWTaggedStringOptions", ^{
                 }
             } forTagName:@"bob"];
             
-            [options updateAttributedString:string updatedWithTags:tags];
+            [options _private_updateAttributedString:string updatedWithTags:tags];
             
             expect(string).to.haveAttributeWithEnd(NSFontAttributeName, [UIFont systemFontOfSize:14.0], 0, 9);
             expect(string).to.haveAttributeWithEnd(NSFontAttributeName, nil, 9, 10);
@@ -355,7 +381,7 @@ describe(@"ZSWTaggedStringOptions", ^{
                 }
             } forTagName:@"bob"];
             
-            [options updateAttributedString:string updatedWithTags:tags];
+            [options _private_updateAttributedString:string updatedWithTags:tags];
             
             expect(string).to.haveAttributeWithEnd(NSFontAttributeName, nil, 0, 10);
             expect(string).to.haveAttributeWithEnd(NSFontAttributeName, [UIFont boldSystemFontOfSize:14.0], 10, 19);

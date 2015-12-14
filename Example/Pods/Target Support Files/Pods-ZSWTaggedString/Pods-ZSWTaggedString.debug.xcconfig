@@ -1,7 +1,8 @@
-FRAMEWORK_SEARCH_PATHS = $(inherited) $(DEVELOPER_FRAMEWORKS_DIR) "$(PLATFORM_DIR)/Developer/Library/Frameworks" "$(DEVELOPER_DIR)/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks" "$(SDKROOT)/Developer/Library/Frameworks" $(inherited) $(DEVELOPER_FRAMEWORKS_DIR) "$(PLATFORM_DIR)/Developer/Library/Frameworks" "$(DEVELOPER_DIR)/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks" "$(SDKROOT)/Developer/Library/Frameworks"
+EMBEDDED_CONTENT_CONTAINS_SWIFT = YES
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/Expecta" "${PODS_ROOT}/Headers/Public/OCMock" "${PODS_ROOT}/Headers/Public/Specta" "${PODS_ROOT}/Headers/Public/ZSWTaggedString"
-OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/Expecta" -isystem "${PODS_ROOT}/Headers/Public/OCMock" -isystem "${PODS_ROOT}/Headers/Public/Specta" -isystem "${PODS_ROOT}/Headers/Public/ZSWTaggedString"
-OTHER_LDFLAGS = $(inherited) -ObjC -l"Pods-ZSWTaggedString-Expecta" -l"Pods-ZSWTaggedString-OCMock" -l"Pods-ZSWTaggedString-Specta" -l"Pods-ZSWTaggedString-ZSWTaggedString" -framework "Foundation" -framework "XCTest"
-OTHER_LIBTOOLFLAGS = $(OTHER_LDFLAGS)
+LD_RUNPATH_SEARCH_PATHS = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks'
+OTHER_CFLAGS = $(inherited) -iquote "$CONFIGURATION_BUILD_DIR/Expecta.framework/Headers" -iquote "$CONFIGURATION_BUILD_DIR/Nimble.framework/Headers" -iquote "$CONFIGURATION_BUILD_DIR/OCMock.framework/Headers" -iquote "$CONFIGURATION_BUILD_DIR/Quick.framework/Headers" -iquote "$CONFIGURATION_BUILD_DIR/Specta.framework/Headers" -iquote "$CONFIGURATION_BUILD_DIR/ZSWTaggedString.framework/Headers"
+OTHER_LDFLAGS = $(inherited) -framework "Expecta" -framework "Nimble" -framework "OCMock" -framework "Quick" -framework "Specta" -framework "ZSWTaggedString"
+OTHER_SWIFT_FLAGS = $(inherited) "-D" "COCOAPODS"
+PODS_FRAMEWORK_BUILD_PATH = $(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/Pods-ZSWTaggedString
 PODS_ROOT = ${SRCROOT}/Pods
