@@ -1,4 +1,4 @@
-# 2.0
+# 2.0 (2015-12-13)
 
 Swift support! You will need to add the `ZSWTaggedString/Swift` dependency for this. This provides a cleaner API for setting attributes for tags, for example:
 
