@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Zachary West. All rights reserved.
 //
 
-@import ZSWTaggedString;
+@import ZSWTaggedString.Private;
 
 SpecBegin(ZSWTaggedString)
 

@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Zachary West. All rights reserved.
 //
 
-@import ZSWTaggedString;
+@import ZSWTaggedString.Private;
 
 SpecBegin(ZSWStringParser)
 
@@ -14,10 +14,10 @@ describe(@"ZSWStringParser", ^{
     describe(@"when providing erroneous strings", ^{
         it(@"should return an error if tags aren't ended", ^{
             NSError *error;
-            id string =[ZSWStringParser stringWithTaggedString:[ZSWTaggedString stringWithString:@"<tag>moo"]
-                                            options:[ZSWTaggedStringOptions options]
-                                        returnClass:[NSString class]
-                                              error:&error];
+            id string = [ZSWStringParser stringWithTaggedString:[ZSWTaggedString stringWithString:@"<tag>moo"]
+                                                        options:[ZSWTaggedStringOptions options]
+                                                    returnClass:[NSString class]
+                                                          error:&error];
             
             expect(string).to.beNil();
             expect(error.domain).to.equal(ZSWTaggedStringErrorDomain);
@@ -61,8 +61,8 @@ describe(@"ZSWStringParser", ^{
         ZSWTaggedString *taggedString = [ZSWTaggedString stringWithString:@"no more timothy hay!"];
         
         NSArray *tags;
-        [[mockOptions expect] updateAttributedString:OCMOCK_ANY
-                                     updatedWithTags:[OCMArg capture:&tags]];
+        [[mockOptions expect] _private_updateAttributedString:OCMOCK_ANY
+                                              updatedWithTags:[OCMArg capture:&tags]];
         
         NSError *error;
         
@@ -80,8 +80,8 @@ describe(@"ZSWStringParser", ^{
         ZSWTaggedString *taggedString = [ZSWTaggedString stringWithString:@"<all>circles presuppose</all>"];
         
         NSArray *tags;
-        [[mockOptions expect] updateAttributedString:OCMOCK_ANY
-                                     updatedWithTags:[OCMArg capture:&tags]];
+        [[mockOptions expect] _private_updateAttributedString:OCMOCK_ANY
+                                              updatedWithTags:[OCMArg capture:&tags]];
         
         NSError *error;
         id string = [[ZSWStringParser stringWithTaggedString:taggedString
@@ -103,8 +103,8 @@ describe(@"ZSWStringParser", ^{
         ZSWTaggedString *taggedString = [ZSWTaggedString stringWithString:@"<some><all>circles presuppose</all></some>"];
         
         NSArray *tags;
-        [[mockOptions expect] updateAttributedString:OCMOCK_ANY
-                                     updatedWithTags:[OCMArg capture:&tags]];
+        [[mockOptions expect] _private_updateAttributedString:OCMOCK_ANY
+                                              updatedWithTags:[OCMArg capture:&tags]];
         
         NSError *error;
         id string = [[ZSWStringParser stringWithTaggedString:taggedString
@@ -132,8 +132,8 @@ describe(@"ZSWStringParser", ^{
         ZSWTaggedString *taggedString = [ZSWTaggedString stringWithString:@"<all><qual>If I come <sad >without</sad> a thing</qual>, <suppose >then I come with <happy>all</happy> I need</suppose></all>"];
         
         NSArray *tags;
-        [[mockOptions expect] updateAttributedString:OCMOCK_ANY
-                                     updatedWithTags:[OCMArg capture:&tags]];
+        [[mockOptions expect] _private_updateAttributedString:OCMOCK_ANY
+                                              updatedWithTags:[OCMArg capture:&tags]];
         
         NSError *error;
         id string = [[ZSWStringParser stringWithTaggedString:taggedString
@@ -175,8 +175,8 @@ describe(@"ZSWStringParser", ^{
         ZSWTaggedString *taggedString = [ZSWTaggedString stringWithString:@"i am <hungry type=lol></hungry>banana"];
         
         NSArray *tags;
-        [[mockOptions expect] updateAttributedString:OCMOCK_ANY
-                                     updatedWithTags:[OCMArg capture:&tags]];
+        [[mockOptions expect] _private_updateAttributedString:OCMOCK_ANY
+                                              updatedWithTags:[OCMArg capture:&tags]];
         
         NSError *error;
         id string = [[ZSWStringParser stringWithTaggedString:taggedString
@@ -200,8 +200,8 @@ describe(@"ZSWStringParser", ^{
         ZSWTaggedString *taggedString = [ZSWTaggedString stringWithFormat:@"i like to eat <eat>%@</eat>", ZSWEscapedStringForString(@"<apples>")];
         
         NSArray *tags;
-        [[mockOptions expect] updateAttributedString:OCMOCK_ANY
-                                     updatedWithTags:[OCMArg capture:&tags]];
+        [[mockOptions expect] _private_updateAttributedString:OCMOCK_ANY
+                                              updatedWithTags:[OCMArg capture:&tags]];
         
         NSError *error;
         id string = [[ZSWStringParser stringWithTaggedString:taggedString
@@ -223,8 +223,8 @@ describe(@"ZSWStringParser", ^{
         ZSWTaggedString *taggedString = [ZSWTaggedString stringWithFormat:@"i like to eat %@", ZSWEscapedStringForString(@"<")];
         
         NSArray *tags;
-        [[mockOptions expect] updateAttributedString:OCMOCK_ANY
-                                     updatedWithTags:[OCMArg capture:&tags]];
+        [[mockOptions expect] _private_updateAttributedString:OCMOCK_ANY
+                                              updatedWithTags:[OCMArg capture:&tags]];
         
         NSError *error;
         id string = [[ZSWStringParser stringWithTaggedString:taggedString

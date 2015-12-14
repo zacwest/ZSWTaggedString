@@ -6,6 +6,8 @@
 //
 //
 
+import ZSWTaggedString.Private
+
 extension ZSWTaggedStringOptions {
     /**
      Dynamic attributes executed for a tag
@@ -65,14 +67,14 @@ extension ZSWTaggedStringOptions {
      */
     public var unknownTagAttributes: Attributes? {
         get {
-            if let wrapper = unknownTagWrapper {
+            if let wrapper = _private_unknownTagWrapper {
                 return Attributes(wrapper: wrapper)
             } else {
                 return nil
             }
         }
         set {
-            unknownTagWrapper = newValue?.wrapper
+            _private_unknownTagWrapper = newValue?.wrapper
         }
     }
     
@@ -83,14 +85,14 @@ extension ZSWTaggedStringOptions {
      */
     public subscript (tagName: String) -> Attributes? {
         get {
-            if let currentValue = tagToAttributesMap[tagName] {
+            if let currentValue = _private_tagToAttributesMap[tagName] {
                 return Attributes(wrapper: currentValue)
             } else {
                 return nil
             }
         }
         set {
-            setWrapper(newValue?.wrapper, forTagName: tagName)
+            _private_setWrapper(newValue?.wrapper, forTagName: tagName)
         }
     }
 }

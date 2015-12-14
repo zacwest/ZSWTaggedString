@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Zachary West. All rights reserved.
 //
 
-@import ZSWTaggedString;
+@import ZSWTaggedString.Private;
 
 SpecBegin(ZSWTaggedStringOptions)
 
@@ -20,7 +20,7 @@ describe(@"ZSWTaggedStringOptions", ^{
         it(@"should return an empty options by default", ^{
             ZSWTaggedStringOptions *options = [ZSWTaggedStringOptions defaultOptions];
             expect(options.baseAttributes).to.haveCountOf(0);
-            expect(options.tagToAttributesMap).to.haveCountOf(0);
+            expect(options._private_tagToAttributesMap).to.haveCountOf(0);
         });
         
         it(@"should return copy of the options each time", ^{
@@ -147,7 +147,7 @@ describe(@"ZSWTaggedStringOptions", ^{
             });
             
             it(@"should produce a string with attributes across the whole thing", ^{
-                [options updateAttributedString:string updatedWithTags:tags];
+                [options _private_updateAttributedString:string updatedWithTags:tags];
                 expect(string.string).to.equal(baseString);
                 expect(string).to.haveAttributeWithEnd(NSForegroundColorAttributeName, [UIColor redColor], p_whole.start, p_whole.end);
                 expect(string).to.haveAttributeWithEnd(NSFontAttributeName, [UIFont systemFontOfSize:12.0], p_whole.start, p_whole.end);
@@ -175,7 +175,7 @@ describe(@"ZSWTaggedStringOptions", ^{
             });
             
             it(@"should produce the right string", ^{
-                [options updateAttributedString:string updatedWithTags:tags];
+                [options _private_updateAttributedString:string updatedWithTags:tags];
                 expect(string.string).to.equal(baseString);
                 
                 expect(string).to.haveAttributeWithEnd(NSForegroundColorAttributeName, [UIColor greenColor], p_s1.start, p_s1.end);
@@ -214,7 +214,7 @@ describe(@"ZSWTaggedStringOptions", ^{
             });
             
             it(@"should produce the right string", ^{
-                [options updateAttributedString:string updatedWithTags:tags];
+                [options _private_updateAttributedString:string updatedWithTags:tags];
                 expect(string.string).to.equal(baseString);
                 
                 // the only global space left
@@ -283,7 +283,7 @@ describe(@"ZSWTaggedStringOptions", ^{
             });
             
             it(@"should produce the right string", ^{
-                [options updateAttributedString:string updatedWithTags:tags];
+                [options _private_updateAttributedString:string updatedWithTags:tags];
                 expect(string.string).to.equal(baseString);
                 
                 // the only global space left
@@ -327,7 +327,7 @@ describe(@"ZSWTaggedStringOptions", ^{
         
         [options setAttributes:@{ NSForegroundColorAttributeName: [UIColor redColor] } forTagName:@"null"];
 
-        [options updateAttributedString:string updatedWithTags:@[ unreferencedTag ]];
+        [options _private_updateAttributedString:string updatedWithTags:@[ unreferencedTag ]];
         
         expect(string).to.equal([[NSAttributedString alloc] initWithString:@"santa claus" attributes:nil]);
     });
@@ -365,7 +365,7 @@ describe(@"ZSWTaggedStringOptions", ^{
                 }
             } forTagName:@"bob"];
             
-            [options updateAttributedString:string updatedWithTags:tags];
+            [options _private_updateAttributedString:string updatedWithTags:tags];
             
             expect(string).to.haveAttributeWithEnd(NSFontAttributeName, [UIFont systemFontOfSize:14.0], 0, 9);
             expect(string).to.haveAttributeWithEnd(NSFontAttributeName, nil, 9, 10);
@@ -381,7 +381,7 @@ describe(@"ZSWTaggedStringOptions", ^{
                 }
             } forTagName:@"bob"];
             
-            [options updateAttributedString:string updatedWithTags:tags];
+            [options _private_updateAttributedString:string updatedWithTags:tags];
             
             expect(string).to.haveAttributeWithEnd(NSFontAttributeName, nil, 0, 10);
             expect(string).to.haveAttributeWithEnd(NSFontAttributeName, [UIFont boldSystemFontOfSize:14.0], 10, 19);

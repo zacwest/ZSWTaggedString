@@ -17,10 +17,10 @@
 static ZSWTaggedStringOptions *ZSWStringParserDefaultOptions;
 
 + (ZSWTaggedStringOptions *)defaultOptions {
-    return [[self defaultOptionsNoCopy] copy];
+    return [[self _private_defaultOptionsNoCopy] copy];
 }
 
-+ (ZSWTaggedStringOptions *)defaultOptionsNoCopy {
++ (ZSWTaggedStringOptions *)_private_defaultOptionsNoCopy {
     ZSWTaggedStringOptions *options;
     
     @synchronized (self) {
@@ -63,7 +63,7 @@ static ZSWTaggedStringOptions *ZSWStringParserDefaultOptions;
         [self commonInit];
         
         self.baseAttributes = attributes ?: [NSDictionary dictionary];
-        self.tagToAttributesMap = [NSDictionary dictionary];
+        self._private_tagToAttributesMap = [NSDictionary dictionary];
     }
     return self;
 }
@@ -71,8 +71,8 @@ static ZSWTaggedStringOptions *ZSWStringParserDefaultOptions;
 - (id)copyWithZone:(NSZone *)zone {
     ZSWTaggedStringOptions *options = [[[self class] allocWithZone:zone] init];
     options->_baseAttributes = self->_baseAttributes;
-    options->_tagToAttributesMap = self->_tagToAttributesMap;
-    options->_unknownTagWrapper = self->_unknownTagWrapper;
+    options->__private_tagToAttributesMap = self->__private_tagToAttributesMap;
+    options->__private_unknownTagWrapper = self->__private_unknownTagWrapper;
     return options;
 }
 
@@ -85,11 +85,11 @@ static ZSWTaggedStringOptions *ZSWStringParserDefaultOptions;
         return NO;
     }
     
-    if (![object.tagToAttributesMap isEqualToDictionary:self.tagToAttributesMap]) {
+    if (![object._private_tagToAttributesMap isEqualToDictionary:self._private_tagToAttributesMap]) {
         return NO;
     }
     
-    if (object.unknownTagWrapper != self.unknownTagWrapper && ![object.unknownTagWrapper isEqual:self.unknownTagWrapper]) {
+    if (object._private_unknownTagWrapper != self._private_unknownTagWrapper && ![object._private_unknownTagWrapper isEqual:self._private_unknownTagWrapper]) {
         return NO;
     }
     
@@ -97,15 +97,15 @@ static ZSWTaggedStringOptions *ZSWStringParserDefaultOptions;
 }
 
 - (NSUInteger)hash {
-    return self.baseAttributes.hash + self.tagToAttributesMap.hash + self.unknownTagWrapper.hash;
+    return self.baseAttributes.hash + self._private_tagToAttributesMap.hash + self._private_unknownTagWrapper.hash;
 }
 
 #pragma mark -
 
-- (void)setWrapper:(ZSWTaggedStringAttribute *)attribute forTagName:(NSString *)tagName {
-    NSMutableDictionary *mutableMap = [self.tagToAttributesMap mutableCopy];
+- (void)_private_setWrapper:(ZSWTaggedStringAttribute *)attribute forTagName:(NSString *)tagName {
+    NSMutableDictionary *mutableMap = [self._private_tagToAttributesMap mutableCopy];
     mutableMap[tagName.lowercaseString] = [attribute copy];
-    self.tagToAttributesMap = mutableMap;
+    self._private_tagToAttributesMap = mutableMap;
 }
 
 - (void)setAttributes:(NSDictionary<NSString *,id> *)dict forTagName:(NSString *)tagName {
@@ -114,37 +114,37 @@ static ZSWTaggedStringOptions *ZSWStringParserDefaultOptions;
     ZSWTaggedStringAttribute *attribute = [[ZSWTaggedStringAttribute alloc] init];
     attribute.staticDictionary = dict;
     
-    [self setWrapper:attribute forTagName:tagName];
+    [self _private_setWrapper:attribute forTagName:tagName];
 }
 
 - (void)setDynamicAttributes:(ZSWDynamicAttributes)dynamicAttributes forTagName:(NSString *)tagName {
     NSParameterAssert(tagName != nil);
     ZSWTaggedStringAttribute *attribute = [[ZSWTaggedStringAttribute alloc] init];
     attribute.dynamicAttributes = dynamicAttributes;
-    [self setWrapper:attribute forTagName:tagName];
+    [self _private_setWrapper:attribute forTagName:tagName];
 }
 
 - (void)setUnknownTagDynamicAttributes:(ZSWDynamicAttributes)unknownTagDynamicAttributes {
     ZSWTaggedStringAttribute *attribute = [[ZSWTaggedStringAttribute alloc] init];
     attribute.dynamicAttributes = unknownTagDynamicAttributes;
-    self.unknownTagWrapper = attribute;
+    self._private_unknownTagWrapper = attribute;
 }
 
 - (ZSWDynamicAttributes)unknownTagDynamicAttributes {
-    return self.unknownTagWrapper.dynamicAttributes;
+    return self._private_unknownTagWrapper.dynamicAttributes;
 }
 
 #pragma mark - Internal/updating
-- (void)updateAttributedString:(NSMutableAttributedString *)string
+- (void)_private_updateAttributedString:(NSMutableAttributedString *)string
                updatedWithTags:(NSArray *)tags {
     NSParameterAssert([string isKindOfClass:[NSMutableAttributedString class]]);
     
     [string setAttributes:self.baseAttributes range:NSMakeRange(0, string.length)];
     
-    ZSWTaggedStringAttribute *unknownTagWrapper = self.unknownTagWrapper;
+    ZSWTaggedStringAttribute *unknownTagWrapper = self._private_unknownTagWrapper;
     
     for (ZSWStringParserTag *tag in tags) {
-        ZSWTaggedStringAttribute *tagValue = self.tagToAttributesMap[tag.tagName.lowercaseString];
+        ZSWTaggedStringAttribute *tagValue = self._private_tagToAttributesMap[tag.tagName.lowercaseString];
         NSDictionary<NSString *, id> *attributes = nil;
         
         if (tagValue) {

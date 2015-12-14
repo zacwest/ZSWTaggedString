@@ -8,19 +8,23 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZSWTaggedString()
-@property (nonatomic, copy) NSString *underlyingString;
-@end
+/*!
+ * @private
+ *
+ * This and all other 'private' methods work around a compiler bug where
+ * we cannot force private headers into Swift files included in the framework.
+ * Using any API in here is not supported, and you really should not touch it.
+ */
 
 @interface ZSWTaggedStringOptions()
-+ (ZSWTaggedStringOptions *)defaultOptionsNoCopy;
++ (ZSWTaggedStringOptions *)_private_defaultOptionsNoCopy;
 
-- (void)setWrapper:(nullable ZSWTaggedStringAttribute *)attribute forTagName:(NSString *)tagName;
+- (void)_private_setWrapper:(nullable ZSWTaggedStringAttribute *)attribute forTagName:(NSString *)tagName;
 
-@property (nullable, nonatomic) ZSWTaggedStringAttribute *unknownTagWrapper;
-@property (nonatomic) NSDictionary<NSString *, ZSWTaggedStringAttribute *> *tagToAttributesMap;
-- (void)updateAttributedString:(NSMutableAttributedString *)string
-               updatedWithTags:(NSArray *)tags;
+@property (nullable, nonatomic) ZSWTaggedStringAttribute *_private_unknownTagWrapper;
+@property (nonatomic) NSDictionary<NSString *, ZSWTaggedStringAttribute *> *_private_tagToAttributesMap;
+- (void)_private_updateAttributedString:(NSMutableAttributedString *)string
+                        updatedWithTags:(NSArray *)tags;
 @end
 
 NS_ASSUME_NONNULL_END

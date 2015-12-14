@@ -109,7 +109,7 @@ NSString *const ZSWTaggedStringErrorDomain = @"ZSWTaggedStringErrorDomain";
 #pragma mark - Generation
 
 - (NSString *)stringWithError:(NSError * _Nullable __autoreleasing *)error {
-    return [self stringWithOptions:[ZSWTaggedStringOptions defaultOptionsNoCopy] error:error];
+    return [self stringWithOptions:[ZSWTaggedStringOptions _private_defaultOptionsNoCopy] error:error];
 }
 
 - (NSString *)stringWithOptions:(ZSWTaggedStringOptions *)options error:(NSError **)error {
@@ -122,7 +122,7 @@ NSString *const ZSWTaggedStringErrorDomain = @"ZSWTaggedStringErrorDomain";
 }
 
 - (NSAttributedString *)attributedStringWithError:(NSError * _Nullable __autoreleasing *)error {
-    return [self attributedStringWithOptions:[ZSWTaggedStringOptions defaultOptionsNoCopy] error:error];
+    return [self attributedStringWithOptions:[ZSWTaggedStringOptions _private_defaultOptionsNoCopy] error:error];
 }
 
 - (NSAttributedString *)attributedStringWithOptions:(ZSWTaggedStringOptions *)options error:(NSError **)error {

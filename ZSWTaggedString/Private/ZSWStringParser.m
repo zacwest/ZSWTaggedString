@@ -120,7 +120,7 @@ extern NSString *ZSWEscapedStringForString(NSString *unescapedString) {
     }
     
     if ([returnClass isEqual:[NSAttributedString class]]) {
-        [options updateAttributedString:pendingString updatedWithTags:finishedTags];
+        [options _private_updateAttributedString:pendingString updatedWithTags:finishedTags];
         return [pendingString copy];
     } else if ([returnClass isEqual:[NSString class]]) {
         return [pendingString.string copy];

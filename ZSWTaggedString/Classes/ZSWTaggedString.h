@@ -60,6 +60,8 @@ extern NSString *ZSWEscapedStringForString(NSString *unescapedString);
 + (instancetype)stringWithString:(NSString *)string NS_SWIFT_UNAVAILABLE("Use init(string:)");
 - (instancetype)initWithString:(NSString *)string;
 
+@property (nonatomic, copy) NSString *underlyingString;
+
 /*!
  * @brief Attributed version of an unparsed string
  *
