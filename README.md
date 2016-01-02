@@ -1,9 +1,9 @@
 # ZSWTaggedString
 
 [![CI Status](https://img.shields.io/circleci/project/zacwest/ZSWTaggedString.svg?style=flat)](https://circleci.com/gh/zacwest/ZSWTaggedString)
-[![Version](https://img.shields.io/cocoapods/v/ZSWTaggedString.svg?style=flat)](http://cocoadocs.org/docsets/ZSWTaggedString)
-[![License](https://img.shields.io/cocoapods/l/ZSWTaggedString.svg?style=flat)](http://cocoadocs.org/docsets/ZSWTaggedString)
-[![Platform](https://img.shields.io/cocoapods/p/ZSWTaggedString.svg?style=flat)](http://cocoadocs.org/docsets/ZSWTaggedString)
+[![Version](https://img.shields.io/cocoapods/v/ZSWTaggedString.svg?style=flat)](http://cocoapods.org/pods/ZSWTaggedString)
+[![License](https://img.shields.io/cocoapods/l/ZSWTaggedString.svg?style=flat)](http://cocoapods.org/pods/ZSWTaggedString)
+[![Platform](https://img.shields.io/cocoapods/p/ZSWTaggedString.svg?style=flat)](http://cocoapods.org/pods/ZSWTaggedString)
 
 ZSWTaggedString converts a `String`/`NSString` marked-up with tags into an  `NSAttributedString`. Tags are similar to HTML except you define what each tag represents.
 
