@@ -29,7 +29,7 @@ Pod::Spec.new do |s|
   end
 
   s.subspec 'Swift' do |swift|
-    s.ios.deployment_target = '8.0'
+    swift.ios.deployment_target = '8.0'
 
     swift.dependency 'ZSWTaggedString/Core'
     swift.source_files = 'ZSWTaggedString/Classes/**/*.swift', 'ZSWTaggedString/Private/**/*.swift'
