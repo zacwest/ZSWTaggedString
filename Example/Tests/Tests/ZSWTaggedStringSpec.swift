@@ -31,7 +31,7 @@ class ZSWTaggedStringTests: QuickSpec { override func spec() {
                 fail("should have thrown but got \(output)")
             } catch let error as NSError {
                 expect(error.domain) == ZSWTaggedStringErrorDomain
-                expect(error.code) == ZSWTaggedStringErrorCode.InvalidTags.rawValue
+                expect(error.code) == ZSWTaggedStringErrorCode.invalidTags.rawValue
             }
         }
     }

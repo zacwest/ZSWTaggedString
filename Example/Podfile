@@ -52,7 +52,7 @@ post_install do |representation|
 end
 
 
-target 'ZSWTaggedString', :exclusive => true do
+target 'ZSWTaggedString' do
   pod "ZSWTaggedString", :path => "../"
   pod "ZSWTaggedString/Swift", :path => "../"
 
