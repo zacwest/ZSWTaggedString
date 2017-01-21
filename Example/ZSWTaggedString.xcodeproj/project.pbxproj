@@ -20,7 +20,7 @@
 		6003F5B0195388D20070C39A /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F5AF195388D20070C39A /* XCTest.framework */; };
 		6003F5B1195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F5B2195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
-		ADD52A5ACBF488E22C5E53A9 /* Pods_ZSWTaggedString.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29F239F27D53397EE3925329 /* Pods_ZSWTaggedString.framework */; };
+		D62B3C7BC893F9F731E92AAC /* Pods_ZSWTaggedString.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4890118CD23254B34C964D2 /* Pods_ZSWTaggedString.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,8 +37,7 @@
 		11D5C7231C1288710009C165 /* ZSWTaggedString-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZSWTaggedString-Bridging-Header.h"; sourceTree = "<group>"; };
 		11FF5D7A1C1CD13600E4A925 /* ZSWTaggedStringOptionsSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZSWTaggedStringOptionsSpec.swift; sourceTree = "<group>"; };
 		11FF5D7C1C1CDFA600E4A925 /* READMEExamples.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = READMEExamples.swift; sourceTree = "<group>"; };
-		1C0C24AC1700D5EF79DDDB40 /* Pods-ZSWTaggedString.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZSWTaggedString.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZSWTaggedString/Pods-ZSWTaggedString.debug.xcconfig"; sourceTree = "<group>"; };
-		29F239F27D53397EE3925329 /* Pods_ZSWTaggedString.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZSWTaggedString.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		169CB1142241880AD93BAD23 /* Pods-ZSWTaggedString.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZSWTaggedString.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZSWTaggedString/Pods-ZSWTaggedString.release.xcconfig"; sourceTree = "<group>"; };
 		6003F58A195388D20070C39A /* ZSWTaggedString.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZSWTaggedString.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58D195388D20070C39A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6003F58F195388D20070C39A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -47,8 +46,9 @@
 		6003F5AF195388D20070C39A /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		6003F5B7195388D20070C39A /* Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tests-Info.plist"; sourceTree = "<group>"; };
 		606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
-		7E8EB9502F605ED142F2C098 /* Pods-ZSWTaggedString.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZSWTaggedString.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZSWTaggedString/Pods-ZSWTaggedString.release.xcconfig"; sourceTree = "<group>"; };
 		D0D425EF9F44A4E4AB461CF7 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		D4890118CD23254B34C964D2 /* Pods_ZSWTaggedString.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZSWTaggedString.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D794A320A421062741A18E73 /* Pods-ZSWTaggedString.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZSWTaggedString.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZSWTaggedString/Pods-ZSWTaggedString.debug.xcconfig"; sourceTree = "<group>"; };
 		D9ED01DA6597908E843A850E /* ZSWTaggedString.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = ZSWTaggedString.podspec; path = ../ZSWTaggedString.podspec; sourceTree = "<group>"; };
 		F8F68D9D995B94E741197365 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -61,7 +61,7 @@
 				6003F5B0195388D20070C39A /* XCTest.framework in Frameworks */,
 				6003F5B2195388D20070C39A /* UIKit.framework in Frameworks */,
 				6003F5B1195388D20070C39A /* Foundation.framework in Frameworks */,
-				ADD52A5ACBF488E22C5E53A9 /* Pods_ZSWTaggedString.framework in Frameworks */,
+				D62B3C7BC893F9F731E92AAC /* Pods_ZSWTaggedString.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -95,6 +95,15 @@
 			path = Tests;
 			sourceTree = "<group>";
 		};
+		13FDB3208D3EAB318CEC62C9 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				D794A320A421062741A18E73 /* Pods-ZSWTaggedString.debug.xcconfig */,
+				169CB1142241880AD93BAD23 /* Pods-ZSWTaggedString.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		6003F581195388D10070C39A = {
 			isa = PBXGroup;
 			children = (
@@ -102,7 +111,7 @@
 				6003F5B5195388D20070C39A /* Tests */,
 				6003F58C195388D20070C39A /* Frameworks */,
 				6003F58B195388D20070C39A /* Products */,
-				E4597F6CEFFE1A0884F08651 /* Pods */,
+				13FDB3208D3EAB318CEC62C9 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -122,7 +131,7 @@
 				6003F58F195388D20070C39A /* CoreGraphics.framework */,
 				6003F591195388D20070C39A /* UIKit.framework */,
 				6003F5AF195388D20070C39A /* XCTest.framework */,
-				29F239F27D53397EE3925329 /* Pods_ZSWTaggedString.framework */,
+				D4890118CD23254B34C964D2 /* Pods_ZSWTaggedString.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -156,15 +165,6 @@
 			name = "Podspec Metadata";
 			sourceTree = "<group>";
 		};
-		E4597F6CEFFE1A0884F08651 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				1C0C24AC1700D5EF79DDDB40 /* Pods-ZSWTaggedString.debug.xcconfig */,
-				7E8EB9502F605ED142F2C098 /* Pods-ZSWTaggedString.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -172,12 +172,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6003F5C2195388D20070C39A /* Build configuration list for PBXNativeTarget "ZSWTaggedString" */;
 			buildPhases = (
-				164B6F57C9BC3BE288EF35AE /* Check Pods Manifest.lock */,
+				B1B56939D8A883C64FFF19F5 /* [CP] Check Pods Manifest.lock */,
 				6003F5AA195388D20070C39A /* Sources */,
 				6003F5AB195388D20070C39A /* Frameworks */,
 				6003F5AC195388D20070C39A /* Resources */,
-				7404DC10513791C9E5DA009A /* Copy Pods Resources */,
-				E03E9FBF46D06A9269732F32 /* Embed Pods Frameworks */,
+				39A69D9A61EE9065148A3FBE /* [CP] Embed Pods Frameworks */,
+				D6D3F4FEC17DAC87795D70F5 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -233,49 +233,49 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		164B6F57C9BC3BE288EF35AE /* Check Pods Manifest.lock */ = {
+		39A69D9A61EE9065148A3FBE /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		7404DC10513791C9E5DA009A /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ZSWTaggedString/Pods-ZSWTaggedString-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E03E9FBF46D06A9269732F32 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ZSWTaggedString/Pods-ZSWTaggedString-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B1B56939D8A883C64FFF19F5 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run \'pod install\' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		D6D3F4FEC17DAC87795D70F5 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ZSWTaggedString/Pods-ZSWTaggedString-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -376,7 +376,7 @@
 		};
 		6003F5C3195388D20070C39A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1C0C24AC1700D5EF79DDDB40 /* Pods-ZSWTaggedString.debug.xcconfig */;
+			baseConfigurationReference = D794A320A421062741A18E73 /* Pods-ZSWTaggedString.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -402,7 +402,7 @@
 		};
 		6003F5C4195388D20070C39A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7E8EB9502F605ED142F2C098 /* Pods-ZSWTaggedString.release.xcconfig */;
+			baseConfigurationReference = 169CB1142241880AD93BAD23 /* Pods-ZSWTaggedString.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;

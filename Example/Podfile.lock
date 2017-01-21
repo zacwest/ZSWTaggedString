@@ -1,8 +1,8 @@
 PODS:
   - Expecta (1.0.5)
-  - Nimble (3.0.0)
-  - OCMock (3.2)
-  - Quick (0.8.0)
+  - Nimble (5.1.1)
+  - OCMock (3.4)
+  - Quick (1.0.0)
   - Specta (1.0.5)
   - ZSWTaggedString (2.0):
     - ZSWTaggedString/Core (= 2.0)
@@ -21,14 +21,16 @@ DEPENDENCIES:
 
 EXTERNAL SOURCES:
   ZSWTaggedString:
-    :path: ../
+    :path: "../"
 
 SPEC CHECKSUMS:
   Expecta: e1c022fcd33910b6be89c291d2775b3fe27a89fe
-  Nimble: 4c353d43735b38b545cbb4cb91504588eb5de926
-  OCMock: 28def049ef47f996b515a8eeea958be7ccab2dbb
-  Quick: 563d0f6ec5f72e394645adb377708639b7dd38ab
+  Nimble: 415e3aa3267e7bc2c96b05fa814ddea7bb686a29
+  OCMock: 35ae71d6a8fcc1b59434d561d1520b9dd4f15765
+  Quick: 8024e4a47e6cc03a9d5245ef0948264fc6d27cff
   Specta: ac94d110b865115fe60ff2c6d7281053c6f8e8a2
-  ZSWTaggedString: 1dfc880e7cfcc25db893053e0c6fd8c021ff5615
+  ZSWTaggedString: 0c3801de9accd36c3b925038cee1ecc95d94d8e5
 
-COCOAPODS: 0.39.0
+PODFILE CHECKSUM: 3e8e33953f0073437731a654c10dcc1880b9439e
+
+COCOAPODS: 1.2.0.beta.1
