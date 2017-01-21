@@ -37,7 +37,7 @@ extension ZSWTaggedStringOptions {
         
         init(wrapper: ZSWTaggedStringAttribute) {
             if let dictionary = wrapper.staticDictionary {
-                self = .static(dictionary as [String : Any])
+                self = .static(dictionary)
             } else if let block = wrapper.dynamicAttributes {
                 self = .dynamic(block)
             } else {
