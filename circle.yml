@@ -1,5 +1,5 @@
 machine:
   xcode:
-    version: 7.1
+    version: 8.2
 general:
   build_dir: Example
