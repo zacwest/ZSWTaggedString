@@ -45,7 +45,7 @@
         return self.staticDictionary;
     }
     
-    if (self.dynamicAttributes) {
+    if (self.dynamicAttributes && tag.location < [string length]) {
         NSDictionary *existingAttributes = [string attributesAtIndex:tag.location effectiveRange:NULL];
         return self.dynamicAttributes(tag.tagName, tag.tagAttributes, existingAttributes);
     }
