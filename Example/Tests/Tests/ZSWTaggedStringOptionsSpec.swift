@@ -31,9 +31,11 @@ class ZSWTaggedStringOptionsSpec: QuickSpec { override func spec() {
         }
         
         context("setting a static attribute") {
+            let testKey = NSAttributedStringKey(rawValue: "key")
+            
             beforeEach {
                 options["a"] = .static([
-                    "key": true
+                    testKey: true
                     ])
             }
 
@@ -45,7 +47,7 @@ class ZSWTaggedStringOptionsSpec: QuickSpec { override func spec() {
                 
                 switch a {
                 case .static(let attributes):
-                    expect(attributes["key"] as? Bool) == true
+                    expect(attributes[testKey] as? Bool) == true
                 case .dynamic(_):
                     fail("Retrieved a dynamic when expecting static")
                 }
@@ -54,15 +56,17 @@ class ZSWTaggedStringOptionsSpec: QuickSpec { override func spec() {
             it("should still be performed on text") {
                 options._private_update(string, updatedWithTags: tags)
                 
-                expect(string.attribute("key", at: 0, effectiveRange: nil) as? Bool) == true
+                expect(string.attribute(testKey, at: 0, effectiveRange: nil) as? Bool) == true
             }
         }
         
         context("setting a dynamic attribute") {
+            let testKey = NSAttributedStringKey(rawValue: "key")
+            
             beforeEach {
                 options["a"] = .dynamic({ _, _, _ in
                     return [
-                        "key": true
+                        testKey: true
                     ]
                 })
             }
@@ -77,15 +81,15 @@ class ZSWTaggedStringOptionsSpec: QuickSpec { override func spec() {
                 case .static(_):
                     fail("Retrieved a static when expecting dynamic")
                 case .dynamic(let block):
-                    let attributes = block("a", [String: Any](), [String: Any]())
-                    expect(attributes["key"] as? Bool) == true
+                    let attributes = block("a", [String: Any](), [NSAttributedStringKey: Any]())
+                    expect(attributes[testKey] as? Bool) == true
                 }
             }
             
             it("should still be performed on text") {
                 options._private_update(string, updatedWithTags: tags)
                 
-                expect(string.attribute("key", at: 0, effectiveRange: nil) as? Bool) == true
+                expect(string.attribute(testKey, at: 0, effectiveRange: nil) as? Bool) == true
             }
         }
     }

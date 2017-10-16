@@ -33,7 +33,7 @@ class READMEExamplesSpec: QuickSpec { override func spec() {
         let options = ZSWTaggedStringOptions()
         
         options["b"] = .static([
-            NSFontAttributeName: UIFont.boldSystemFont(ofSize: 18.0)
+            .font: UIFont.boldSystemFont(ofSize: 18.0)
         ])
 
         let attributedString = try! taggedString.attributedString(with: options)
@@ -59,18 +59,18 @@ class READMEExamplesSpec: QuickSpec { override func spec() {
   
         // Base attributes apply to the whole string, before any tag attributes.
         options.baseAttributes = [
-            NSFontAttributeName: UIFont.systemFont(ofSize: 14.0),
-            NSForegroundColorAttributeName: UIColor.gray
+            .font: UIFont.systemFont(ofSize: 14.0),
+            .foregroundColor: UIColor.gray
         ]
 
         // Normal attributes just add their attributes to the attributed string.
         options["i"] = .static([
-            NSFontAttributeName: UIFont.italicSystemFont(ofSize: 14.0)
+            .font: UIFont.italicSystemFont(ofSize: 14.0)
         ])
         
         // Dynamic attributes give you an opportunity to decide what to do for each tag
         options["story"] = .dynamic({ tagName, tagAttributes, existingAttributes in
-            var attributes = [String: AnyObject]()
+            var attributes = [NSAttributedStringKey: AnyObject]()
             
             guard let typeString = tagAttributes["type"] as? String,
                 let type = Story.StoryType(rawValue: typeString) else {
@@ -79,9 +79,9 @@ class READMEExamplesSpec: QuickSpec { override func spec() {
             
             switch type {
             case .One:
-                attributes[NSForegroundColorAttributeName] = UIColor.red
+                attributes[.foregroundColor] = UIColor.red
             case .Two:
-                attributes[NSForegroundColorAttributeName] = UIColor.orange
+                attributes[.foregroundColor] = UIColor.orange
             }
             
             return attributes
@@ -95,25 +95,25 @@ class READMEExamplesSpec: QuickSpec { override func spec() {
         let options = ZSWTaggedStringOptions()
         
         options.baseAttributes = [
-            NSFontAttributeName: UIFont.systemFont(ofSize: 12.0)
+            .font: UIFont.systemFont(ofSize: 12.0)
         ]
         
         options.unknownTagAttributes = .dynamic({ tagName, tagAttributes, existingAttributes in
-            var attributes = [String: Any]()
+            var attributes = [NSAttributedStringKey: Any]()
             
-            if let font = existingAttributes[NSFontAttributeName] as? UIFont {
+            if let font = existingAttributes[.font] as? UIFont {
                 switch tagName {
                 case "b":
-                    attributes[NSFontAttributeName] = UIFont.boldSystemFont(ofSize: font.pointSize)
+                    attributes[.font] = UIFont.boldSystemFont(ofSize: font.pointSize)
                 case "i":
-                    attributes[NSFontAttributeName] = UIFont.italicSystemFont(ofSize: font.pointSize)
+                    attributes[.font] = UIFont.italicSystemFont(ofSize: font.pointSize)
                 default:
                     break
                 }
             }
             
             if tagName == "u" {
-                attributes[NSUnderlineStyleAttributeName] = NSUnderlineStyle.styleSingle.rawValue
+                attributes[.underlineStyle] = NSUnderlineStyle.styleSingle.rawValue
             }
             
             return attributes

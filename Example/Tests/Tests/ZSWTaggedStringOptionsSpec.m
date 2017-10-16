@@ -81,7 +81,7 @@ describe(@"ZSWTaggedStringOptions", ^{
             
             options.baseAttributes = @{ @"b": @"c" };
             [options setAttributes:@{ @"d": @"a" } forTagName:@"abc"];
-            [options setDynamicAttributes:^NSDictionary<NSString *,id> * _Nonnull(NSString * _Nonnull tagName, NSDictionary<NSString *,id> * _Nonnull tagAttributes, NSDictionary<NSString *,id> * _Nonnull existingStringAttributes) {
+            [options setDynamicAttributes:^NSDictionary<NSAttributedStringKey,id> * _Nonnull(NSString * _Nonnull tagName, NSDictionary<NSString *,id> * _Nonnull tagAttributes, NSDictionary<NSAttributedStringKey,id> * _Nonnull existingStringAttributes) {
                 return @{ @"c": @"d" };
             } forTagName:@"xyz"];
             [options setUnknownTagDynamicAttributes:^NSDictionary *(NSString *tagName, NSDictionary *tagAttributes, NSDictionary *existingAttributes) {
