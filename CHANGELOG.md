@@ -1,3 +1,7 @@
+# 4.0 (2017-10-16)
+
+Update to Swift 4.
+
 # 3.0 (2017-01-21)
 
 Update to Swift 3.
