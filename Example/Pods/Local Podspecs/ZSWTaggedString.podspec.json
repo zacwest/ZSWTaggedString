@@ -1,6 +1,6 @@
 {
   "name": "ZSWTaggedString",
-  "version": "2.0",
+  "version": "3.0",
   "summary": "Converts a String (or NSString) with tags (like HTML) into an NSAttributedString",
   "description": "Tags in a ZSWTaggedString are like HTML, except you define what they mean.\nRead more: https://github.com/zacwest/ZSWTaggedString",
   "homepage": "https://github.com/zacwest/ZSWTaggedString",
@@ -10,12 +10,12 @@
   },
   "source": {
     "git": "https://github.com/zacwest/ZSWTaggedString.git",
-    "tag": "2.0"
+    "tag": "3.0"
   },
   "social_media_url": "https://twitter.com/zacwest",
   "requires_arc": true,
   "platforms": {
-    "ios": "8.0",
+    "ios": "7.0",
     "watchos": "2.0",
     "tvos": "9.0"
   },
@@ -36,6 +36,9 @@
     },
     {
       "name": "Swift",
+      "platforms": {
+        "ios": "8.0"
+      },
       "dependencies": {
         "ZSWTaggedString/Core": [
 
