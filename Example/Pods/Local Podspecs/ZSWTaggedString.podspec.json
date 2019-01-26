@@ -24,6 +24,7 @@
     "APPLICATION_EXTENSION_API_ONLY": "YES"
   },
   "module_map": "ZSWTaggedString/Classes/ZSWTaggedString.modulemap",
+  "swift_version": "4.2",
   "subspecs": [
     {
       "name": "Core",

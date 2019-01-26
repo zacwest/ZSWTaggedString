@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "ZSWTaggedString"
-  s.version          = "4.0"
+  s.version          = "4.1"
   s.summary          = "Converts a String (or NSString) with tags (like HTML) into an NSAttributedString"
   s.description      = <<-DESC
                         Tags in a ZSWTaggedString are like HTML, except you define what they mean.
@@ -21,6 +21,7 @@ Pod::Spec.new do |s|
   s.default_subspecs = 'Core'
   s.pod_target_xcconfig = { 'APPLICATION_EXTENSION_API_ONLY' => 'YES' }
   s.module_map = 'ZSWTaggedString/Classes/ZSWTaggedString.modulemap'
+  s.swift_version = '4.2'
 
   s.subspec 'Core' do |core|
     core.source_files = 'ZSWTaggedString/Classes/**/*.{h,m}', 'ZSWTaggedString/Private/**/*.{h,m}'

@@ -1,3 +1,7 @@
+# 4.1 (2019-01-26)
+
+Update to Swift 4.2.
+
 # 4.0 (2017-10-16)
 
 Update to Swift 4.

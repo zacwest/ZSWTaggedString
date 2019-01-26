@@ -31,7 +31,7 @@ class ZSWTaggedStringOptionsSpec: QuickSpec { override func spec() {
         }
         
         context("setting a static attribute") {
-            let testKey = NSAttributedStringKey(rawValue: "key")
+            let testKey = NSAttributedString.Key(rawValue: "key")
             
             beforeEach {
                 options["a"] = .static([
@@ -61,7 +61,7 @@ class ZSWTaggedStringOptionsSpec: QuickSpec { override func spec() {
         }
         
         context("setting a dynamic attribute") {
-            let testKey = NSAttributedStringKey(rawValue: "key")
+            let testKey = NSAttributedString.Key(rawValue: "key")
             
             beforeEach {
                 options["a"] = .dynamic({ _, _, _ in
@@ -81,7 +81,7 @@ class ZSWTaggedStringOptionsSpec: QuickSpec { override func spec() {
                 case .static(_):
                     fail("Retrieved a static when expecting dynamic")
                 case .dynamic(let block):
-                    let attributes = block("a", [String: Any](), [NSAttributedStringKey: Any]())
+                    let attributes = block("a", [String: Any](), [NSAttributedString.Key: Any]())
                     expect(attributes[testKey] as? Bool) == true
                 }
             }
