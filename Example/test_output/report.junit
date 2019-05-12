@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<testsuites name='ZSWTaggedString.xctest' tests='81' failures='0'>
+  <testsuite name='READMEExamplesSpec' tests='3' failures='0'>
+    <testcase classname='READMEExamplesSpec' name='test_READMEExamples__should_have_bold_cool' time='0.088'/>
+    <testcase classname='READMEExamplesSpec' name='test_READMEExamples__should_have_story_types' time='0.006'/>
+    <testcase classname='READMEExamplesSpec' name='test_READMEExamples__should_make_dynamic_bold_and_stuff_easier' time='0.001'/>
+  </testsuite>
+  <testsuite name='ZSWTaggedStringTest.READMEExamplesSpec' tests='3' failures='0'>
+    <testcase classname='ZSWTaggedStringTest.READMEExamplesSpec' name='should_have_bold_cool' time='0.005'/>
+    <testcase classname='ZSWTaggedStringTest.READMEExamplesSpec' name='should_have_story_types' time='0.004'/>
+    <testcase classname='ZSWTaggedStringTest.READMEExamplesSpec' name='should_make_dynamic_bold_and_stuff_easier' time='0.002'/>
+  </testsuite>
+  <testsuite name='ZSWStringParserSpec' tests='9' failures='0'>
+    <testcase classname='ZSWStringParserSpec' name='test_ZSWStringParser__when_providing_erroneous_strings__should_return_an_error_if_tags_arent_ended' time='0.002'/>
+    <testcase classname='ZSWStringParserSpec' name='test_ZSWStringParser__when_providing_erroneous_strings__should_throw_an_exception_if_tags_are_ended_outoforder' time='0.001'/>
+    <testcase classname='ZSWStringParserSpec' name='test_ZSWStringParser__should_handle_a_string_with_no_tags' time='0.004'/>
+    <testcase classname='ZSWStringParserSpec' name='test_ZSWStringParser__should_handle_a_string_wrapped_in_one_tag' time='0.001'/>
+    <testcase classname='ZSWStringParserSpec' name='test_ZSWStringParser__should_handle_a_string_with_two_outer_tags_which_entirely_overlap' time='0.001'/>
+    <testcase classname='ZSWStringParserSpec' name='test_ZSWStringParser__should_handle_a_string_with_multiple_overlapping_and_nonoverlapping_tags' time='0.001'/>
+    <testcase classname='ZSWStringParserSpec' name='test_ZSWStringParser__should_handle_a_string_with_empty_tags' time='0.001'/>
+    <testcase classname='ZSWStringParserSpec' name='test_ZSWStringParser__should_handle_a_string_containing_an_escaped_string' time='0.001'/>
+    <testcase classname='ZSWStringParserSpec' name='test_ZSWStringParser__should_handle_a_string_containing_an_escaped_string_at_the_very_end' time='0.001'/>
+  </testsuite>
+  <testsuite name='ZSWStringParserTagSpec' tests='20' failures='0'>
+    <testcase classname='ZSWStringParserTagSpec' name='test_ZSWStringParserTag__a_starter_tag__should_preserve_what_we_told_it' time='0.001'/>
+    <testcase classname='ZSWStringParserTagSpec' name='test_ZSWStringParserTag__a_starter_tag__should_not_be_ended_by_itself' time='0.000'/>
+    <testcase classname='ZSWStringParserTagSpec' name='test_ZSWStringParserTag__a_starter_tag__should_not_be_ended_by_a_tag_with_a_different_name' time='0.001'/>
+    <testcase classname='ZSWStringParserTagSpec' name='test_ZSWStringParserTag__a_starter_tag__should_be_ended_by_a_tag_with_different_case_but_the_same_name' time='0.000'/>
+    <testcase classname='ZSWStringParserTagSpec' name='test_ZSWStringParserTag__a_starter_tag__should_not_be_an_end_tag' time='0.001'/>
+    <testcase classname='ZSWStringParserTagSpec' name='test_ZSWStringParserTag__a_starter_tag__should_not_yet_return_a_range' time='0.001'/>
+    <testcase classname='ZSWStringParserTagSpec' name='test_ZSWStringParserTag__a_starter_tag__when_adding_tag_attributes__should_handle_a_single_attribute_without_value' time='0.001'/>
+    <testcase classname='ZSWStringParserTagSpec' name='test_ZSWStringParserTag__a_starter_tag__when_adding_tag_attributes__should_handle_a_single_attribute_name_with_an_unquoted_value' time='0.001'/>
+    <testcase classname='ZSWStringParserTagSpec' name='test_ZSWStringParserTag__a_starter_tag__when_adding_tag_attributes__should_handle_a_single_attribute_with_a_singlequoted_value' time='0.001'/>
+    <testcase classname='ZSWStringParserTagSpec' name='test_ZSWStringParserTag__a_starter_tag__when_adding_tag_attributes__should_handle_a_single_attribute_with_a_doublequoted_value' time='0.001'/>
+    <testcase classname='ZSWStringParserTagSpec' name='test_ZSWStringParserTag__a_starter_tag__when_adding_tag_attributes__should_handle_multiple_attributes_without_values' time='0.001'/>
+    <testcase classname='ZSWStringParserTagSpec' name='test_ZSWStringParserTag__a_starter_tag__when_adding_tag_attributes__when_adding_multiple_attribute_names_some_without_values__should_handle_with_the_value_first' time='0.001'/>
+    <testcase classname='ZSWStringParserTagSpec' name='test_ZSWStringParserTag__a_starter_tag__when_adding_tag_attributes__when_adding_multiple_attribute_names_some_without_values__should_handle_with_the_value_last' time='0.001'/>
+    <testcase classname='ZSWStringParserTagSpec' name='test_ZSWStringParserTag__a_starter_tag__when_adding_tag_attributes__when_adding_multiple_attribute_names_some_without_values__should_handle_with_the_value_in_the_middle' time='0.001'/>
+    <testcase classname='ZSWStringParserTagSpec' name='test_ZSWStringParserTag__a_starter_tag__when_adding_tag_attributes__should_handle_longquoted_values' time='0.001'/>
+    <testcase classname='ZSWStringParserTagSpec' name='test_ZSWStringParserTag__a_starter_tag__when_adding_tag_attributes__should_handle_empty_string_quoted_values' time='0.001'/>
+    <testcase classname='ZSWStringParserTagSpec' name='test_ZSWStringParserTag__a_starter_tag__when_adding_tag_attributes__when_adding_invalid_values__should_handle_a_value_ending_early' time='0.000'/>
+    <testcase classname='ZSWStringParserTagSpec' name='test_ZSWStringParserTag__a_starter_tag__when_adding_tag_attributes__when_adding_invalid_values__should_handle_a_quote_failing_to_close' time='0.000'/>
+    <testcase classname='ZSWStringParserTagSpec' name='test_ZSWStringParserTag__a_starter_tag__when_adding_tag_attributes__when_adding_invalid_values__should_handle_a_quote_not_ending_at_the_end' time='0.000'/>
+    <testcase classname='ZSWStringParserTagSpec' name='test_ZSWStringParserTag__a_starter_tag__when_updated_with_an_end_tag__should_return_a_range' time='0.001'/>
+  </testsuite>
+  <testsuite name='ZSWTaggedStringTest.ZSWTaggedStringOptionsSpec' tests='4' failures='0'>
+    <testcase classname='ZSWTaggedStringTest.ZSWTaggedStringOptionsSpec' name='swift_setters__setting_a_static_attribute__should_be_retrievable' time='0.002'/>
+    <testcase classname='ZSWTaggedStringTest.ZSWTaggedStringOptionsSpec' name='swift_setters__setting_a_static_attribute__should_still_be_performed_on_text' time='0.001'/>
+    <testcase classname='ZSWTaggedStringTest.ZSWTaggedStringOptionsSpec' name='swift_setters__setting_a_dynamic_attribute__should_be_retrievable' time='0.000'/>
+    <testcase classname='ZSWTaggedStringTest.ZSWTaggedStringOptionsSpec' name='swift_setters__setting_a_dynamic_attribute__should_still_be_performed_on_text' time='0.000'/>
+  </testsuite>
+  <testsuite name='ZSWTaggedStringOptionsSpec' tests='17' failures='0'>
+    <testcase classname='ZSWTaggedStringOptionsSpec' name='test_ZSWTaggedStringOptions__default_options__should_return_an_empty_options_by_default' time='0.001'/>
+    <testcase classname='ZSWTaggedStringOptionsSpec' name='test_ZSWTaggedStringOptions__default_options__should_return_copy_of_the_options_each_time' time='0.001'/>
+    <testcase classname='ZSWTaggedStringOptionsSpec' name='test_ZSWTaggedStringOptions__default_options__when_registering_defaults__should_return_an_equal_instance_that_isnt_the_same' time='0.001'/>
+    <testcase classname='ZSWTaggedStringOptionsSpec' name='test_ZSWTaggedStringOptions__default_options__when_registering_defaults__when_mutated_after_registration__should_not_modify_the_default_options' time='0.001'/>
+    <testcase classname='ZSWTaggedStringOptionsSpec' name='test_ZSWTaggedStringOptions__options_with_everything_set__a_happy_options__when_copied__should_compare_equal' time='0.001'/>
+    <testcase classname='ZSWTaggedStringOptionsSpec' name='test_ZSWTaggedStringOptions__when_handling_overlapping_tags__when_creating_a_string_with_base_attributes_only__should_produce_a_string_with_attributes_across_the_whole_thing' time='0.001'/>
+    <testcase classname='ZSWTaggedStringOptionsSpec' name='test_ZSWTaggedStringOptions__when_handling_overlapping_tags__when_creating_a_string_with_base_attributes_only__a_happy_options__when_copied__should_compare_equal' time='0.001'/>
+    <testcase classname='ZSWTaggedStringOptionsSpec' name='test_ZSWTaggedStringOptions__when_handling_overlapping_tags__when_creating_a_string_with_nonoverlapping_tags__a_happy_options__when_copied__should_compare_equal' time='0.000'/>
+    <testcase classname='ZSWTaggedStringOptionsSpec' name='test_ZSWTaggedStringOptions__when_handling_overlapping_tags__when_creating_a_string_with_nonoverlapping_tags__should_produce_the_right_string' time='0.001'/>
+    <testcase classname='ZSWTaggedStringOptionsSpec' name='test_ZSWTaggedStringOptions__when_handling_overlapping_tags__when_creating_a_string_with_overlapping_tags_but_no_unhandled_tag_handler__a_happy_options__when_copied__should_compare_equal' time='0.001'/>
+    <testcase classname='ZSWTaggedStringOptionsSpec' name='test_ZSWTaggedStringOptions__when_handling_overlapping_tags__when_creating_a_string_with_overlapping_tags_but_no_unhandled_tag_handler__should_produce_the_right_string' time='0.001'/>
+    <testcase classname='ZSWTaggedStringOptionsSpec' name='test_ZSWTaggedStringOptions__when_handling_overlapping_tags__when_creating_a_string_with_overlapping_tags_while_using_the_dynamic_tag_handler__a_happy_options__when_copied__should_compare_equal' time='0.001'/>
+    <testcase classname='ZSWTaggedStringOptionsSpec' name='test_ZSWTaggedStringOptions__when_handling_overlapping_tags__when_creating_a_string_with_overlapping_tags_while_using_the_dynamic_tag_handler__should_produce_the_right_string' time='0.001'/>
+    <testcase classname='ZSWTaggedStringOptionsSpec' name='test_ZSWTaggedStringOptions__should_handle_emptylength_tags' time='0.000'/>
+    <testcase classname='ZSWTaggedStringOptionsSpec' name='test_ZSWTaggedStringOptions__when_a_string_contains_multiple_of_the_same_type__a_happy_options__when_copied__should_compare_equal' time='0.001'/>
+    <testcase classname='ZSWTaggedStringOptionsSpec' name='test_ZSWTaggedStringOptions__when_a_string_contains_multiple_of_the_same_type__should_differentiate_between_the_bob_types_where_both_have_things' time='0.001'/>
+    <testcase classname='ZSWTaggedStringOptionsSpec' name='test_ZSWTaggedStringOptions__when_a_string_contains_multiple_of_the_same_type__should_differentiate_between_the_bob_types_where_only_one_has_things' time='0.001'/>
+  </testsuite>
+  <testsuite name='ZSWTaggedStringSpec' tests='22' failures='0'>
+    <testcase classname='ZSWTaggedStringSpec' name='test_ZSWTaggedString__when_initialized_with_nil__should_still_allow_itself_to_be_created' time='0.000'/>
+    <testcase classname='ZSWTaggedStringSpec' name='test_ZSWTaggedString__when_initialized_with_nil__should_have_set_the_underlying_string_to_nonnil' time='0.001'/>
+    <testcase classname='ZSWTaggedStringSpec' name='test_ZSWTaggedString__when_initialized_with_nil__a_happy_string__when_encoded_and_decoded__should_compare_equal' time='0.001'/>
+    <testcase classname='ZSWTaggedStringSpec' name='test_ZSWTaggedString__when_initialized_with_nil__a_happy_string__when_copied__should_compare_equal' time='0.001'/>
+    <testcase classname='ZSWTaggedStringSpec' name='test_ZSWTaggedString__when_initialized_with_nil__a_happy_string__when_asking_for_representations__when_asking_for_a_basic_string_with_no_options__should_have_asked_the_parser_for_the_string' time='0.001'/>
+    <testcase classname='ZSWTaggedStringSpec' name='test_ZSWTaggedString__when_initialized_with_nil__a_happy_string__when_asking_for_representations__when_asked_for_a_basic_string_with_options__should_have_asked_the_parser_for_the_string' time='0.001'/>
+    <testcase classname='ZSWTaggedStringSpec' name='test_ZSWTaggedString__when_initialized_with_nil__a_happy_string__when_asking_for_representations__when_asked_for_an_attributed_string__should_have_asked_the_parser_for_the_string' time='0.001'/>
+    <testcase classname='ZSWTaggedStringSpec' name='test_ZSWTaggedString__when_initialized_with_nil__a_happy_string__when_asking_for_representations__when_asked_for_an_attributed_string_with_options__should_have_asked_the_parser_for_the_string' time='0.001'/>
+    <testcase classname='ZSWTaggedStringSpec' name='test_ZSWTaggedString__when_initialized_with_another_string__should_not_have_mutated' time='0.001'/>
+    <testcase classname='ZSWTaggedStringSpec' name='test_ZSWTaggedString__when_initialized_with_another_string__a_happy_string__when_encoded_and_decoded__should_compare_equal' time='0.001'/>
+    <testcase classname='ZSWTaggedStringSpec' name='test_ZSWTaggedString__when_initialized_with_another_string__a_happy_string__when_copied__should_compare_equal' time='0.001'/>
+    <testcase classname='ZSWTaggedStringSpec' name='test_ZSWTaggedString__when_initialized_with_another_string__a_happy_string__when_asking_for_representations__when_asking_for_a_basic_string_with_no_options__should_have_asked_the_parser_for_the_string' time='0.001'/>
+    <testcase classname='ZSWTaggedStringSpec' name='test_ZSWTaggedString__when_initialized_with_another_string__a_happy_string__when_asking_for_representations__when_asked_for_a_basic_string_with_options__should_have_asked_the_parser_for_the_string' time='0.001'/>
+    <testcase classname='ZSWTaggedStringSpec' name='test_ZSWTaggedString__when_initialized_with_another_string__a_happy_string__when_asking_for_representations__when_asked_for_an_attributed_string__should_have_asked_the_parser_for_the_string' time='0.001'/>
+    <testcase classname='ZSWTaggedStringSpec' name='test_ZSWTaggedString__when_initialized_with_another_string__a_happy_string__when_asking_for_representations__when_asked_for_an_attributed_string_with_options__should_have_asked_the_parser_for_the_string' time='0.001'/>
+    <testcase classname='ZSWTaggedStringSpec' name='test_ZSWTaggedString__when_initialized_with_a_format__should_have_created_the_right_string' time='0.000'/>
+    <testcase classname='ZSWTaggedStringSpec' name='test_ZSWTaggedString__when_initialized_with_a_format__a_happy_string__when_encoded_and_decoded__should_compare_equal' time='0.001'/>
+    <testcase classname='ZSWTaggedStringSpec' name='test_ZSWTaggedString__when_initialized_with_a_format__a_happy_string__when_copied__should_compare_equal' time='0.000'/>
+    <testcase classname='ZSWTaggedStringSpec' name='test_ZSWTaggedString__when_initialized_with_a_format__a_happy_string__when_asking_for_representations__when_asking_for_a_basic_string_with_no_options__should_have_asked_the_parser_for_the_string' time='0.001'/>
+    <testcase classname='ZSWTaggedStringSpec' name='test_ZSWTaggedString__when_initialized_with_a_format__a_happy_string__when_asking_for_representations__when_asked_for_a_basic_string_with_options__should_have_asked_the_parser_for_the_string' time='0.001'/>
+    <testcase classname='ZSWTaggedStringSpec' name='test_ZSWTaggedString__when_initialized_with_a_format__a_happy_string__when_asking_for_representations__when_asked_for_an_attributed_string__should_have_asked_the_parser_for_the_string' time='0.001'/>
+    <testcase classname='ZSWTaggedStringSpec' name='test_ZSWTaggedString__when_initialized_with_a_format__a_happy_string__when_asking_for_representations__when_asked_for_an_attributed_string_with_options__should_have_asked_the_parser_for_the_string' time='0.001'/>
+  </testsuite>
+  <testsuite name='ZSWTaggedStringTest.ZSWTaggedStringTests' tests='3' failures='0'>
+    <testcase classname='ZSWTaggedStringTest.ZSWTaggedStringTests' name='initialization__should_be_initable_via_format' time='0.001'/>
+    <testcase classname='ZSWTaggedStringTest.ZSWTaggedStringTests' name='initialization__should_be_initiable_via_a_string' time='0.001'/>
+    <testcase classname='ZSWTaggedStringTest.ZSWTaggedStringTests' name='invalid_strings__should_throw_for_bad_tags' time='0.001'/>
+  </testsuite>
+</testsuites>
