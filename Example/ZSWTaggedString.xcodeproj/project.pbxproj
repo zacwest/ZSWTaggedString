@@ -239,7 +239,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-ZSWTaggedString/Pods-ZSWTaggedString-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-ZSWTaggedString/Pods-ZSWTaggedString-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Expecta/Expecta.framework",
 				"${BUILT_PRODUCTS_DIR}/Nimble/Nimble.framework",
 				"${BUILT_PRODUCTS_DIR}/OCMock/OCMock.framework",
@@ -258,7 +258,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ZSWTaggedString/Pods-ZSWTaggedString-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ZSWTaggedString/Pods-ZSWTaggedString-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		B1B56939D8A883C64FFF19F5 /* [CP] Check Pods Manifest.lock */ = {

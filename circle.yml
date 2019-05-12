@@ -1,5 +1,0 @@
-machine:
-  xcode:
-    version: 9.0
-general:
-  build_dir: Example
