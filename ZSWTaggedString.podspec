@@ -21,7 +21,7 @@ Pod::Spec.new do |s|
   s.default_subspecs = 'Core'
   s.pod_target_xcconfig = { 'APPLICATION_EXTENSION_API_ONLY' => 'YES' }
   s.module_map = 'ZSWTaggedString/Classes/ZSWTaggedString.modulemap'
-  s.swift_version = '4.2'
+  s.swift_version = '5.0'
 
   s.subspec 'Core' do |core|
     core.source_files = 'ZSWTaggedString/Classes/**/*.{h,m}', 'ZSWTaggedString/Private/**/*.{h,m}'
