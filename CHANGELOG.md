@@ -1,3 +1,8 @@
+# 4.2 (2019-05-12)
+
+- Update to Swift 5 (no actual source changes).
+- Fixes crashing on strings like `<blah></blah>` with dynamic attributes.
+
 # 4.1 (2019-01-26)
 
 Update to Swift 4.2.

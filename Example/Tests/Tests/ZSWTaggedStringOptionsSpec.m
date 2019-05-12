@@ -331,6 +331,31 @@ describe(@"ZSWTaggedStringOptions", ^{
         
         expect(string).to.equal([[NSAttributedString alloc] initWithString:@"santa claus" attributes:nil]);
     });
+
+    it(@"should handle empty string after tags are removed", ^{
+        // effectively this is "<blah><null></null></blah>"
+        ZSWTaggedStringOptions *options = [ZSWTaggedStringOptions optionsWithBaseAttributes:@{
+                                                                                              NSFontAttributeName: [UIFont systemFontOfSize:12.0]
+                                                                                              }];
+        NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:@"" attributes:nil];
+        ZSWStringParserTag *tag1 = [[ZSWStringParserTag alloc] initWithTagName:@"null" startLocation:0];
+        [tag1 updateWithTag:[[ZSWStringParserTag alloc] initWithTagName:@"/null" startLocation:0]];
+
+        ZSWStringParserTag *tag2 = [[ZSWStringParserTag alloc] initWithTagName:@"blah" startLocation:0];
+        [tag2 updateWithTag:[[ZSWStringParserTag alloc] initWithTagName:@"/blah" startLocation:0]];
+        
+        [options setDynamicAttributes:^NSDictionary<NSAttributedStringKey,id> * _Nonnull(NSString * _Nonnull tagName, NSDictionary<NSString *,id> * _Nonnull tagAttributes, NSDictionary<NSAttributedStringKey,id> * _Nonnull existingStringAttributes) {
+            return @{ NSForegroundColorAttributeName: [UIColor redColor] };
+        } forTagName:@"null"];
+        
+        [options setAttributes:@{ NSForegroundColorAttributeName: [UIColor redColor] }
+                    forTagName:@"blah"];
+        
+        [options _private_updateAttributedString:string updatedWithTags:@[ tag1, tag2 ]];
+        
+        expect(string).to.equal([[NSAttributedString alloc] initWithString:@"" attributes:nil]);
+
+    });
     
     describe(@"when a string contains multiple of the same type", ^{
         __block ZSWTaggedStringOptions *options;

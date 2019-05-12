@@ -57,6 +57,30 @@ describe(@"ZSWStringParser", ^{
         mockOptions = [OCMockObject mockForClass:[ZSWTaggedStringOptions class]];
     });
     
+    it(@"should handle a tag with no strings", ^{
+        ZSWTaggedString *taggedString = [ZSWTaggedString stringWithString:@"<cattail down='true'></cattail>"];
+        
+        NSArray *tags;
+        [[mockOptions expect] _private_updateAttributedString:OCMOCK_ANY
+                                              updatedWithTags:[OCMArg capture:&tags]];
+        
+        NSError *error;
+        
+        id string = [[ZSWStringParser stringWithTaggedString:taggedString
+                                                     options:mockOptions
+                                                 returnClass:[NSAttributedString class]
+                                                       error:&error] string];
+        
+        expect(string).to.equal(@"");
+        expect(error).to.beNil();
+        expect(tags).to.haveCountOf(1);
+        
+        ZSWStringParserTag *tag = tags.firstObject;
+        expect(tag.tagName).to.equal(@"cattail");
+        expect(tag.tagRange.location).to.equal(0);
+        expect(tag.tagRange.length).to.equal(0);
+    });
+    
     it(@"should handle a string with no tags", ^{
         ZSWTaggedString *taggedString = [ZSWTaggedString stringWithString:@"no more timothy hay!"];
         
